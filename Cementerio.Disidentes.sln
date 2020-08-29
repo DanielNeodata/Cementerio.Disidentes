@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.572
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{A0786B88-2ADB-4C21-ABE8-AA2D79766269}") = "Cementerio.Disidentes", "Cementerio.Disidentes.phpproj", "{3873D9EB-ADD7-4B12-AD22-DCE8866A09D9}"
+EndProject
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3873D9EB-ADD7-4B12-AD22-DCE8866A09D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3873D9EB-ADD7-4B12-AD22-DCE8866A09D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C7CE10C-4205-458A-8143-E118E3233DB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C7CE10C-4205-458A-8143-E118E3233DB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{599AC693-5D7A-4465-A702-300550028750}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{599AC693-5D7A-4465-A702-300550028750}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97BD6167-BEEE-423B-8074-B457FCB6CAC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97BD6167-BEEE-423B-8074-B457FCB6CAC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7D547BF4-4837-4A49-A6DE-FDB655779D72}
+	EndGlobalSection
+EndGlobal
