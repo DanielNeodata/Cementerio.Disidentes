@@ -25,7 +25,7 @@ function buildFooterAbmStd($parameters){
     if(!isset($parameters["readonly"])){$parameters["readonly"]=false;}
     if(!isset($parameters["records"]["data"][0])){$parameters["records"]["data"][0]=null;}
     $record=$parameters["records"]["data"][0];
-    $new=((int)secureField($record,"id")===0);    
+    $new=((int)secureField($record,"id")===0);
     $dataSegment=buildDataSegment($parameters);
     if ($new){
        $dataRec=str_replace('|ID|','0',$dataSegment);
@@ -340,7 +340,7 @@ function getFile($parameters,$ops,$list=null){
                 }
             }
 			$html .= " <div data-id='".$id."' class='img-".$id." badge badge-secondary text-truncate' style='max-width:100%;' title='".$record["description"]."'>".$record["description"]."</div> ";
-            if ($record["mime"]=="application/octet-stream") { 
+            if ($record["mime"]=="application/octet-stream") {
     			$html .= "<div class='badge badge-primary text-truncate' style='max-width:100%;' title='".lang('b_external')."'>".lang('b_external')."</div> ";
                 if(!$parameters["readonly"]) {
                     $html .= "<a href='#' data-id='".$id."' class='btn btn-sm btn-danger float-right btn-link-delete'><i class='material-icons'>delete_forever</i></a>";
@@ -356,7 +356,7 @@ function getFile($parameters,$ops,$list=null){
             }
 			$html .= "</li>";
         }
-    } 
+    }
     $html.="     </ul>";
     $html.="  </div>";
 
@@ -417,7 +417,7 @@ function getImage($parameters,$ops,$list=null){
 				$html.="<pre>".$record["src"]."</pre>";
 				$html.="</li>";
             }
-        } 
+        }
         $html.="</ul>";
     }
     $html.="    </div>";
@@ -431,18 +431,20 @@ function getImage($parameters,$ops,$list=null){
 function getInputMicro($parameters,$ops){
     $checked="";
     $html="";
+    $checPaeameters="";
     if(!isset($ops["custom"])){$ops["custom"]="";}
     if(!isset($ops["forcelabel"])){$ops["forcelabel"]="";}
     if(!isset($ops["format"])){$ops["format"]="text";}
     if(!isset($ops["readonly"])){$ops["readonly"]=false;}
     if(!isset($ops["nolabel"])){$ops["nolabel"]=false;}
     if(!isset($ops["empty"])){$ops["empty"]=false;}
+    if(!isset($ops["checkboxtype"])){$ops["checkboxtype"]="01";}//01 para 01, SN para Si o No
     if(!isset($parameters["records"]["data"][0])){$parameters["records"]["data"][0]=null;}
     $value=secureField($parameters["records"]["data"][0],$ops["name"]);
     if ($ops["empty"]) {$value="";}
     $label=lang('p_'.$ops["name"]);
     if($ops["forcelabel"]!=""){$label=$ops["forcelabel"];}
-    
+
     $html="<table style='width:100%;'>";
     $html.="<tr>";
     if(!$ops["nolabel"]){$html.="<td>".$label."</td>";}
@@ -452,15 +454,35 @@ function getInputMicro($parameters,$ops){
         $styleWidth="";
         switch ($ops["type"]) {
             case "checkbox":
-                if($value==1) {$checked='checked';}else{$checked='';} 
-                $styleWidth="style='width:25px;'";
+                if ($ops["checkboxtype"]=="01")
+                {
+                    $checPaeameters=" checkboxtype=01 ";
+                    if($value==1) {$checked='checked';}else{$checked='';}
+                    $styleWidth="style='width:25px;'";
+                    break;
+                }
+                else if ($ops["checkboxtype"]=="SN")
+                {
+                    $checPaeameters=" checkboxtype=SN ";
+                    log_message('error', 'cco-> pasando x getInput checktype sn');
+                    if($value=="S") {$checked='checked';}else{$checked='';}
+                    $styleWidth="style='width:25px;'";
+                    break;
+                }
+                else
+                {
+                    if($value==1) {$checked='checked';}else{$checked='';}
+                    $styleWidth="style='width:25px;'";
+                    break;
+                }
+
                 break;
             case "date":
                 $styleWidth="style='width:50%;'";
                 if ($value!=""){$value=date(FORMAT_DATE_DB, strtotime($value));}
                 break;
         }
-       $html.="<td ".$styleWidth."><input ".$ops["custom"]." data-type='".$ops["type"]."' ".$checked." autocomplete='nope' value='".$value."' class='".$ops["class"]."' type='".$ops["type"]."' name='".$ops["name"]."' id='".$ops["name"]."' data-clear-btn='false' placeholder='".lang('p_'.$ops["name"])."' /></td>";
+       $html.="<td ".$styleWidth."><input ".$ops["custom"]." data-type='".$ops["type"]."' ".$checked." autocomplete='nope' ".$checPaeameters." value='".$value."' class='".$ops["class"]."' type='".$ops["type"]."' name='".$ops["name"]."' id='".$ops["name"]."' data-clear-btn='false' placeholder='".lang('p_'.$ops["name"])."' /></td>";
     }
     $html.="</tr>";
     $html.="<tr><td colspan='2'><div class='invalid-feedback invalid-".$ops["name"]." d-none'/></td></tr>";
@@ -472,12 +494,14 @@ function getInputMicro($parameters,$ops){
 function getInput($parameters,$ops){
     $checked="";
     $html="";
+    $checPaeameters="";
     if(!isset($ops["custom"])){$ops["custom"]="";}
     if(!isset($ops["forcelabel"])){$ops["forcelabel"]="";}
     if(!isset($ops["format"])){$ops["format"]="text";}
     if(!isset($ops["readonly"])){$ops["readonly"]=false;}
     if(!isset($ops["nolabel"])){$ops["nolabel"]=false;}
     if(!isset($ops["empty"])){$ops["empty"]=false;}
+    if(!isset($ops["checkboxtype"])){$ops["checkboxtype"]="01";}//01 para 01, SN para Si o No
     if(!isset($parameters["records"]["data"][0])){$parameters["records"]["data"][0]=null;}
     $value=secureField($parameters["records"]["data"][0],$ops["name"]);
     if ($ops["empty"]) {$value="";}
@@ -489,13 +513,28 @@ function getInput($parameters,$ops){
     } else {
         switch ($ops["type"]) {
             case "checkbox":
-                if($value==1) {$checked='checked';}else{$checked='';} 
-                break;
+                if ($ops["checkboxtype"]=="01")
+                {
+                    if($value==1) {$checked='checked';}else{$checked='';}
+                    break;
+                }
+                else if ($ops["checkboxtype"]=="SN")
+                {
+                    $checPaeameters=" checkboxtype=SN ";
+                    log_message('error', 'cco-> pasando x getInput checktype sn');
+                    if($value=="S") {$checked='checked';}else{$checked='';}
+                    break;
+                }
+                else
+                {
+                    if($value==1) {$checked='checked';}else{$checked='';}
+                    break;
+                }
             case "date":
                 if ($value!=""){$value=date(FORMAT_DATE_DB, strtotime($value));}
                 break;
         }
-       $html.="<input ".$ops["custom"]." data-type='".$ops["type"]."' ".$checked." autocomplete='nope' value='".$value."' class='".$ops["class"]."' type='".$ops["type"]."' name='".$ops["name"]."' id='".$ops["name"]."' data-clear-btn='false' placeholder='".lang('p_'.$ops["name"])."' />";
+        $html.="<input ".$ops["custom"]." data-type='".$ops["type"]."' ".$checked." autocomplete='nope' ".$checPaeameters."value='".$value."' class='".$ops["class"]."' type='".$ops["type"]."' name='".$ops["name"]."' id='".$ops["name"]."' data-clear-btn='false' placeholder='".lang('p_'.$ops["name"])."' />";
     }
     $html.="<div class='invalid-feedback invalid-".$ops["name"]." d-none'/>";
     if(isset($ops["col"])){$html="<div class='".$ops["col"]."'>".$html."</div>";}
@@ -604,7 +643,7 @@ function getProgressBar($parameters,$ops){
     if(!isset($ops["value"])){$ops["value"]="0";}
     if(!isset($ops["class"])){$ops["class"]="progress-bar-striped progress-bar-animated";}
     if ($ops["dyncolor"]) {
-       if ((int)$ops["value"]<10) { 
+       if ((int)$ops["value"]<10) {
           $ops["class"].=" bg-secondary";
        } elseif ((int)$ops["value"]<25) {
           $ops["class"].=" bg-danger";
@@ -628,7 +667,7 @@ function getProgressBar($parameters,$ops){
 }
 function getButtonRibbon($parameters,$ops){
   if(!isset($parameters["class"])){$parameters["class"]="btn-default";}
-  $html="<div class='btn-toolbar' role='toolbar'>";  
+  $html="<div class='btn-toolbar' role='toolbar'>";
   $html.="<div class='btn-group mr-2' role='group'>";
   //$html.=$parameters["name"];
   foreach($ops as $op){
@@ -729,7 +768,7 @@ function secureFloatNull($values,$key){
     if (!isset($values[$key])) {$values[$key]=null;}
     $values[$key]=str_replace(",",".",$values[$key]);
     $pattern = '/^[-+]?(((\\\\d+)\\\\.?(\\\\d+)?)|\\\\.\\\\d+)([eE]?[+-]?\\\\d+)?$/';
-    if (preg_match($pattern, trim($values[$key]))){$values[$key]=null;} 
+    if (preg_match($pattern, trim($values[$key]))){$values[$key]=null;}
     if($values[$key]==""){$values[$key]=null;}
     return $values[$key];
 }

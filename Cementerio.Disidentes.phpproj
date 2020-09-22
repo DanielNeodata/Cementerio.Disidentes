@@ -532,6 +532,7 @@
     <Content Include="assets\js\_third\moment.min.js" />
     <Content Include="assets\js\_third\popper.min.js" />
     <Content Include="assets\js\_third\shorten.js" />
+    <Content Include="composer.json" />
     <Content Include="_NOTAS.txt" />
   </ItemGroup>
   <ItemGroup>

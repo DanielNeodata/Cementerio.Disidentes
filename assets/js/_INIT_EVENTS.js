@@ -30,6 +30,12 @@
 				$("body").off("click", ".btn-login").on("click", ".btn-login", function () {
 					_FUNCTIONS.onLogin($(this)).then(function (data) { _AJAX.UiLogged({}); });
 				});
+
+				
+				$("body").off("dblclick", ".record-dbl-click").on("dblclick", ".record-dbl-click", function () {
+					_FUNCTIONS.onRecordEdit($(this));
+				});
+
 				$("body").off("click", ".btn-logout").on("click", ".btn-logout", function () {
 					_FUNCTIONS.onLogout($(this));
 				});

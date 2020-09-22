@@ -133,11 +133,34 @@ var _TOOLS = {
 						if (value == undefined) { value = ""; }
 						break;
 					case "checkbox":
-						if ($(this).prop("checked")) {
-							value = $(this).val();
-							if (parseInt(value) == 0 || value == '') { value = 1; }
+						//alert("check");
+						//alert($(this).attr("checkboxtype"));
+						if ($(this).attr("checkboxtype") == "01") {
+							if ($(this).prop("checked")) {
+								value = $(this).val();
+								if (parseInt(value) == 0 || value == '') { value = 1; }
+							} else {
+								value = 0;
+							}
+						}
+						else if ($(this).attr("checkboxtype") == "SN") {
+							//alert("if SN");
+							if ($(this).prop("checked")) {
+								//alert("if checked");
+								//value = $(this).val();
+								value = "S"; 
+							} else {
+								//alert("if else checked");
+								value = "N";
+							}
+							//alert("valor: ".value);
 						} else {
-							value = 0;
+							if ($(this).prop("checked")) {
+								value = $(this).val();
+								if (parseInt(value) == 0 || value == '') { value = 1; }
+							} else {
+								value = 0;
+							}
 						}
 						break;
 					default:

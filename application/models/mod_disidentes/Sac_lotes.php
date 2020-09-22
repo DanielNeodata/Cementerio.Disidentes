@@ -1,4 +1,4 @@
-<?php 
+<?php
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 //log_message("error", "RELATED ".json_encode($data,JSON_PRETTY_PRINT));
 /*---------------------------------*/
@@ -16,18 +16,44 @@ class Sac_lotes extends MY_Model {
             $values["buttons"]=array(
                 "new"=>true,
                 "edit"=>true,
-                "delete"=>false,
+                "delete"=>true,
                 "offline"=>false,
             );
             $values["columns"]=array(
                 //array("field"=>"ID","format"=>"code"),
-                array("field"=>"ssst","format"=>"code"),
+                //array("field"=>"ssst","format"=>"code"),
+                array("field"=>"SECCION","format"=>"text"),
+                array("field"=>"SEPULTURA","format"=>"text"),
+                array("field"=>"TIPO","format"=>"text"),
                 array("field"=>"TITULAR","format"=>"text"),
+                array("field"=>"DIRECCION","format"=>"text"),
+                array("field"=>"LOCALIDAD","format"=>"text"),
+                array("field"=>"COD_POSTAL","format"=>"text"),
+                array("field"=>"TELEFONO","format"=>"text"),
+                array("field"=>"EMAIL","format"=>"text"),
                 array("field"=>"","format"=>null),
                 array("field"=>"","format"=>null),
             );
+
+            $values["controls"]=array(
+                "<label>".lang('p_SECCION')."</label><input type='number' id='browser_seccion' name='browser_seccion' class='form-control number'/>",
+                "<label>".lang('p_SEPULTURA')."</label><input type='number' id='browser_sepultura' name='browser_sepultura' class='form-control number'/>",
+                "<label>".lang('p_EMAIL')."</label><input type='text' id='browser_email' name='browser_email' class='form-control text'/>",
+                "<label>".lang('p_TITULAR')."</label><input type='text' id='browser_titular' name='browser_titular' class='form-control text'/>",
+                "<label>".lang('p_RESPONSABL')."</label><input type='text' id='browser_responsable' name='browser_responsable' class='form-control text'/>",
+                "<label>".lang('p_RES_LOCALI')."</label><input type='text' id='browser_reslocalidad' name='browser_reslocalidad' class='form-control text'/>",
+            );
+
+
             $values["filters"]=array(
-                array("name"=>"browser_search", "operator"=>"like","fields"=>array("TITULAR")),
+                //array("name"=>"browser_search", "operator"=>"like","fields"=>array("TITULAR")),
+                array("name"=>"browser_sepultura", "operator"=>"like","fields"=>array("SEPULTURA")),
+                array("name"=>"browser_seccion", "operator"=>"like","fields"=>array("SECCION")),
+                array("name"=>"browser_email", "operator"=>"like","fields"=>array("EMAIL")),
+                array("name"=>"browser_titular", "operator"=>"like","fields"=>array("TITULAR")),
+                array("name"=>"browser_responsable", "operator"=>"like","fields"=>array("RESPONSABL")),
+                array("name"=>"browser_reslocalidad", "operator"=>"like","fields"=>array("RES_LOCALI")),
+                array("name"=>"browser_search", "operator"=>"like","fields"=>array("TITULAR","RESPONSABL","EMAIL","SECCION","SEPULTURA")),
             );
             return parent::brow($values);
         }
@@ -80,6 +106,8 @@ class Sac_lotes extends MY_Model {
 
     public function edit($values){
         try {
+            log_message('error', 'cco-> pasando x edit de sac lotes!.');
+
             $location=explode("::",strtolower(__METHOD__));
             $values["interface"]=(MOD_DISIDENTES."/".$location[0]."/abm");
             $values["page"]=1;
@@ -117,21 +145,98 @@ class Sac_lotes extends MY_Model {
                         'SEPULTURA' => $values["SEPULTURA"],
                         'SECTOR' => $values["SECTOR"],
                         'TIPO' => $values["TIPO"],
-                        'id_type_user' => secureEmptyNull($values,"id_forma_pago"),
+                        'id_forma_pago' => secureEmptyNull($values,"id_forma_pago"),
                         'numero_tarjeta' => $values["numero_tarjeta"],
+
+                        'TITULAR' => $values["TITULAR"],
+                        'DIRECCION' => $values["DIRECCION"],
+                        'COD_POSTAL' => $values["COD_POSTAL"],
+                        'LOCALIDAD' => $values["LOCALIDAD"],
+                        'TELEFONO' => $values["TELEFONO"],
+                        'EMAIL' => $values["EMAIL"],
+
+                        'RESPONSABL' => $values["RESPONSABL"],
+                        'RES_DIRECC' => $values["RES_DIRECC"],
+                        'RES_CODPOS' => $values["RES_CODPOS"],
+                        'RES_LOCALI' => $values["RES_LOCALI"],
+                        'RES_TELEFO' => $values["RES_TELEFO"],
+                        'RES_EMAIL' => $values["RES_EMAIL"],
+
+                        'NROTITULO' => $values["NROTITULO"],
+                        'FECHACOMPR' => $values["FECHACOMPR"],
+                        'PRECICOMPR' => $values["PRECICOMPR"],
+                        'ANOSARREND' => $values["ANOSARREND"],
+                        'VENCIMIENTO' => $values["VENCIMIENTO"],
+                        'ULT_RENOVA' => $values["ULT_RENOVA"],
+                        'ANOSRENOVA' => $values["ANOSRENOVA"],
+
+                        'ULTBIMPAGO' => $values["ULTBIMPAGO"],
+                        'DEUDA' => $values["DEUDA"],
+                        'TITULO' => $values["TITULO"],
+                        'REGLAMENTO' => $values["REGLAMENTO"],
+
+                        'COMENTARIO' => $values["COMENTARIO"],
+                        'NSER' => $values["NSER"],
+                        'OBS' => $values["OBS"],
+                        'ACUENTA' => $values["ACUENTA"],
+                        'CARTARENOV' => $values["CARTARENOV"],
+                        'CARTACONSE' => $values["CARTACONSE"],
+                        'BIMVENCIDO' => $values["BIMVENCIDO"],
+                        'RENVENCIDA' => $values["RENVENCIDA"],
+                        //'TITULAR' => $values["TITULAR"],
+
                         //{...more fields...}
+
                     );
                 }
             } else {
+                log_message('error', 'cco-> pasando x save de sac lotes: titulo-->".$values["TITULO"]."<--!.');
+                log_message("error", "RELATED ".json_encode($values,JSON_PRETTY_PRINT));
                 if($fields==null) {
                     $fields = array(
                         'SECCION' => $values["SECCION"],
                         'SEPULTURA' => $values["SEPULTURA"],
                         'SECTOR' => $values["SECTOR"],
                         'TIPO' => $values["TIPO"],
-                        'id_type_user' => secureEmptyNull($values,"id_forma_pago"),
+
+                        'id_forma_pago' => secureEmptyNull($values,"id_forma_pago"),
                         'numero_tarjeta' => $values["numero_tarjeta"],
-                        //{...more fields...}
+
+                        'TITULAR' => $values["TITULAR"],
+                        'DIRECCION' => $values["DIRECCION"],
+                        'COD_POSTAL' => $values["COD_POSTAL"],
+                        'LOCALIDAD' => $values["LOCALIDAD"],
+                        'TELEFONO' => $values["TELEFONO"],
+                        'EMAIL' => $values["EMAIL"],
+
+                        'RESPONSABL' => $values["RESPONSABL"],
+                        'RES_DIRECC' => $values["RES_DIRECC"],
+                        'RES_CODPOS' => $values["RES_CODPOS"],
+                        'RES_LOCALI' => $values["RES_LOCALI"],
+                        'RES_TELEFO' => $values["RES_TELEFO"],
+                        'RES_EMAIL' => $values["RES_EMAIL"],
+
+                        'NROTITULO' => $values["NROTITULO"],
+                        'FECHACOMPR' => $values["FECHACOMPR"],
+                        'PRECICOMPR' => $values["PRECICOMPR"],
+                        'ANOSARREND' => $values["ANOSARREND"],
+                        'VENCIMIENTO' => $values["VENCIMIENTO"],
+                        'ULT_RENOVA' => $values["ULT_RENOVA"],
+                        'ANOSRENOVA' => $values["ANOSRENOVA"],
+
+                        'ULTBIMPAGO' => $values["ULTBIMPAGO"],
+                        'DEUDA' => $values["DEUDA"],
+                        'TITULO' => $values["TITULO"],
+                        'REGLAMENTO' => $values["REGLAMENTO"],
+
+                        'COMENTARIO' => $values["COMENTARIO"],
+                        'NSER' => $values["NSER"],
+                        'OBS' => $values["OBS"],
+                        'ACUENTA' => $values["ACUENTA"],
+                        'CARTARENOV' => $values["CARTARENOV"],
+                        'CARTACONSE' => $values["CARTACONSE"],
+                        'BIMVENCIDO' => $values["BIMVENCIDO"],
+                        'RENVENCIDA' => $values["RENVENCIDA"],
                     );
                 }
             }

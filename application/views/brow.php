@@ -2,6 +2,8 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 //log_message("error", "RELATED ".json_encode($data,JSON_PRETTY_PRINT));
 /*---------------------------------*/
+log_message("error", "RELATED ".json_encode($parameters,JSON_PRETTY_PRINT));
+
 $html=buildHeaderBrowStd($parameters,$title);
 if (!isset($parameters["records"])) {
     $html.=getUnInitialized();
@@ -43,7 +45,7 @@ if (!isset($parameters["records"])) {
                     if ($OK) {$style="style='background-color:".$conditional["color"].";'";break;}
                 }
             }
-            $html.="<tr class='record-".secureField($record,"id")."' ".$style.">";
+            $html.="<tr data-table='".$parameters["table"]."' data-module='".$parameters["module"]."' data-model='".$parameters["model"]."' data-id='".secureField($record,"id")."' class='record-dbl-click record-".secureField($record,"id")."' ".$style.">";
             $html.=getTdCheck($parameters,$record,true);
             $html.=getTdEdit($parameters,$record,true);
             foreach ($parameters["columns"] as $column) {$html.=getTdCol($parameters,$record,$column);}
@@ -51,7 +53,7 @@ if (!isset($parameters["records"])) {
             $html.=getTdOffline($parameters,$record,true);
             $html.="</tr>";
         }
-    } 
+    }
     $html.="  </tbody>";
     $html.="  <tfoot></tfoot>";
     $html.=" </table>";

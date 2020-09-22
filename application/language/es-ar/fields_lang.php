@@ -105,12 +105,48 @@ $lang['p_TIPOAJUSTE'] = "Tipo de ajuste";
 $lang['p_SALDONOMIN'] = "Saldo nominal";
 $lang['p_SALDOAJUST'] = "Saldo ajustado";
 $lang['p_TITULAR'] = "Titular";
+$lang['p_RESPONSABL'] = "Responsable";
 $lang['p_SECCION'] = "Sección";
+$lang['p_RES_LOCALI'] = "Localidad Responsable";
 $lang['p_SEPULTURA'] = "Sepultura";
 $lang['p_SECTOR'] = "Sector";
 $lang['p_TIPO'] = "Tipo";
 $lang['p_ssst'] = "Sección,sepultura,sector,tipo";
 $lang['p_sst'] = "Sección,sepultura,tipo";
+$lang['p_RES_TELEFO']="Teléfono Responsable";
+$lang['p_RES_DIRECC']="Dirección Responsable";
+
+$lang['p_RES_DIRECC']="Dirección Responsable";
+$lang['p_RES_CODPOS']="Cod. Postal Responsable";
+$lang['p_RES_EMAIL']="Email Responsable";
+
+$lang['p_NROTITULO']="Nro Título";
+$lang['p_FECHACOMPR']="Fecha Compra";
+$lang['p_PRECICOMPR']="Precio";
+$lang['p_ANOSARREND']="Años Arrendados Originalmente";
+$lang['p_VENCIMIENTO']="Vencimiento";
+$lang['p_ULT_RENOVA']="Última Renovación";
+$lang['p_ANOSRENOVA']="Años renovados";
+
+$lang['p_ULTBIMPAGO']="Ultimo Bimestre Pago";
+$lang['p_DEUDA']="Deuda (Bimestres)";
+$lang['p_TITULO']="Título?";
+$lang['p_REGLAMENTO']="Reglamento?";
+
+$lang['p_COMENTARIO']="Comentario";
+$lang['p_NSER']="N.Ser.";
+$lang['p_OBS']="Observación";
+$lang['p_ACUENTA']="Saldo Anticipos";
+$lang['p_CARTARENOV']="Carta Renovación";
+$lang['p_CARTACONSE']="Carta Conse.";
+$lang['p_BIMVENCIDO']="Bimestre Vencido";
+$lang['p_RENVENCIDA']="Renovación Vencida";
+
+$lang['p_TELEFONO']="Teléfono";
+$lang['p_LOCALIDAD']="Localidad";
+$lang['p_DIRECCION']="Dirección";
+$lang['p_EMAIL']="Email";
+$lang['p_COD_POSTAL']="Código Postal";
 $lang['p_id_forma_pago'] = "Forma de pago";
 $lang['p_numero_tarjeta'] = "Nº de tarjeta";
 $lang['p_NRO_APERTURA'] = "Nº de apertura";
