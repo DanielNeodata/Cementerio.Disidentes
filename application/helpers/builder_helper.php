@@ -25,7 +25,7 @@ function buildFooterAbmStd($parameters){
     if(!isset($parameters["readonly"])){$parameters["readonly"]=false;}
     if(!isset($parameters["records"]["data"][0])){$parameters["records"]["data"][0]=null;}
     $record=$parameters["records"]["data"][0];
-    $new=((int)secureField($record,"id")===0);
+    $new=((int)secureField($record,"id")===0);    
     $dataSegment=buildDataSegment($parameters);
     if ($new){
        $dataRec=str_replace('|ID|','0',$dataSegment);
@@ -52,6 +52,16 @@ function buildFooterAbmStd($parameters){
 function buildHeaderBrowStd($parameters,$title){
     if (!isset($parameters['filters'])){$parameters['filters']=array();}
     if (!isset($parameters['controls'])){$parameters['controls']=array();}
+    if (!isset($parameters["getters"]) or !is_array($parameters["getters"])){
+        $parameters["getters"]=array(
+           "search"=>true,
+           "excel"=>false,
+           "pdf"=>false,
+        );
+    }
+    if(!isset($parameters["getters"]["search"]){$parameters["getters"]["search"]=true;}
+    if(!isset($parameters["getters"]["excel"]){$parameters["getters"]["excel"]=false;}
+    if(!isset($parameters["getters"]["pdf"]){$parameters["getters"]["pdf"]=false;}
     $dataSegment=buildDataSegment($parameters);
     $dataRec=str_replace('|ID|','0',$dataSegment);
     $html="<div class='bg-default clearfix'>";
@@ -62,7 +72,9 @@ function buildHeaderBrowStd($parameters,$title){
     }
     $html.="    <input id='browser_search' name='browser_search' type='text' class='search-trigger form-control browser_search' placeholder='".lang('p_search')."' aria-label='".lang('p_search')."' />";
     $html.="    <div class='input-group-append'>";
-    $html.="      <button class='btn btn-secondary btn-sm btn-browser-search' type='button' ".$dataRec." data-page='1' data-filters='".json_encode($parameters['filters'])."'><i class='material-icons' style='font-size:22px;vertical-align:middle;'>search</i>".lang('p_search')."</button>";
+    if($parameters["getters"]["search"]){$html.="<button class='btn btn-secondary btn-sm btn-browser-search' type='button' ".$dataRec." data-mode='brow' data-page='1' data-filters='".json_encode($parameters['filters'])."'><i class='material-icons' style='font-size:22px;vertical-align:middle;'>search</i>".lang('p_search')."</button>";}
+    if($parameters["getters"]["excel"]){$html.="<button class='btn btn-secondary btn-sm btn-excel-search' type='button' ".$dataRec." data-mode='excel' data-page='1' data-filters='".json_encode($parameters['filters'])."'><i class='material-icons' style='font-size:22px;vertical-align:middle;'>table_rows</i>Excel</button>";}
+    if($parameters["getters"]["pdf"]){$html.="<button class='btn btn-secondary btn-sm btn-pdf-search' type='button' ".$dataRec." data-mode='pdf' data-page='1' data-filters='".json_encode($parameters['filters'])."'><i class='material-icons' style='font-size:22px;vertical-align:middle;'>picture_as_pdf</i>PDF</button>";}
     $html.="    </div>";
     $html.="   </div>";
     $html.="</div>";
@@ -340,7 +352,7 @@ function getFile($parameters,$ops,$list=null){
                 }
             }
 			$html .= " <div data-id='".$id."' class='img-".$id." badge badge-secondary text-truncate' style='max-width:100%;' title='".$record["description"]."'>".$record["description"]."</div> ";
-            if ($record["mime"]=="application/octet-stream") {
+            if ($record["mime"]=="application/octet-stream") { 
     			$html .= "<div class='badge badge-primary text-truncate' style='max-width:100%;' title='".lang('b_external')."'>".lang('b_external')."</div> ";
                 if(!$parameters["readonly"]) {
                     $html .= "<a href='#' data-id='".$id."' class='btn btn-sm btn-danger float-right btn-link-delete'><i class='material-icons'>delete_forever</i></a>";
@@ -356,7 +368,7 @@ function getFile($parameters,$ops,$list=null){
             }
 			$html .= "</li>";
         }
-    }
+    } 
     $html.="     </ul>";
     $html.="  </div>";
 
@@ -417,7 +429,7 @@ function getImage($parameters,$ops,$list=null){
 				$html.="<pre>".$record["src"]."</pre>";
 				$html.="</li>";
             }
-        }
+        } 
         $html.="</ul>";
     }
     $html.="    </div>";
@@ -444,7 +456,7 @@ function getInputMicro($parameters,$ops){
     if ($ops["empty"]) {$value="";}
     $label=lang('p_'.$ops["name"]);
     if($ops["forcelabel"]!=""){$label=$ops["forcelabel"];}
-
+    
     $html="<table style='width:100%;'>";
     $html.="<tr>";
     if(!$ops["nolabel"]){$html.="<td>".$label."</td>";}
@@ -534,7 +546,7 @@ function getInput($parameters,$ops){
                 if ($value!=""){$value=date(FORMAT_DATE_DB, strtotime($value));}
                 break;
         }
-        $html.="<input ".$ops["custom"]." data-type='".$ops["type"]."' ".$checked." autocomplete='nope' ".$checPaeameters."value='".$value."' class='".$ops["class"]."' type='".$ops["type"]."' name='".$ops["name"]."' id='".$ops["name"]."' data-clear-btn='false' placeholder='".lang('p_'.$ops["name"])."' />";
+       $html.="<input ".$ops["custom"]." data-type='".$ops["type"]."' ".$checked." autocomplete='nope' ".$checPaeameters." value='".$value."' class='".$ops["class"]."' type='".$ops["type"]."' name='".$ops["name"]."' id='".$ops["name"]."' data-clear-btn='false' placeholder='".lang('p_'.$ops["name"])."' />";
     }
     $html.="<div class='invalid-feedback invalid-".$ops["name"]." d-none'/>";
     if(isset($ops["col"])){$html="<div class='".$ops["col"]."'>".$html."</div>";}
@@ -643,7 +655,7 @@ function getProgressBar($parameters,$ops){
     if(!isset($ops["value"])){$ops["value"]="0";}
     if(!isset($ops["class"])){$ops["class"]="progress-bar-striped progress-bar-animated";}
     if ($ops["dyncolor"]) {
-       if ((int)$ops["value"]<10) {
+       if ((int)$ops["value"]<10) { 
           $ops["class"].=" bg-secondary";
        } elseif ((int)$ops["value"]<25) {
           $ops["class"].=" bg-danger";
@@ -667,7 +679,7 @@ function getProgressBar($parameters,$ops){
 }
 function getButtonRibbon($parameters,$ops){
   if(!isset($parameters["class"])){$parameters["class"]="btn-default";}
-  $html="<div class='btn-toolbar' role='toolbar'>";
+  $html="<div class='btn-toolbar' role='toolbar'>";  
   $html.="<div class='btn-group mr-2' role='group'>";
   //$html.=$parameters["name"];
   foreach($ops as $op){
@@ -768,7 +780,7 @@ function secureFloatNull($values,$key){
     if (!isset($values[$key])) {$values[$key]=null;}
     $values[$key]=str_replace(",",".",$values[$key]);
     $pattern = '/^[-+]?(((\\\\d+)\\\\.?(\\\\d+)?)|\\\\.\\\\d+)([eE]?[+-]?\\\\d+)?$/';
-    if (preg_match($pattern, trim($values[$key]))){$values[$key]=null;}
+    if (preg_match($pattern, trim($values[$key]))){$values[$key]=null;} 
     if($values[$key]==""){$values[$key]=null;}
     return $values[$key];
 }

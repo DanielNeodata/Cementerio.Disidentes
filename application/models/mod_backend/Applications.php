@@ -11,6 +11,11 @@ class Applications extends MY_Model {
 
     public function brow($values){
         try {
+           $values["getters"]=array(
+              "search"=>true,
+              "excel"=>true,
+              "pdf"=>true,
+            );
             $values["order"]="description ASC";
             $values["records"]=$this->get($values);
             return parent::brow($values);
@@ -29,4 +34,28 @@ class Applications extends MY_Model {
             return logError($e,__METHOD__ );
         }
     }
+    public function excel($values){
+        try {
+            $values["delimiter"]=";";           
+            $values["pagesize"]=-1;
+            $values["order"]="description ASC";
+            $values["records"]=$this->get($values);
+            return parent::excel($values);
+        }
+        catch(Exception $e){
+            return logError($e,__METHOD__ );
+        }
+    }
+    public function pdf($values){
+        try {
+            $values["pagesize"]=-1;
+            $values["order"]="description ASC";
+            $values["records"]=$this->get($values);
+            return parent::pdf($values);
+        }
+        catch(Exception $e){
+            return logError($e,__METHOD__ );
+        }
+    }
+  
 }

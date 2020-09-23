@@ -127,8 +127,17 @@ class MY_Controller extends CI_Controller {
             ->set_output(json_encode($return));
     }
     public function download($return){
+        if(!isset($return["indisk"])){$return["indisk"]=true;}
         $this->load->helper('download');
         $this->load->helper('file');
+        if($return["indisk"]){
+           $return["filename"]=basename($return["message"]);
+           $return["mime"]=getMimeType($return["message"]);
+           $return["message"]=file_get_contents($return["message"]);
+        } else {
+           if(!isset($return["filename"])) {$return["filename"]=uniqid('cem_',true).".".explode("/",$return["mime"])[1];}
+        }
+
         switch($return["mode"]) {
            case "html":
               $this->output
@@ -141,12 +150,13 @@ class MY_Controller extends CI_Controller {
 //log_message("error", "DOWNLOAD ".json_encode($return,JSON_PRETTY_PRINT));
               $this->output
                   ->set_status_header(200)
-                  ->set_content_type(getMimeType($return["message"]))
-                  ->set_output(file_get_contents($return["message"]))
+                  ->set_header('Content-Disposition: attachment; filename='.$return["filename"])
+                  ->set_content_type($return["mime"])
+                  ->set_output($return["message"])
                   ->_display();
                   break;
            case "download":
-              force_download(basename($return["message"]), file_get_contents($return["message"]));
+              force_download($return["filename"], $return["message"]);
               break;
         }
     }

@@ -21,7 +21,6 @@
     <link rel="stylesheet" href="./assets/js/trumbo/ui/trumbowyg.min.css" />
     <link rel="stylesheet" href="./assets/css/website.css" />
 
-    <script src='https://meet.credipaz.com/external_api.js'></script>
     <script type="text/javascript" src="./assets/js/_third/jquery.min.js"></script>
     <script type="text/javascript" src="./assets/js/_third/popper.min.js"></script>
     <script type="text/javascript" src="./assets/js/_third/jszip.min.js"></script>

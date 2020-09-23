@@ -354,6 +354,39 @@ class My_Model extends CI_Model {
             return logError($e,__METHOD__ );
         }
     }
+    public function excel($values){
+        try {
+            if(!isset($values["delimiter"])){$values["delimiter"]=(",");}
+            if(!isset($values["interface"])){$values["interface"]=("excel");}
+            $data["parameters"] = $values;
+            $data["title"] = ucfirst(lang("m_".strtolower($values["model"])));
+            $html=$this->load->view($values["interface"],$data,true);
+            logGeneral($this,$values,__METHOD__);
+            $ret=array("message"=>$html,"mime"=>"text/csv","mode"=>$values["mode"],"indisk"=>false);
+            return $ret;
+        }
+        catch(Exception $e){
+            return logError($e,__METHOD__ );
+        }
+    }
+    public function pdf($values){
+        try {
+            if(!isset($values["interface"])){$values["interface"]=("pdf");}
+            $data["parameters"] = $values;
+            $data["title"] = ucfirst(lang("m_".strtolower($values["model"])));
+            $html=$this->load->view($values["interface"],$data,true);
+            $this->load->library("m_pdf");
+            $this->m_pdf->pdf->WriteHTML($html, 2);
+            ob_end_clean();
+            $html=$this->m_pdf->pdf->Output("legalizacion.pdf", "S");
+            logGeneral($this,$values,__METHOD__);
+            $ret=array("message"=>$html,"mime"=>"application/pdf","mode"=>$values["mode"],"indisk"=>false);
+            return $ret;
+        }
+        catch(Exception $e){
+            return logError($e,__METHOD__ );
+        }
+    }
     public function edit($values){
         try {
             if(!isset($values["interface"])){$values["interface"]="abm";}
