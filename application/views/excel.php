@@ -1,5 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+log_message('error', 'cco-> pasando x excel de excel php! init.');
 /*
 hacer log_message de $data, permite ver TODOS los valores que recibe la view, por si se quieren armar encabezados, titulos o funcionalida especifica
 */
@@ -14,10 +15,12 @@ if (!isset($parameters["columns"]) or !is_array($parameters["columns"])){
     );
 }
 $headers=array();
+
 foreach ($parameters["columns"] as $column) {
     $headers[]=lang("p_".$column["field"]);
+    log_message('error', $column["field"]);
 }
-fputcsv($csv, $haders,$parameters["delimiter"]);
+fputcsv($csv, $headers,$parameters["delimiter"]);
 
 foreach ((array)$parameters["records"]["data"] as $record){
     $line=array();
@@ -27,5 +30,8 @@ foreach ((array)$parameters["records"]["data"] as $record){
     fputcsv($csv,$line,$parameters["delimiter"]);
 }
 rewind($csv);
-echo stream_get_contents($csv);
+log_message('error', 'cco-> pasando x excel de excel php end!.');
+$output=stream_get_contents($csv);// TOque aca!
+echo $output;// TOque aca!
+fclose($csv);// TOque aca!
 ?>

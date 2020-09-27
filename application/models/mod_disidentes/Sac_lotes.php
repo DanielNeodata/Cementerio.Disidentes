@@ -13,6 +13,13 @@ class Sac_lotes extends MY_Model {
             $values["view"]="vw_sac_lotes";
             $values["order"]="ssst ASC";
             $values["records"]=$this->get($values);
+
+            $values["getters"]=array(
+             "search"=>true,
+             "excel"=>true,
+             "pdf"=>true,
+           );
+
             $values["buttons"]=array(
                 "new"=>true,
                 "edit"=>true,
@@ -44,7 +51,6 @@ class Sac_lotes extends MY_Model {
                 "<label>".lang('p_RES_LOCALI')."</label><input type='text' id='browser_reslocalidad' name='browser_reslocalidad' class='form-control text'/>",
             );
 
-
             $values["filters"]=array(
                 //array("name"=>"browser_search", "operator"=>"like","fields"=>array("TITULAR")),
                 array("name"=>"browser_sepultura", "operator"=>"like","fields"=>array("SEPULTURA")),
@@ -61,6 +67,66 @@ class Sac_lotes extends MY_Model {
             return logError($e,__METHOD__ );
         }
     }
+
+    public function excel($values){
+        try {
+            log_message('error', 'cco-> pasando x excel de sac lotes init!.');
+            if ($values["where"]!=""){$values["where"]=base64_decode($values["where"]);}
+            $values["delimiter"]=";";
+            $values["pagesize"]=-1;
+            //$values["order"]=" description ASC";
+            $values["records"]=$this->get($values);
+
+            $values["columns"]=array(
+                //array("field"=>"ID","format"=>"code"),
+                //array("field"=>"ssst","format"=>"code"),
+                array("field"=>"SECCION","format"=>"text"),
+                array("field"=>"SEPULTURA","format"=>"text"),
+                array("field"=>"TIPO","format"=>"text"),
+                array("field"=>"TITULAR","format"=>"text"),
+                array("field"=>"DIRECCION","format"=>"text"),
+                array("field"=>"LOCALIDAD","format"=>"text"),
+                array("field"=>"COD_POSTAL","format"=>"text"),
+                array("field"=>"TELEFONO","format"=>"text"),
+                array("field"=>"EMAIL","format"=>"text"),
+
+            );
+
+            log_message('error', 'cco-> pasando x excel de sac lotes end!.');
+            return parent::excel($values);
+        }
+        catch(Exception $e){
+            return logError($e,__METHOD__ );
+        }
+    }
+    public function pdf($values){
+        try {
+            if ($values["where"]!=""){$values["where"]=base64_decode($values["where"]);}
+            $values["pagesize"]=-1;
+            $values["order"]="1 ASC";
+            $values["records"]=$this->get($values);
+            $values["title"]="Vamos a ver el PDF";
+            $values["columns"]=array(
+                //array("field"=>"ID","format"=>"code"),
+                //array("field"=>"ssst","format"=>"code"),
+                array("field"=>"SECCION","format"=>"text"),
+                array("field"=>"SEPULTURA","format"=>"text"),
+                array("field"=>"TIPO","format"=>"text"),
+                array("field"=>"TITULAR","format"=>"text"),
+                array("field"=>"DIRECCION","format"=>"text"),
+                array("field"=>"LOCALIDAD","format"=>"text"),
+                array("field"=>"COD_POSTAL","format"=>"text"),
+                array("field"=>"TELEFONO","format"=>"text"),
+                array("field"=>"EMAIL","format"=>"text"),
+            );
+            log_message("error", "RELATED ".json_encode($values,JSON_PRETTY_PRINT));
+            return parent::pdf($values);
+        }
+        catch(Exception $e){
+            return logError($e,__METHOD__ );
+        }
+    }
+
     public function historial($values){
         try {
             $location=explode("::",strtolower(__METHOD__));

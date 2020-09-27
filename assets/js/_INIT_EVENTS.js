@@ -31,10 +31,12 @@
 					_FUNCTIONS.onLogin($(this)).then(function (data) { _AJAX.UiLogged({}); });
 				});
 
+
 				
 				$("body").off("dblclick", ".record-dbl-click").on("dblclick", ".record-dbl-click", function () {
 					_FUNCTIONS.onRecordEdit($(this));
 				});
+
 
 				$("body").off("click", ".btn-logout").on("click", ".btn-logout", function () {
 					_FUNCTIONS.onLogout($(this));
@@ -73,6 +75,12 @@
 					_FUNCTIONS.onAbmCancel($(this));
 				});
 				$("body").off("click", ".btn-browser-search").on("click", ".btn-browser-search", function (e) {
+					_FUNCTIONS.onBrowserSearch($(this));
+				});
+				$("body").off("click", ".btn-excel-search").on("click", ".btn-excel-search", function (e) {
+					_FUNCTIONS.onBrowserSearch($(this));
+				});
+				$("body").off("click", ".btn-pdf-search").on("click", ".btn-pdf-search", function (e) {
 					_FUNCTIONS.onBrowserSearch($(this));
 				});
 				$("body").off("click", ".btn-brief").on("click", ".btn-brief", function (e) {

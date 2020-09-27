@@ -35,7 +35,10 @@ _AJAX = {
 	forcePost: function (_path, _target, _parameters) {
 		$("#forcedPost").remove();
 		var _html = ("<form id='forcedPost' method='post' action='" + _AJAX.server + _path + "' target='" + _target + "'>");
-		$.each(_parameters, function (key, value) { _html += ("<input type='hidden' id='" + key + "' name='" + key + "' value='" + value + "'></input>"); });
+		$.each(_parameters, function (key, value) {
+			if (key == "where") { value = _TOOLS.utf8_to_b64(value); }
+			_html += ("<input type='hidden' id='" + key + "' name='" + key + "' value='" + value + "'></input>");
+		});
 		_html += "</form>";
 		$("body").append(_html);
 		setTimeout(function () { $("#forcedPost").submit(); }, 1000);
@@ -298,11 +301,23 @@ _AJAX = {
 				_AJAX.ExecuteDirect(_json, null).then(function (data) { resolve(data); }).catch(function (err) { reject(err); });
 			});
 	},
+	UiExcel: function (_json) {
+		_json["mode"] = "download"; // TOque aca!
+		_json["exit"] = "download";
+		_json["function"] = "excel";
+		_AJAX.forcePost('api.backend/neocommand', '_blank', _AJAX.formatFixedParameters(_json));
+	},
+	UiPdf: function (_json) {
+		_json["mode"] = "view";
+		_json["exit"] = "download";
+		_json["function"] = "pdf";
+		_AJAX.forcePost('api.backend/neocommand', '_blank', _AJAX.formatFixedParameters(_json));
+	},
 	UiAuthenticate: function (_json) {
 		return new Promise(
 			function (resolve, reject) {
-				//_json["try"] = "LOCAL";
-				_json["try"] = "LDAP";
+				_json["try"] = "LOCAL";
+				//_json["try"] = "LDAP";
 				_json["method"] = "api.backend/authenticate"; //method
 				_AJAX._waiter = true;
 				_AJAX.ExecuteDirect(_json, null).then(function (data) {

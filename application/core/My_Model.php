@@ -50,10 +50,14 @@ class My_Model extends CI_Model {
             return null;
         }
     }
+
     public function prepareModule(){
         /*Módulos sin prefijo*/
         switch(strtoupper($this->module)){
-            case MOD_DISIDENTES:
+            case strtoupper(MOD_DISIDENTES):
+                $this->module="";
+                break;
+            case "":
                 $this->module="";
                 break;
             default:
@@ -356,13 +360,17 @@ class My_Model extends CI_Model {
     }
     public function excel($values){
         try {
+            log_message('error', 'cco-> pasando x excel de my model init!.');
             if(!isset($values["delimiter"])){$values["delimiter"]=(",");}
             if(!isset($values["interface"])){$values["interface"]=("excel");}
             $data["parameters"] = $values;
             $data["title"] = ucfirst(lang("m_".strtolower($values["model"])));
+            log_message('error', 'cco-> pasando x excel de my model antes loiad!.');
             $html=$this->load->view($values["interface"],$data,true);
-            logGeneral($this,$values,__METHOD__);
+            log_message('error', 'cco-> pasando x excel de my model despues loiad!.');
+            //logGeneral($this,$values,__METHOD__);
             $ret=array("message"=>$html,"mime"=>"text/csv","mode"=>$values["mode"],"indisk"=>false);
+            log_message('error', 'cco-> pasando x excel de my model end!.');
             return $ret;
         }
         catch(Exception $e){
@@ -462,7 +470,7 @@ class My_Model extends CI_Model {
                 if(!isset($opts["priority"])){$opts["priority"]="priority";}
                 $this->prepareModule();
                 $resolvedTableView=($this->module.$this->table);
-               
+
                 $ACTIVE=$this->createModel($opts["module"],$opts["model"],$opts["model"]);
                 //Process new attached files
                 $path=(FILE_ATTACHED."/".$this->table);
@@ -705,7 +713,10 @@ class My_Model extends CI_Model {
             $this->db->select("count(*) as total");
             $this->db->from($resolvedTableView);
             if(isset($values["where"]) and $values["where"]!=""){$this->db->where($values["where"]);}
+            //log_message('error', 'cco-> pasando x getRecords!.');
+
             $sql=$this->db->get_compiled_select();
+            //log_message('error', $sql);
             $records=$this->db->query($sql)->result_array();
             $totalrecords=$records[0]["total"];
             $totalpages=ceil($totalrecords/$values["pagesize"]);
@@ -720,6 +731,7 @@ class My_Model extends CI_Model {
                 $this->db->limit($size,$from);
             }
             $sql=$this->db->get_compiled_select();
+log_message('error', $sql);
             $records=$this->db->query($sql)->result_array();
             $return=array(
                 "records"=>$records,

@@ -133,3 +133,4 @@ define('FILE_TEMP', './intercambio'); //
 | Custom modules -> models paths
  */
 define('MOD_BACKEND', 'mod_backend'); //
+define('MOD_DISIDENTES', 'mod_disidentes');

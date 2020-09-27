@@ -59,9 +59,9 @@ function buildHeaderBrowStd($parameters,$title){
            "pdf"=>false,
         );
     }
-    if(!isset($parameters["getters"]["search"]){$parameters["getters"]["search"]=true;}
-    if(!isset($parameters["getters"]["excel"]){$parameters["getters"]["excel"]=false;}
-    if(!isset($parameters["getters"]["pdf"]){$parameters["getters"]["pdf"]=false;}
+    if(!isset($parameters["getters"]["search"])){$parameters["getters"]["search"]=true;}
+    if(!isset($parameters["getters"]["excel"])){$parameters["getters"]["excel"]=false;}
+    if(!isset($parameters["getters"]["pdf"])){$parameters["getters"]["pdf"]=false;}
     $dataSegment=buildDataSegment($parameters);
     $dataRec=str_replace('|ID|','0',$dataSegment);
     $html="<div class='bg-default clearfix'>";
