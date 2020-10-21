@@ -27,7 +27,7 @@ _FUNCTIONS = {
 			clearTimeout(_FUNCTIONS._timerPushAlert);
 			$(".push-alert").remove();
 			if (_json["message"] == "") { return false; }
-			var _html = "<div class='push-alert alert " + _json["class"] + " alert-dismissible fade show' role='alert'>";
+			var _html = "<div style='position:fixed; bottom:60px;' class='push-alert alert " + _json["class"] + " alert-dismissible fade show' role='alert'>";
 			_html += "<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>";
 			_html += _json["message"];
 			_html += "</div>";

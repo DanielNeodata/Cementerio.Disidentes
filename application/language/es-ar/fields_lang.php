@@ -141,6 +141,7 @@ $lang['p_CARTARENOV']="Carta Renovación";
 $lang['p_CARTACONSE']="Carta Conse.";
 $lang['p_BIMVENCIDO']="Bimestre Vencido";
 $lang['p_RENVENCIDA']="Renovación Vencida";
+$lang['p_HISTORIA']="Historial";
 
 $lang['p_TELEFONO']="Teléfono";
 $lang['p_LOCALIDAD']="Localidad";
@@ -153,3 +154,7 @@ $lang['p_NRO_APERTURA'] = "Nº de apertura";
 $lang['p_EDAD'] = "Edad";
 $lang['p_ESTADOCIVI'] = "Estado civil";
 $lang['p_NACIONALID'] = "Nacionalidad";
+
+$lang['p_FECHA_EMIS'] = "Fecha Emisión";
+$lang['p_NRO_RECIBO'] = "Nro Recibo";
+$lang['p_CONCEPTO'] = "Concepto";

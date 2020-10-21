@@ -3,11 +3,13 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 //log_message("error", "RELATED ".json_encode($data,JSON_PRETTY_PRINT));
 /*---------------------------------*/
 
-class Sac_lotes extends MY_Model {
+class Sac_lotes_responsable extends MY_Model {
     public function __construct()
     {
         parent::__construct();
     }
+    
+
     public function brow($values){
         try {
             log_message('error', 'cco-> pasando x brow de sac lotes init!.');
@@ -35,12 +37,13 @@ class Sac_lotes extends MY_Model {
                 array("field"=>"SECCION","format"=>"text"),
                 array("field"=>"SEPULTURA","format"=>"text"),
                 array("field"=>"TIPO","format"=>"text"),
-                array("field"=>"TITULAR","format"=>"text"),
-                array("field"=>"DIRECCION","format"=>"text"),
-                array("field"=>"LOCALIDAD","format"=>"text"),
-                array("field"=>"COD_POSTAL","format"=>"text"),
-                array("field"=>"TELEFONO","format"=>"text"),
-                array("field"=>"EMAIL","format"=>"text"),
+                array("field"=>"RESPONSABL","format"=>"text"),
+                array("field"=>"RES_DIRECC","format"=>"text"),
+                array("field"=>"RES_LOCALI","format"=>"text"),
+                array("field"=>"RES_CODPOS","format"=>"text"),
+                array("field"=>"RES_TELEFO","format"=>"text"),
+                array("field"=>"RES_EMAIL","format"=>"text"),
+                //array("field"=>"DEUDA","format"=>"text"),
                 array("field"=>"","format"=>null),
                 array("field"=>"","format"=>null),
             );
@@ -71,6 +74,7 @@ class Sac_lotes extends MY_Model {
         }
     }
 
+    
 
     public function excel($values){
         try {
@@ -83,17 +87,17 @@ class Sac_lotes extends MY_Model {
             $values["records"]=$this->get($values);
 
             $values["columns"]=array(
-                array("field"=>"ID","format"=>"code"),
+                array("field"=>"ID","format"=>"text"),
                 //array("field"=>"ssst","format"=>"code"),
                 array("field"=>"SECCION","format"=>"text"),
                 array("field"=>"SEPULTURA","format"=>"text"),
                 array("field"=>"TIPO","format"=>"text"),
-                array("field"=>"TITULAR","format"=>"text"),
-                array("field"=>"DIRECCION","format"=>"text"),
-                array("field"=>"LOCALIDAD","format"=>"text"),
-                array("field"=>"COD_POSTAL","format"=>"text"),
-                array("field"=>"TELEFONO","format"=>"text"),
-                array("field"=>"EMAIL","format"=>"text"),
+                array("field"=>"RESPONSABL","format"=>"text"),
+                array("field"=>"RES_DIRECC","format"=>"text"),
+                array("field"=>"RES_LOCALI","format"=>"text"),
+                array("field"=>"RES_CODPOS","format"=>"text"),
+                array("field"=>"RES_TELEFO","format"=>"text"),
+                array("field"=>"RES_EMAIL","format"=>"text"),
 
             );
 
@@ -113,17 +117,17 @@ class Sac_lotes extends MY_Model {
             $values["records"]=$this->get($values);
             $values["title"]="Lotes: Altas, Bajas, Consultas y Modificaciones";
             $values["columns"]=array(
-                array("field"=>"ID","format"=>"code"),
+                //array("field"=>"ID","format"=>"code"),
                 //array("field"=>"ssst","format"=>"code"),
                 array("field"=>"SECCION","format"=>"text"),
                 array("field"=>"SEPULTURA","format"=>"text"),
                 array("field"=>"TIPO","format"=>"text"),
-                array("field"=>"TITULAR","format"=>"text"),
-                array("field"=>"DIRECCION","format"=>"text"),
-                array("field"=>"LOCALIDAD","format"=>"text"),
-                array("field"=>"COD_POSTAL","format"=>"text"),
-                array("field"=>"TELEFONO","format"=>"text"),
-                array("field"=>"EMAIL","format"=>"text"),
+                array("field"=>"RESPONSABL","format"=>"text"),
+                array("field"=>"RES_DIRECC","format"=>"text"),
+                array("field"=>"RES_LOCALI","format"=>"text"),
+                array("field"=>"RES_CODPOS","format"=>"text"),
+                array("field"=>"RES_TELEFO","format"=>"text"),
+                array("field"=>"RES_EMAIL","format"=>"text"),
             );
             log_message("error", "RELATED ".json_encode($values,JSON_PRETTY_PRINT));
             return parent::pdf($values);

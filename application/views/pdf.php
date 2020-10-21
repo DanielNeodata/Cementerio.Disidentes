@@ -6,8 +6,8 @@ if (!isset($parameters["records"])) {
     $html=getUnInitialized();
 } else {
     $nodata=getNoData();
-    $html="TITULO:".$parameters["title"];
-    $html.=" <table  style='width:100%;'>";
+    $html="<b>TITULO: ".$parameters["title"];
+    $html.="</b> <table style='width:100%;'>";
     $html.="   <tr>";
     if (!isset($parameters["columns"]) or !is_array($parameters["columns"])){
         $parameters["columns"]=array(
@@ -16,7 +16,7 @@ if (!isset($parameters["records"])) {
          );
     }
     foreach ($parameters["columns"] as $column) {
-       $html.="<td><b>".lang("p_".$column["field"])."</b></td>";
+       $html.="<td style='background-color: #DADADA;'><b>".lang("p_".$column["field"])."</b></td>";
     }
     $html.="   </tr>";
     if(is_array($parameters["records"]["data"])) {

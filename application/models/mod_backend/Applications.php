@@ -13,6 +13,7 @@ class Applications extends MY_Model {
         try {
            $values["getters"]=array(
               "search"=>true,
+              "googlesearch"=>true,
               "excel"=>true,
               "pdf"=>true,
             );

@@ -135,6 +135,10 @@
     <Compile Include="application\models\mod_backend\Rel_users_groups.php" />
     <Compile Include="application\models\mod_backend\Type_users.php" />
     <Compile Include="application\models\mod_backend\Users.php" />
+    <Compile Include="application\models\mod_disidentes\Sac_lotes_listados.php" />
+    <Compile Include="application\models\mod_disidentes\Sac_lotes_historial.php" />
+    <Compile Include="application\models\mod_disidentes\Sac_lotes_responsable.php" />
+    <Compile Include="application\models\mod_disidentes\Sac_lotes_varios.php" />
     <Compile Include="application\models\mod_disidentes\Sac_lotes.php" />
     <Compile Include="application\models\mod_disidentes\Sac_fallecidos.php" />
     <Compile Include="application\models\mod_disidentes\Con_rubros.php" />
@@ -225,7 +229,12 @@
     <Compile Include="application\views\mod_disidentes\sac_lotes\abm.php" />
     <Compile Include="application\views\mod_disidentes\sac_lotes\historial.php" />
     <Compile Include="application\views\mod_disidentes\sac_lotes\listados.php" />
+    <Compile Include="application\views\mod_disidentes\sac_lotes_historial\abm.php" />
+    <Compile Include="application\views\mod_disidentes\sac_lotes_listados\abm.php" />
+    <Compile Include="application\views\mod_disidentes\sac_lotes_responsable\abm.php" />
+    <Compile Include="application\views\mod_disidentes\sac_lotes_varios\abm.php" />
     <Compile Include="index.php" />
+    <Compile Include="Sac_lotes.php" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="application\.htaccess" />
@@ -592,6 +601,10 @@
     <Folder Include="application\views\mod_disidentes\con_rubros\" />
     <Folder Include="application\views\mod_disidentes\facturacion\" />
     <Folder Include="application\views\mod_disidentes\con_cuentas\" />
+    <Folder Include="application\views\mod_disidentes\sac_lotes_historial\" />
+    <Folder Include="application\views\mod_disidentes\sac_lotes_listados\" />
+    <Folder Include="application\views\mod_disidentes\sac_lotes_responsable\" />
+    <Folder Include="application\views\mod_disidentes\sac_lotes_varios\" />
     <Folder Include="assets\" />
     <Folder Include="assets\bootstrap-material-design\" />
     <Folder Include="assets\bootstrap-material-design\css\" />

@@ -1,0 +1,29 @@
+insert into [mod_backend_functions] values ('m_abcm_responsable','Sunmenú ABCM por Responsable',getdate(),getdate(),null,'tab',1046,'mod_disidentes','Sac_lotes','Sac_lotes',getdate(),110,'brow_responsable',100,null,1,0)
+go
+insert into [mod_backend_functions] values ('m_abcm_varios','Sunmenú ABCM por varios',getdate(),getdate(),null,'tab',1046,'mod_disidentes','Sac_lotes','Sac_lotes',getdate(),120,'brow_varios',100,null,1,0)
+go
+
+insert into [mod_backend_rel_groups_functions] values (1,1091)
+  go
+  insert into [mod_backend_rel_groups_functions] values (1,1092)
+  go
+  insert into [mod_backend_rel_groups_functions] values (2,1091)
+  go
+  insert into [mod_backend_rel_groups_functions] values (2,1092)
+  go
+
+update mod_backend_functions set data_model='Sac_lotes_varios', data_action='brow' where id=1092
+  go
+  update mod_backend_functions set data_model='Sac_lotes_responsable', data_action='brow' where id=1091
+  go
+
+  update mod_backend_functions set data_model='Sac_lotes_historial', data_action='brow' where id=1054
+  go
+  update mod_backend_functions set data_model='Sac_lotes_listados', data_action='brow' where id=1055
+  go
+
+crear vista vw_SacLotesDetalleHistorico
+crear vista [vw_SacLotes]
+crear vista vw_SacLotesHistorial
+
+

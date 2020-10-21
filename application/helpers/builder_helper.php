@@ -55,11 +55,13 @@ function buildHeaderBrowStd($parameters,$title){
     if (!isset($parameters["getters"]) or !is_array($parameters["getters"])){
         $parameters["getters"]=array(
            "search"=>true,
+           "googlesearch"=>true,
            "excel"=>false,
            "pdf"=>false,
         );
     }
     if(!isset($parameters["getters"]["search"])){$parameters["getters"]["search"]=true;}
+    if(!isset($parameters["getters"]["googlesearch"])){$parameters["getters"]["googlesearch"]=true;}
     if(!isset($parameters["getters"]["excel"])){$parameters["getters"]["excel"]=false;}
     if(!isset($parameters["getters"]["pdf"])){$parameters["getters"]["pdf"]=false;}
     $dataSegment=buildDataSegment($parameters);
@@ -70,11 +72,11 @@ function buildHeaderBrowStd($parameters,$title){
     foreach($parameters["controls"] as $control) {
         $html.="<div class='browser_controls' style='padding-right:5px;display:inline;'>".$control."</div>";
     }
-    $html.="    <input id='browser_search' name='browser_search' type='text' class='search-trigger form-control browser_search' placeholder='".lang('p_search')."' aria-label='".lang('p_search')."' />";
+    if($parameters["getters"]["googlesearch"]){$html.="    <input id='browser_search' name='browser_search' type='text' class='search-trigger form-control browser_search' placeholder='".lang('p_search')."' aria-label='".lang('p_search')."' />";}
     $html.="    <div class='input-group-append'>";
     if($parameters["getters"]["search"]){$html.="<button class='btn btn-secondary btn-sm btn-browser-search' type='button' ".$dataRec." data-mode='brow' data-page='1' data-filters='".json_encode($parameters['filters'])."'><i class='material-icons' style='font-size:22px;vertical-align:middle;'>search</i>".lang('p_search')."</button>";}
-    if($parameters["getters"]["excel"]){$html.="<button class='btn btn-secondary btn-sm btn-excel-search' type='button' ".$dataRec." data-mode='excel' data-page='1' data-filters='".json_encode($parameters['filters'])."'><i class='material-icons' style='font-size:22px;vertical-align:middle;'>table_rows</i>Excel</button>";}
     if($parameters["getters"]["pdf"]){$html.="<button class='btn btn-secondary btn-sm btn-pdf-search' type='button' ".$dataRec." data-mode='pdf' data-page='1' data-filters='".json_encode($parameters['filters'])."'><i class='material-icons' style='font-size:22px;vertical-align:middle;'>picture_as_pdf</i>PDF</button>";}
+    if($parameters["getters"]["excel"]){$html.="<button class='btn btn-secondary btn-sm btn-excel-search' type='button' ".$dataRec." data-mode='excel' data-page='1' data-filters='".json_encode($parameters['filters'])."'><i class='material-icons' style='font-size:22px;vertical-align:middle;'>table_rows</i>Excel</button>";}
     $html.="    </div>";
     $html.="   </div>";
     $html.="</div>";
@@ -519,7 +521,14 @@ function getInput($parameters,$ops){
     if ($ops["empty"]) {$value="";}
     $label=lang('p_'.$ops["name"]);
     if($ops["forcelabel"]!=""){$label=$ops["forcelabel"];}
-    if(!$ops["nolabel"]){$html.="<label for='".$ops["name"]."'>".$label."</label>";}
+    if(!$ops["nolabel"]){
+        if(strpos($ops["class"], 'validate') !== false){
+            $html.="<label for='".$ops["name"]."'>* ".$label."</label>";
+        } else{
+            $html.="<label for='".$ops["name"]."'>".$label."</label>";
+        }
+        
+    }
     if ($ops["readonly"]) {
        $html.=formatHtmlValue($value,$ops["format"]);
     } else {

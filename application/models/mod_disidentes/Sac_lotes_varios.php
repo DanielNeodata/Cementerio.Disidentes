@@ -3,11 +3,13 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 //log_message("error", "RELATED ".json_encode($data,JSON_PRETTY_PRINT));
 /*---------------------------------*/
 
-class Sac_lotes extends MY_Model {
+class Sac_lotes_varios extends MY_Model {
     public function __construct()
     {
         parent::__construct();
     }
+    
+
     public function brow($values){
         try {
             log_message('error', 'cco-> pasando x brow de sac lotes init!.');
@@ -35,12 +37,15 @@ class Sac_lotes extends MY_Model {
                 array("field"=>"SECCION","format"=>"text"),
                 array("field"=>"SEPULTURA","format"=>"text"),
                 array("field"=>"TIPO","format"=>"text"),
-                array("field"=>"TITULAR","format"=>"text"),
-                array("field"=>"DIRECCION","format"=>"text"),
-                array("field"=>"LOCALIDAD","format"=>"text"),
-                array("field"=>"COD_POSTAL","format"=>"text"),
-                array("field"=>"TELEFONO","format"=>"text"),
-                array("field"=>"EMAIL","format"=>"text"),
+                array("field"=>"NROTITULO","format"=>"text"),
+                array("field"=>"FECHACOMPR","format"=>"text"),
+                array("field"=>"PRECICOMPR","format"=>"text"),
+                array("field"=>"ANOSARREND","format"=>"text"),
+                array("field"=>"ULT_RENOVA","format"=>"text"),
+                array("field"=>"ANOSRENOVA","format"=>"text"),
+                array("field"=>"VENCIMIENTO","format"=>"text"),
+                array("field"=>"ULTBIMPAGO","format"=>"text"),
+                array("field"=>"TITULO","format"=>"text"),
                 array("field"=>"","format"=>null),
                 array("field"=>"","format"=>null),
             );
@@ -71,7 +76,6 @@ class Sac_lotes extends MY_Model {
         }
     }
 
-
     public function excel($values){
         try {
             log_message('error', 'cco-> pasando x excel de sac lotes init!.');
@@ -83,17 +87,20 @@ class Sac_lotes extends MY_Model {
             $values["records"]=$this->get($values);
 
             $values["columns"]=array(
-                array("field"=>"ID","format"=>"code"),
+                array("field"=>"ID","format"=>"text"),
                 //array("field"=>"ssst","format"=>"code"),
                 array("field"=>"SECCION","format"=>"text"),
                 array("field"=>"SEPULTURA","format"=>"text"),
                 array("field"=>"TIPO","format"=>"text"),
-                array("field"=>"TITULAR","format"=>"text"),
-                array("field"=>"DIRECCION","format"=>"text"),
-                array("field"=>"LOCALIDAD","format"=>"text"),
-                array("field"=>"COD_POSTAL","format"=>"text"),
-                array("field"=>"TELEFONO","format"=>"text"),
-                array("field"=>"EMAIL","format"=>"text"),
+                array("field"=>"NROTITULO","format"=>"text"),
+                array("field"=>"FECHACOMPR","format"=>"text"),
+                array("field"=>"PRECICOMPR","format"=>"text"),
+                array("field"=>"ANOSARREND","format"=>"text"),
+                array("field"=>"ULT_RENOVA","format"=>"text"),
+                array("field"=>"ANOSRENOVA","format"=>"text"),
+                array("field"=>"VENCIMIENTO","format"=>"text"),
+                array("field"=>"ULTBIMPAGO","format"=>"text"),
+                array("field"=>"TITULO","format"=>"text"),
 
             );
 
@@ -113,17 +120,20 @@ class Sac_lotes extends MY_Model {
             $values["records"]=$this->get($values);
             $values["title"]="Lotes: Altas, Bajas, Consultas y Modificaciones";
             $values["columns"]=array(
-                array("field"=>"ID","format"=>"code"),
+                //array("field"=>"ID","format"=>"code"),
                 //array("field"=>"ssst","format"=>"code"),
                 array("field"=>"SECCION","format"=>"text"),
                 array("field"=>"SEPULTURA","format"=>"text"),
                 array("field"=>"TIPO","format"=>"text"),
-                array("field"=>"TITULAR","format"=>"text"),
-                array("field"=>"DIRECCION","format"=>"text"),
-                array("field"=>"LOCALIDAD","format"=>"text"),
-                array("field"=>"COD_POSTAL","format"=>"text"),
-                array("field"=>"TELEFONO","format"=>"text"),
-                array("field"=>"EMAIL","format"=>"text"),
+                array("field"=>"NROTITULO","format"=>"text"),
+                array("field"=>"FECHACOMPR","format"=>"text"),
+                array("field"=>"PRECICOMPR","format"=>"text"),
+                array("field"=>"ANOSARREND","format"=>"text"),
+                array("field"=>"ULT_RENOVA","format"=>"text"),
+                array("field"=>"ANOSRENOVA","format"=>"text"),
+                array("field"=>"VENCIMIENTO","format"=>"text"),
+                array("field"=>"ULTBIMPAGO","format"=>"text"),
+                array("field"=>"TITULO","format"=>"text"),
             );
             log_message("error", "RELATED ".json_encode($values,JSON_PRETTY_PRINT));
             return parent::pdf($values);
@@ -133,52 +143,10 @@ class Sac_lotes extends MY_Model {
         }
     }
 
-    public function historial($values){
-        try {
-            $location=explode("::",strtolower(__METHOD__));
-            $values["interface"]=(MOD_DISIDENTES."/".$location[0]."/".$location[1]);
-            $data["parameters"] = $values;
-            $data["title"] = ucfirst(lang("m_".strtolower($values["function"])));
-            $html=$this->load->view($values["interface"],$data,true);
-            logGeneral($this,$values,__METHOD__);
-            return array(
-                "code"=>"2000",
-                "status"=>"OK",
-                "message"=>compress($this,$html),
-                "function"=> ((ENVIRONMENT === 'development' or ENVIRONMENT === 'testing') ? __METHOD__ :ENVIRONMENT),
-                "data"=>null,
-                "compressed"=>true
-            );
-        }
-        catch(Exception $e){
-            return logError($e,__METHOD__ );
-        }
-    }
-    public function listados($values){
-        try {
-            $location=explode("::",strtolower(__METHOD__));
-            $values["interface"]=(MOD_DISIDENTES."/".$location[0]."/".$location[1]);
-            $data["parameters"] = $values;
-            $data["title"] = ucfirst(lang("m_".strtolower($values["function"])));
-            $html=$this->load->view($values["interface"],$data,true);
-            logGeneral($this,$values,__METHOD__);
-            return array(
-                "code"=>"2000",
-                "status"=>"OK",
-                "message"=>compress($this,$html),
-                "function"=> ((ENVIRONMENT === 'development' or ENVIRONMENT === 'testing') ? __METHOD__ :ENVIRONMENT),
-                "data"=>null,
-                "compressed"=>true
-            );
-        }
-        catch(Exception $e){
-            return logError($e,__METHOD__ );
-        }
-    }
 
     public function edit($values){
         try {
-            log_message('error', 'cco-> pasando x edit de sac lotes!.');
+            log_message('error', 'cco-> pasando x edit de sac lotes varios!.');
 
             $location=explode("::",strtolower(__METHOD__));
             $values["interface"]=(MOD_DISIDENTES."/".$location[0]."/abm");
@@ -203,6 +171,7 @@ class Sac_lotes extends MY_Model {
             $values["controls"]=array(
                 "id_forma_pago"=>getCombo($parameters_id_forma_pago,$this),
             );
+            log_message('error', 'cco-> saliendo x edit de sac lotes varios!.');
             return parent::edit($values);
         }
         catch(Exception $e){

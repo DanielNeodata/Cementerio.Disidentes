@@ -72,6 +72,8 @@ var _TOOLS = {
 		var _ret = true;
 		$(_selector).each(function () { _ret = _TOOLS.formatValidation($(this)) && _ret; });
 		if (!_ret && _seeAlert) {
+			if (_AJAX._waiter) { $.unblockUI(); }
+			_AJAX._waiter = false;
 			_FUNCTIONS.onAlert({ "message": "Complete los datos requeridos", "class": "alert-danger" });
 		}
 		return _ret;
