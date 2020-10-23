@@ -10,9 +10,17 @@ class Sac_fallecidos extends MY_Model {
     }
     public function brow($values){
         try {
-            $values["view"]="vw_sac_fallecidos";
-            $values["order"]="sst ASC";
+            $values["view"]="vw_SacFallecidos";
+            $values["order"]="SECCION,SEPULTURA,TIPO";
             $values["records"]=$this->get($values);
+
+            $values["getters"]=array(
+             "search"=>true,
+             "googlesearch"=>false,
+             "excel"=>true,
+             "pdf"=>true,
+           );
+
             $values["buttons"]=array(
                 "new"=>true,
                 "edit"=>true,
@@ -21,12 +29,39 @@ class Sac_fallecidos extends MY_Model {
             );
             $values["columns"]=array(
                 //array("field"=>"ID","format"=>"code"),
-                array("field"=>"sst","format"=>"code"),
+                array("field"=>"SECCION","format"=>"text"),
+                array("field"=>"SEPULTURA","format"=>"text"),
+                array("field"=>"TIPO","format"=>"text"),
+                array("field"=>"NRO_APERTU","format"=>"text"),
                 array("field"=>"NOMBRE","format"=>"text"),
+                array("field"=>"EDAD","format"=>"text"),
+                array("field"=>"FECHA","format"=>"text"),
+                array("field"=>"NACIONALID","format"=>"text"),
+                array("field"=>"ESTADOCIVI","format"=>"text"),
+                array("field"=>"CAUSADECES","format"=>"text"),
+                array("field"=>"PARTIDA","format"=>"text"),
+                array("field"=>"HORA","format"=>"text"),
+                array("field"=>"EMPR_FUNEB","format"=>"text"),
+                
+                
                 array("field"=>"","format"=>null),
                 array("field"=>"","format"=>null),
             );
+
+             $values["controls"]=array(
+                "<label>".lang('p_SECCION')."</label><input type='number' id='browser_seccion' name='browser_seccion' class='form-control number'/>",
+                "<label>".lang('p_SEPULTURA')."</label><input type='number' id='browser_sepultura' name='browser_sepultura' class='form-control number'/>",
+                "<label>".lang('p_TIPO')."</label><input type='text' id='browser_tipo' name='browser_tipo' class='form-control text'/>",
+                "<label>".lang('p_NOMBRE')."</label><input type='text' id='browser_nombre' name='browser_nombre' class='form-control text'/>",
+                "<label>".lang('p_FECHA')."</label><input type='text' id='browser_fecha' name='browser_fecha' class='form-control date'/>",
+            );
+
             $values["filters"]=array(
+                array("name"=>"browser_sepultura", "operator"=>"like","fields"=>array("SEPULTURA")),
+                array("name"=>"browser_seccion", "operator"=>"like","fields"=>array("SECCION")),
+                array("name"=>"browser_tipo", "operator"=>"like","fields"=>array("TIPO")),
+                array("name"=>"browser_nombre", "operator"=>"like","fields"=>array("NOMBRE")),
+                array("name"=>"browser_fecha", "operator"=>"like","fields"=>array("FECHA")),
                 array("name"=>"browser_search", "operator"=>"like","fields"=>array("NOMBRE")),
             );
             return parent::brow($values);
@@ -35,6 +70,77 @@ class Sac_fallecidos extends MY_Model {
             return logError($e,__METHOD__ );
         }
     }
+
+    public function excel($values){
+        try {
+            log_message('error', 'cco-> pasando x excel de sac lotes init!.');
+            if ($values["where"]!=""){$values["where"]=base64_decode($values["where"]);}
+            $values["view"]="vw_SacFallecidos";
+            $values["delimiter"]=";";
+            $values["pagesize"]=-1;
+            $values["order"]="SECCION,SEPULTURA,TIPO";
+            //$values["order"]=" description ASC";
+            $values["records"]=$this->get($values);
+
+            $values["columns"]=array(
+                array("field"=>"ID","format"=>"code"),
+                //array("field"=>"ssst","format"=>"code"),
+                array("field"=>"SECCION","format"=>"text"),
+                array("field"=>"SEPULTURA","format"=>"text"),
+                array("field"=>"TIPO","format"=>"text"),
+                array("field"=>"NRO_APERTU","format"=>"text"),
+                array("field"=>"NOMBRE","format"=>"text"),
+                array("field"=>"EDAD","format"=>"text"),
+                array("field"=>"FECHA","format"=>"text"),
+                array("field"=>"NACIONALID","format"=>"text"),
+                array("field"=>"ESTADOCIVI","format"=>"text"),
+                array("field"=>"CAUSADECES","format"=>"text"),
+                array("field"=>"PARTIDA","format"=>"text"),
+                array("field"=>"HORA","format"=>"text"),
+                array("field"=>"EMPR_FUNEB","format"=>"text"),
+
+            );
+
+            log_message('error', 'cco-> pasando x excel de sac lotes end1!.');
+            return parent::excel($values);
+        }
+        catch(Exception $e){
+            return logError($e,__METHOD__ );
+        }
+    }
+    public function pdf($values){
+        try {
+            if ($values["where"]!=""){$values["where"]=base64_decode($values["where"]);}
+            $values["view"]="vw_SacFallecidos";
+            $values["pagesize"]=-1;
+            $values["order"]="SECCION,SEPULTURA,TIPO";
+            $values["records"]=$this->get($values);
+            $values["title"]="Fallecidos: Altas, Bajas, Consultas y Modificaciones";
+            $values["columns"]=array(
+                array("field"=>"ID","format"=>"code"),
+                //array("field"=>"ssst","format"=>"code"),
+                array("field"=>"SECCION","format"=>"text"),
+                array("field"=>"SEPULTURA","format"=>"text"),
+                array("field"=>"TIPO","format"=>"text"),
+                array("field"=>"NRO_APERTU","format"=>"text"),
+                array("field"=>"NOMBRE","format"=>"text"),
+                array("field"=>"EDAD","format"=>"text"),
+                array("field"=>"FECHA","format"=>"text"),
+                array("field"=>"NACIONALID","format"=>"text"),
+                array("field"=>"ESTADOCIVI","format"=>"text"),
+                array("field"=>"CAUSADECES","format"=>"text"),
+                array("field"=>"PARTIDA","format"=>"text"),
+                array("field"=>"HORA","format"=>"text"),
+                array("field"=>"EMPR_FUNEB","format"=>"text"),
+            );
+            log_message("error", "RELATED ".json_encode($values,JSON_PRETTY_PRINT));
+            return parent::pdf($values);
+        }
+        catch(Exception $e){
+            return logError($e,__METHOD__ );
+        }
+    }
+
     public function consultas_especiales($values){
         try {
             $location=explode("::",strtolower(__METHOD__));
@@ -82,6 +188,9 @@ class Sac_fallecidos extends MY_Model {
         try {
             $location=explode("::",strtolower(__METHOD__));
             $values["interface"]=(MOD_DISIDENTES."/".$location[0]."/abm");
+
+            $values["view"]="vw_SacFallecidos";
+
             $values["page"]=1;
             $values["where"]=("id=".$values["id"]);
             $values["records"]=$this->get($values);
