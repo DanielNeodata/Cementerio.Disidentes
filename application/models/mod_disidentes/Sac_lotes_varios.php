@@ -28,7 +28,7 @@ class Sac_lotes_varios extends MY_Model {
             $values["buttons"]=array(
                 "new"=>false,
                 "edit"=>true,
-                "delete"=>true,
+                "delete"=>false,
                 "offline"=>false,
             );
             $values["columns"]=array(

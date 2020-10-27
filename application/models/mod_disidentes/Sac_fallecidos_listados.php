@@ -3,7 +3,7 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 //log_message("error", "RELATED ".json_encode($data,JSON_PRETTY_PRINT));
 /*---------------------------------*/
 
-class Sac_fallecidos extends MY_Model {
+class Sac_fallecidos_listados extends MY_Model {
     public function __construct()
     {
         parent::__construct();
@@ -11,7 +11,7 @@ class Sac_fallecidos extends MY_Model {
     public function brow($values){
         try {
             $values["view"]="vw_SacFallecidos";
-            $values["order"]="SECCION,SEPULTURA,NRO_APERTU";
+            $values["order"]="SECCION,NRO_APERTU";
             $values["records"]=$this->get($values);
 
             $values["getters"]=array(
@@ -24,7 +24,7 @@ class Sac_fallecidos extends MY_Model {
             $values["buttons"]=array(
                 "new"=>true,
                 "edit"=>true,
-                "delete"=>true,
+                "delete"=>false,
                 "offline"=>false,
             );
             $values["columns"]=array(
@@ -34,14 +34,7 @@ class Sac_fallecidos extends MY_Model {
                 array("field"=>"TIPO","format"=>"text"),
                 array("field"=>"NRO_APERTU","format"=>"text"),
                 array("field"=>"NOMBRE","format"=>"text"),
-                array("field"=>"EDAD","format"=>"text"),
                 array("field"=>"FECHA","format"=>"text"),
-                array("field"=>"NACIONALID","format"=>"text"),
-                array("field"=>"ESTADOCIVI","format"=>"text"),
-                array("field"=>"CAUSADECES","format"=>"text"),
-                array("field"=>"PARTIDA","format"=>"text"),
-                array("field"=>"HORA","format"=>"text"),
-                array("field"=>"EMPR_FUNEB","format"=>"text"),
                 
                 
                 array("field"=>"","format"=>null),
@@ -49,20 +42,15 @@ class Sac_fallecidos extends MY_Model {
             );
 
              $values["controls"]=array(
-                "<label>".lang('p_SECCION')."</label><input type='number' id='browser_seccion' name='browser_seccion' class='form-control number'/>",
-                "<label>".lang('p_SEPULTURA')."</label><input type='number' id='browser_sepultura' name='browser_sepultura' class='form-control number'/>",
-                "<label>".lang('p_TIPO')."</label><input type='text' id='browser_tipo' name='browser_tipo' class='form-control text'/>",
-                "<label>".lang('p_NOMBRE')."</label><input type='text' id='browser_nombre' name='browser_nombre' class='form-control text'/>",
-                "<label>".lang('p_FECHA')."</label><input type='text' id='browser_fecha' name='browser_fecha' class='form-control date'/>",
+                "<label>".lang('p_SECCION_DESDE')."</label><input type='number' id='browser_seccion_desde' name='browser_seccion' class='form-control number'/>",
+                "<label>".lang('p_SECCION_HASTA')."</label><input type='number' id='browser_seccion_hasta' name='browser_sepultura' class='form-control number'/>",
+                
             );
 
             $values["filters"]=array(
-                array("name"=>"browser_sepultura", "operator"=>"like","fields"=>array("SEPULTURA")),
-                array("name"=>"browser_seccion", "operator"=>"like","fields"=>array("SECCION")),
-                array("name"=>"browser_tipo", "operator"=>"like","fields"=>array("TIPO")),
-                array("name"=>"browser_nombre", "operator"=>"like","fields"=>array("NOMBRE")),
-                array("name"=>"browser_fecha", "operator"=>"like","fields"=>array("FECHA")),
-                array("name"=>"browser_search", "operator"=>"like","fields"=>array("NOMBRE")),
+                array("name"=>"browser_seccion_desde", "operator"=>">=","fields"=>array("SECCION")),
+                array("name"=>"browser_seccion_hasta", "operator"=>"<=","fields"=>array("SECCION")),
+                
             );
             return parent::brow($values);
         }
@@ -78,26 +66,20 @@ class Sac_fallecidos extends MY_Model {
             $values["view"]="vw_SacFallecidos";
             $values["delimiter"]=";";
             $values["pagesize"]=-1;
-            $values["order"]="SECCION,SEPULTURA,NRO_APERTU";
+            $values["order"]="SECCION,NRO_APERTU";
             //$values["order"]=" description ASC";
             $values["records"]=$this->get($values);
 
             $values["columns"]=array(
                 array("field"=>"ID","format"=>"code"),
                 //array("field"=>"ssst","format"=>"code"),
-                array("field"=>"SECCION","format"=>"text"),
+                                array("field"=>"SECCION","format"=>"text"),
                 array("field"=>"SEPULTURA","format"=>"text"),
                 array("field"=>"TIPO","format"=>"text"),
                 array("field"=>"NRO_APERTU","format"=>"text"),
                 array("field"=>"NOMBRE","format"=>"text"),
-                array("field"=>"EDAD","format"=>"text"),
                 array("field"=>"FECHA","format"=>"text"),
-                array("field"=>"NACIONALID","format"=>"text"),
-                array("field"=>"ESTADOCIVI","format"=>"text"),
-                array("field"=>"CAUSADECES","format"=>"text"),
-                array("field"=>"PARTIDA","format"=>"text"),
-                array("field"=>"HORA","format"=>"text"),
-                array("field"=>"EMPR_FUNEB","format"=>"text"),
+
 
             );
 
@@ -113,7 +95,7 @@ class Sac_fallecidos extends MY_Model {
             if ($values["where"]!=""){$values["where"]=base64_decode($values["where"]);}
             $values["view"]="vw_SacFallecidos";
             $values["pagesize"]=-1;
-            $values["order"]="SECCION,SEPULTURA,NRO_APERTU";
+            $values["order"]="SECCION,NRO_APERTU";
             $values["records"]=$this->get($values);
             $values["title"]="Fallecidos: Altas, Bajas, Consultas y Modificaciones";
             $values["columns"]=array(
@@ -124,14 +106,8 @@ class Sac_fallecidos extends MY_Model {
                 array("field"=>"TIPO","format"=>"text"),
                 array("field"=>"NRO_APERTU","format"=>"text"),
                 array("field"=>"NOMBRE","format"=>"text"),
-                array("field"=>"EDAD","format"=>"text"),
                 array("field"=>"FECHA","format"=>"text"),
-                array("field"=>"NACIONALID","format"=>"text"),
-                array("field"=>"ESTADOCIVI","format"=>"text"),
-                array("field"=>"CAUSADECES","format"=>"text"),
-                array("field"=>"PARTIDA","format"=>"text"),
-                array("field"=>"HORA","format"=>"text"),
-                array("field"=>"EMPR_FUNEB","format"=>"text"),
+
             );
             log_message("error", "RELATED ".json_encode($values,JSON_PRETTY_PRINT));
             return parent::pdf($values);

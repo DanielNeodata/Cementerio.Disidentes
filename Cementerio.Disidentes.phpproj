@@ -135,6 +135,8 @@
     <Compile Include="application\models\mod_backend\Rel_users_groups.php" />
     <Compile Include="application\models\mod_backend\Type_users.php" />
     <Compile Include="application\models\mod_backend\Users.php" />
+    <Compile Include="application\models\mod_disidentes\Sac_fallecidos_consultasEspeciales.php" />
+    <Compile Include="application\models\mod_disidentes\Sac_fallecidos_listados.php" />
     <Compile Include="application\models\mod_disidentes\Sac_lotes_listados.php" />
     <Compile Include="application\models\mod_disidentes\Sac_lotes_historial.php" />
     <Compile Include="application\models\mod_disidentes\Sac_lotes_responsable.php" />

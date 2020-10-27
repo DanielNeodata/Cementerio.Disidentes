@@ -158,3 +158,16 @@ $lang['p_NACIONALID'] = "Nacionalidad";
 $lang['p_FECHA_EMIS'] = "Fecha Emisión";
 $lang['p_NRO_RECIBO'] = "Nro Recibo";
 $lang['p_CONCEPTO'] = "Concepto";
+$lang['p_FECHA'] = "Fecha";
+$lang['p_FECHA_DESDE'] = "Fecha desde";
+$lang['p_FECHA_HASTA'] = "Fecha hasta";
+$lang['p_NRO_APERTU'] = "Nro Ap.";
+$lang['p_CAUSADECES'] = "Causa Deceso";
+$lang['p_PARTIDA'] = "Partida";
+$lang['p_HORA'] = "Hora";
+$lang['p_EMPR_FUNEB'] = "Empresa Fúnebre";
+$lang['p_InfoLote'] = "Información del Lote";
+
+$lang['p_SECCION_DESDE'] = "Sección desde";
+$lang['p_SECCION_HASTA'] = "Sección hasta";
+
