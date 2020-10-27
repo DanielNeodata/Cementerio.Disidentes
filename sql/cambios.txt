@@ -22,6 +22,12 @@ update mod_backend_functions set data_model='Sac_lotes_varios', data_action='bro
   update mod_backend_functions set data_model='Sac_lotes_listados', data_action='brow' where id=1055
   go
 
+
+update mod_backend_functions set data_model='Sac_fallecidos_consultasEspeciales', data_action='brow' where id=1057
+  go
+  update mod_backend_functions set data_model='Sac_fallecidos_listados', data_action='brow' where id=1058
+  go
+
 crear vista vw_SacLotesDetalleHistorico
 crear vista [vw_SacLotes]
 crear vista vw_SacLotesHistorial
