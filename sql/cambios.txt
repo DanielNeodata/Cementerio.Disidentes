@@ -28,8 +28,65 @@ update mod_backend_functions set data_model='Sac_fallecidos_consultasEspeciales'
   update mod_backend_functions set data_model='Sac_fallecidos_listados', data_action='brow' where id=1058
   go
 
+
+update mod_backend_functions set data_model='Sac_facturacion_recibos', data_action='brow' where id=1059
+  go
+
+update [mod_backend_functions] set data_model='Sac_facturacion_precios',data_action='brow' where id=1062
+go
+
 crear vista vw_SacLotesDetalleHistorico
 crear vista [vw_SacLotes]
 crear vista vw_SacLotesHistorial
 
+alter table SAC_Servicio add JARDINERIA int null
 
+create table estados_ocupacion(
+  id varchar(20) not null,
+  descripcion varchar(100)
+  )
+
+
+alter table Sac_Lotes add ESTADO_OCUPACION varchar(20) null
+
+
+insert into estados_ocupacion values ('DCCCR','Disponible con Carta Con Restos')
+insert into estados_ocupacion values ('DSCCR','Disponible Sin Carta Con Restos')
+insert into estados_ocupacion values ('DCCSR','Disponible Con Carta Sin Restos')
+insert into estados_ocupacion values ('DISPO','Disponible')
+insert into estados_ocupacion values ('NUEVA','Nueva')
+insert into estados_ocupacion values ('ARREN','Arrendada')
+insert into estados_ocupacion values ('REVIS','Revisar')
+
+
+--update estados_ocupacion set id='ARR',descripcion='Arrendada' where id='OCU'
+--update SAC_Lotes set ESTADO_OCUPACION='ARR'where ESTADO_OCUPACION='OCU'
+
+select ESTADO_OCUPACION,TITULAR,* from SAC_Lotes where TITULAR like '%DISPONIBLE%'  
+
+update SAC_Lotes set ESTADO_OCUPACION=''
+update SAC_Lotes set ESTADO_OCUPACION='DCCCR' where TITULAR like '%DISPONIBLE%CARTA%' and not (charindex('DISPONIBLE', TITULAR) = 1)
+update SAC_Lotes set ESTADO_OCUPACION='DSCCR' where TITULAR like '%DISPONIBLE%' and not (charindex('DISPONIBLE', TITULAR) = 1) and ESTADO_OCUPACION =''
+update SAC_Lotes set ESTADO_OCUPACION='DSCCR' where TITULAR like '%DISP%' and not (charindex('DISPONIBLE', TITULAR) = 1) and ESTADO_OCUPACION =''
+update SAC_Lotes set ESTADO_OCUPACION='DCCSR' where (charindex('DISPONIBLE', TITULAR) = 1) and TITULAR like '%CARTA%' and ESTADO_OCUPACION =''
+update SAC_Lotes set ESTADO_OCUPACION='DISPO' where (charindex('DISPONIBLE', TITULAR) = 1) and TITULAR not like '%CARTA%' and ESTADO_OCUPACION =''
+update SAC_Lotes set ESTADO_OCUPACION='ARREN' where ESTADO_OCUPACION is null or ESTADO_OCUPACION=''
+
+
+
+alter table SAC_Lotes add EMAIL_SEC varchar(255) null
+alter table SAC_Lotes add RES_EMAIL_SEC varchar(255) null
+
+
+
+
+
+
+create table ModelosNotificiaciones (ID int identity, ModeloNotificacionNombre varchar(200), ModeloNotificacionHtml varchar(max))
+
+alter table ModelosNotificiaciones add ModeloNotificacionTitulo varchar(200)
+
+insert into mod_backend_functions values ('m_modelo_notificaciones','Submenú Modelo de Notificaciones',GETDATE(),GETDATE(),null,'tab',1048,'mod_disidentes','Sac_modelos_notificaciones','',GETDATE(),350,'brow',100,null,1,0)
+insert into mod_backend_rel_groups_functions values (1,1093)
+insert into mod_backend_rel_groups_functions values (2,1093)
+--  update mod_backend_functions set data_model='Sac_modelos_notificaciones' where id=1093
