@@ -99,6 +99,9 @@ create table ModelosNotificiaciones (ID int identity, ModeloNotificacionNombre v
 alter table ModelosNotificiaciones add ModeloNotificacionTitulo varchar(200)
 
 insert into mod_backend_functions values ('m_modelo_notificaciones','Submenú Modelo de Notificaciones',GETDATE(),GETDATE(),null,'tab',1048,'mod_disidentes','Sac_modelos_notificaciones','',GETDATE(),350,'brow',100,null,1,0)
+
+verificar el id que da
+
 insert into mod_backend_rel_groups_functions values (1,1093)
 insert into mod_backend_rel_groups_functions values (2,1093)
 --  update mod_backend_functions set data_model='Sac_modelos_notificaciones' where id=1093
