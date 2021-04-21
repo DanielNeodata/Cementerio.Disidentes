@@ -1,7 +1,17 @@
+
+/*
+
+ya hecho en produ
+
 insert into [mod_backend_functions] values ('m_abcm_responsable','Sunmenú ABCM por Responsable',getdate(),getdate(),null,'tab',1046,'mod_disidentes','Sac_lotes','Sac_lotes',getdate(),110,'brow_responsable',100,null,1,0)
 go
 insert into [mod_backend_functions] values ('m_abcm_varios','Sunmenú ABCM por varios',getdate(),getdate(),null,'tab',1046,'mod_disidentes','Sac_lotes','Sac_lotes',getdate(),120,'brow_varios',100,null,1,0)
 go
+
+select * from [mod_backend_functions]
+
+delete from [mod_backend_functions] where id=1093
+delete from [mod_backend_functions] where id=1094
 
 insert into [mod_backend_rel_groups_functions] values (1,1091)
   go
@@ -12,6 +22,7 @@ insert into [mod_backend_rel_groups_functions] values (1,1091)
   insert into [mod_backend_rel_groups_functions] values (2,1092)
   go
 
+*/
 update mod_backend_functions set data_model='Sac_lotes_varios', data_action='brow' where id=1092
   go
   update mod_backend_functions set data_model='Sac_lotes_responsable', data_action='brow' where id=1091
@@ -48,6 +59,7 @@ create table estados_ocupacion(
 
 
 alter table Sac_Lotes add ESTADO_OCUPACION varchar(20) null
+update Sac_Lotes set ESTADO_OCUPACION=''
 
 
 insert into estados_ocupacion values ('DCCCR','Disponible con Carta Con Restos')
@@ -90,3 +102,114 @@ insert into mod_backend_functions values ('m_modelo_notificaciones','Submenú Mo
 insert into mod_backend_rel_groups_functions values (1,1093)
 insert into mod_backend_rel_groups_functions values (2,1093)
 --  update mod_backend_functions set data_model='Sac_modelos_notificaciones' where id=1093
+
+insert into ModelosNotificiaciones values ('email-conservaciones','<html>
+<head>
+    <title>Aviso vencimiento conservación</title>
+</head>
+<body style="margin:25px;">
+    <h1>Aviso vencimiento conservación</h1>
+    <hr/>
+    <p style="font-weight:bold;">
+        Estimado Sr/a [TITULAR]<br/>
+        [DIRECCION]<br />
+        [LOCALIDAD]<br />
+        [COD_POSTAL]<br />
+        <br />
+        SECCION: [SECCION]<br />
+        SEPULTURA: [SEPULTURA]<br />
+    </p>
+    <p>
+        Revisando nuestros registros vemos que la sepultura de referencia tiene un saldo vencido $[IMPORTE].
+    </p>
+    <p>
+        Esto surge de importes por mantenimiento no cancelados entre las fechas de [VENCIMIENTO] al 31/08/2017.
+    </p>
+    <p>
+        Nos ponemos en contacto para ver la forma más conveniente y cómoda para usted, para solucionar este momentáneo atraso.<br/>
+        El Sr. David Gibson estará a su disposición para asesorarlo en las diferentes formas de pago.<br />
+        TE: 11-4231-1138 / 11-4298-1594 (FAX)<br />
+        Mail: administracion@cementeriosantacatalina.com.ar<br />
+        O en el Cementerio en el horario de lunes a viernes de 08 Hs. a 12 Hs. y de 14 Hs. a 17.30 Hs. sábados de 8 a 12 Hs.<br />
+        En caso de que, entre el envío de esta nota y su recepción, se haya cancelado el importe, rogamos nos lo informe al número de teléfono o al mail citados más arriba para poder hacer la correspondiente conciliación y enviarle el recibo oficial.<br />
+    </p>
+    <p>
+        Hacemos llegar nuestro cordial saludo.
+    </p>
+    <p style="text-align:right;margin-right:40px;">
+        Gustavo Reyero<br />
+        administrador
+    </p>
+
+    <p>
+        Depósitos a: Asociación Cementerio Disidentes de Lomas de Zamora<br />
+        Banco Francés: Cta. Cte. 020-1471/3<br />
+        CBU: 0170020620000000147136 CUIT: 30-52756678-5
+    </p>
+
+</body>
+</html>
+','Notificación de Conservaciones')
+
+insert into ModelosNotificiaciones values ('email-renovaciones','<html>
+<head>
+   <title>Aviso vencimiento renovación</title>
+</head>
+<body>
+<h1>Título</h1>
+<p>
+    Párrafo de primer nivel 
+    Vencimiento: [VENCIMIENTO]
+    Sección: [SECCION]
+    Sepultura: [SEPULTURA]
+    Titular: [TITULAR]
+</p>
+
+</body>
+</html>','Notificación de Renovaciones')
+
+insert into ModelosNotificiaciones values ('se va a enviar por mail','<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Aviso vencimiento conservación</title></head><body style="margin: 25px;">
+    <h1>Aviso vencimiento conservación</h1>
+    <hr>
+    <p style="font-weight: bold;">
+        Estimado Sr/a [TITULAR]<br>
+        [DIRECCION]<br>
+        [LOCALIDAD]<br>
+        [COD_POSTAL]<br>
+        <br>
+        SECCION: [SECCION]<br>
+        SEPULTURA: [SEPULTURA]<br>
+    </p>
+    <p>
+        Revisando nuestros registros vemos que la sepultura de referencia tiene un saldo vencido $[IMPORTE].
+    </p>
+    <p>
+        Esto surge de importes por mantenimiento no cancelados entre las fechas de [VENCIMIENTO] al 30/06/2020.
+    </p>
+    <p>
+        Nos ponemos en contacto para ver la forma más conveniente y cómoda para usted, para solucionar este momentáneo atraso.<br>
+        El Sr. David Gibson estará a su disposición para asesorarlo en las diferentes formas de pago.<br>
+        TE: 11-4231-1138 / 11-4298-1594 (FAX)<br>
+        Mail: administracion@cementeriosantacatalina.com.ar<br>
+        O en el Cementerio en el horario de lunes a viernes de 08 Hs. a 12 Hs. y de 14 Hs. a 17 Hs. sábados de 8 a 11 Hs.<br>
+En caso de que, entre el envío de esta nota y su recepción, se haya
+cancelado el importe, rogamos nos lo informe enviando
+el correspondiente comprobante bancario detallando sección y sepultura al mail indicado más arriba, para poder hacer la correspondiente
+conciliación y enviarle el recibo oficial.<br>
+    </p>
+    <p>
+        Hacemos llegar nuestro cordial saludo.
+    </p>
+    <p style="text-align: right; margin-right: 40px;">
+        Gustavo Reyero<br>
+        administrador
+    </p>
+
+    <p>
+        Depósitos a: Asociación Cementerio Disidentes de Lomas de Zamora<br>
+        Banco Francés: Cta. Cte. 020-1471/3<br>
+        CBU: 0170020620000000147136 CUIT: 30-52756678-5
+    </p>
+
+</body></html>','Notificación por mail')
