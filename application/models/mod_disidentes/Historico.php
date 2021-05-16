@@ -8,12 +8,25 @@ class Historico extends MY_Model {
     {
         parent::__construct();
     }
+
+
     public function rubros($values){
         try {
             $location=explode("::",strtolower(__METHOD__));
             $values["interface"]=(MOD_DISIDENTES."/".$location[0]."/".$location[1]);
             $data["parameters"] = $values;
             $data["title"] = ucfirst(lang("m_".strtolower($values["function"])));
+
+            $sql = " SELECT ID, COMENTARIO FROM CON_Configuracion_Historico ORDER BY COMENTARIO";
+
+            log_message('error', 'cco-> pasando x RUBROS en HISTORICO de rubos VIEW es:->'.$sql."<-");
+            $ejercicios = $this->execAdHocAsArray($sql);
+
+            $data["ejercicios"] = $ejercicios;
+			
+
+            log_message('error', 'cco-> pasando x Rubros en HISTORICO de rubos AFTER COMBO ');
+
             $html=$this->load->view($values["interface"],$data,true);
             logGeneral($this,$values,__METHOD__);
             return array(
@@ -35,7 +48,16 @@ class Historico extends MY_Model {
             $values["interface"]=(MOD_DISIDENTES."/".$location[0]."/".$location[1]);
             $data["parameters"] = $values;
             $data["title"] = ucfirst(lang("m_".strtolower($values["function"])));
+
+            $sql = " SELECT ID, COMENTARIO FROM CON_Configuracion_Historico ORDER BY COMENTARIO";
+
+            log_message('error', 'cco-> pasando x CUENTAS en HISTORICO de rubos VIEW es:->'.$sql."<-");
+            $ejercicios = $this->execAdHocAsArray($sql);
+
+            $data["ejercicios"] = $ejercicios;
+			
             $html=$this->load->view($values["interface"],$data,true);
+
             logGeneral($this,$values,__METHOD__);
             return array(
                 "code"=>"2000",
@@ -56,6 +78,14 @@ class Historico extends MY_Model {
             $values["interface"]=(MOD_DISIDENTES."/".$location[0]."/".$location[1]);
             $data["parameters"] = $values;
             $data["title"] = ucfirst(lang("m_".strtolower($values["function"])));
+
+            $sql = " SELECT ID, COMENTARIO FROM CON_Configuracion_Historico ORDER BY COMENTARIO";
+
+            log_message('error', 'cco-> pasando x CUENTAS en HISTORICO de rubos VIEW es:->'.$sql."<-");
+            $ejercicios = $this->execAdHocAsArray($sql);
+
+            $data["ejercicios"] = $ejercicios;
+
             $html=$this->load->view($values["interface"],$data,true);
             logGeneral($this,$values,__METHOD__);
             return array(
@@ -77,6 +107,16 @@ class Historico extends MY_Model {
             $values["interface"]=(MOD_DISIDENTES."/".$location[0]."/".$location[1]);
             $data["parameters"] = $values;
             $data["title"] = ucfirst(lang("m_".strtolower($values["function"])));
+
+            $sql = " SELECT ID, COMENTARIO FROM CON_Configuracion_Historico ORDER BY COMENTARIO";
+
+            log_message('error', 'cco-> pasando x RUBROS en HISTORICO de rubos VIEW es:->'.$sql."<-");
+            $ejercicios = $this->execAdHocAsArray($sql);
+
+            $data["ejercicios"] = $ejercicios;
+			
+
+
             $html=$this->load->view($values["interface"],$data,true);
             logGeneral($this,$values,__METHOD__);
             return array(
@@ -98,6 +138,14 @@ class Historico extends MY_Model {
             $values["interface"]=(MOD_DISIDENTES."/".$location[0]."/".$location[1]);
             $data["parameters"] = $values;
             $data["title"] = ucfirst(lang("m_".strtolower($values["function"])));
+
+            $sql = " SELECT ID, COMENTARIO FROM CON_Configuracion_Historico ORDER BY COMENTARIO";
+
+            log_message('error', 'cco-> pasando x RUBROS en HISTORICO de rubos VIEW es:->'.$sql."<-");
+            $ejercicios = $this->execAdHocAsArray($sql);
+
+            $data["ejercicios"] = $ejercicios;
+
             $html=$this->load->view($values["interface"],$data,true);
             logGeneral($this,$values,__METHOD__);
             return array(
@@ -119,6 +167,14 @@ class Historico extends MY_Model {
             $values["interface"]=(MOD_DISIDENTES."/".$location[0]."/".$location[1]);
             $data["parameters"] = $values;
             $data["title"] = ucfirst(lang("m_".strtolower($values["function"])));
+
+            $sql = " SELECT ID, COMENTARIO FROM CON_Configuracion_Historico ORDER BY COMENTARIO";
+
+            log_message('error', 'cco-> pasando x RUBROS en HISTORICO de rubos VIEW es:->'.$sql."<-");
+            $ejercicios = $this->execAdHocAsArray($sql);
+
+            $data["ejercicios"] = $ejercicios;
+
             $html=$this->load->view($values["interface"],$data,true);
             logGeneral($this,$values,__METHOD__);
             return array(

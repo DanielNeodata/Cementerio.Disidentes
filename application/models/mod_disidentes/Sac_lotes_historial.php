@@ -34,7 +34,7 @@ class Sac_lotes_historial extends MY_Model {
                 //array("field"=>"ssst","format"=>"code"),
                 array("field"=>"SECCION","format"=>"text"),
                 array("field"=>"SEPULTURA","format"=>"text"),
-                array("field"=>"FECHA_EMIS","format"=>"text"),
+                array("field"=>"FECHA_EMIS","format"=>"date"),
                 array("field"=>"NRO_RECIBO","format"=>"text"),
                 array("field"=>"CONCEPTO","format"=>"text"),
                 
@@ -45,12 +45,14 @@ class Sac_lotes_historial extends MY_Model {
             $values["controls"]=array(
                 "<label>".lang('p_SECCION')."</label><input type='number' id='browser_seccion' name='browser_seccion' class='form-control number'/>",
                 "<label>".lang('p_SEPULTURA')."</label><input type='number' id='browser_sepultura' name='browser_sepultura' class='form-control number'/>",
+                "<label>".lang('p_TIPO')."</label><input type='text' id='browser_tipo' name='browser_tipo' class='form-control number'/>",
             );
 
             $values["filters"]=array(
                 //array("name"=>"browser_search", "operator"=>"like","fields"=>array("TITULAR")),
                 array("name"=>"browser_sepultura", "operator"=>"like","fields"=>array("SEPULTURA")),
                 array("name"=>"browser_seccion", "operator"=>"like","fields"=>array("SECCION")),
+                array("name"=>"browser_tipo", "operator"=>"like","fields"=>array("TIPO")),
             );
             return parent::brow($values);
         }
@@ -75,7 +77,7 @@ class Sac_lotes_historial extends MY_Model {
                 //array("field"=>"ssst","format"=>"code"),
                 array("field"=>"SECCION","format"=>"text"),
                 array("field"=>"SEPULTURA","format"=>"text"),
-                array("field"=>"FECHA_EMIS","format"=>"text"),
+                array("field"=>"FECHA_EMIS","format"=>"date"),
                 array("field"=>"NRO_RECIBO","format"=>"text"),
                 array("field"=>"CONCEPTO","format"=>"text"),
 
@@ -101,7 +103,7 @@ class Sac_lotes_historial extends MY_Model {
                 //array("field"=>"ssst","format"=>"code"),
                 array("field"=>"SECCION","format"=>"text"),
                 array("field"=>"SEPULTURA","format"=>"text"),
-                array("field"=>"FECHA_EMIS","format"=>"text"),
+                array("field"=>"FECHA_EMIS","format"=>"date"),
                 array("field"=>"NRO_RECIBO","format"=>"text"),
                 array("field"=>"CONCEPTO","format"=>"text"),
             );

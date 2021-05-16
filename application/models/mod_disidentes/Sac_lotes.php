@@ -8,6 +8,118 @@ class Sac_lotes extends MY_Model {
     {
         parent::__construct();
     }
+    
+    public function GetLote($values){
+	    try {
+	        log_message('error', 'cco-> pasando x GetLote de lotes init!.');
+	        logGeneral($this,$values,__METHOD__);
+	        log_message('error', 'cco-> pasando x GetLote de lotes desp log general.');
+	        if (isset($values["view"])){$this->view=$values["view"];}
+	        log_message('error', 'cco-> pasando x GetLote de lotes VIEW es:->'.$values["view"]."<-");
+            //log_message("error", "ARRAY values ".json_encode($values,JSON_PRETTY_PRINT));
+
+	        $values["view"]="vw_SacLotes";
+	        //$values["order"]=$values["Orden"]." ASC";
+	        //$values["page"]=-1;
+	        $values["pagesize"]=-1;
+
+            
+
+            $values["where"]=" ID = ".$values["ID"];
+
+
+	        log_message('error', 'cco-> pasando x GetLote de  lotes ver where->'.$filtro."<-");
+
+            //$conceptos = $this->execAdHocAsArray("select * from SAC_Operaciones order by ID");
+           
+
+	        $data=$this->get($values);
+
+            $precios = $this->execAdHocAsArray("select * from SAC_Servicio");
+
+            log_message("error", "ARRAY values ".json_encode($data,JSON_PRETTY_PRINT));
+
+            $sec = $data["data"][0]["SECCION"];
+            $sep = $data["data"][0]["SEPULTURA"];
+
+            $recnoac = $data["data"][0]["ACUENTA"];
+            if ($recnoac>0)
+            {
+                $qryac = "SELECT *,CONVERT(char(10),FECHA_EMIS,103) As qryFec, IsNull(str(importe,10,0), 0)*-1 As qryTot FROM SAC_Movimientos WHERE (NRO_RECIBO=".trim($recnoac)." and OPERACION='PC' and IMPORTE>0);";
+
+            }
+            else
+            {
+                $qryac = "SELECT * FROM SAC_Movimientos WHERE 1=2";
+            }
+            $acuenta = $this->execAdHocAsArray($qryac);
+
+            log_message('error', 'cco-> pasando x GetLote de  lotes ver sep->'.$sep."<- ->".$sec."<-");
+
+            $qryF = "SELECT ID FROM SAC_Fallecidos WHERE (SECCION='".$sec."') And (SEPULTURA='".$sep."');";
+            log_message('error', 'cco-> pasando x GetLote de  lotes ver where->'.$qryF."<-");
+
+            $fallecidos = $this->execAdHocAsArray($qryF);
+            
+
+                                
+	        log_message('error', 'cco-> pasando x GetLote de  lotes entre getrecords y return array! Cantidad filas:'.$data["totalrecords"]."<-------");
+	        return array(
+	            "code"=>"2000",
+	            "status"=>"OK",
+	            "message"=>"Records",
+                //"conceptos"=>$conceptos,
+                "precios"=>$precios,
+                "fallecidos"=>$fallecidos,
+                "acuenta" =>$acuenta,
+	            "table"=>$this->table,
+	            "function"=> ((ENVIRONMENT === 'development' or ENVIRONMENT === 'testing') ? __METHOD__ :ENVIRONMENT),
+	            "data"=>$data["data"],
+	            "totalrecords"=>$data["totalrecords"],
+	            "totalpages"=>$data["totalpages"],
+	            "page"=>$data["page"]
+	        );
+	    }
+	    catch(Exception $e) {
+	        return logError($e,__METHOD__ );
+	    }
+	}
+
+    public function getCustom($values){
+        try {
+            log_message('error', 'cco-> pasando x getCustom de sac lotes init!.');
+            logGeneral($this,$values,__METHOD__);
+            log_message('error', 'cco-> pasando x getCustom de sac lotes desp log general.');
+            if (isset($values["view"])){$this->view=$values["view"];}
+            $values["page"]=-1;
+            $values["pagesize"]=-1;
+            $values["order"]="1 ASC";
+            $values["where"]="id>0";
+
+            log_message('error', 'cco-> pasando x getCustom de sac lotes ver vars.'.$values["txtResponsable"]."_--------------_".$values["txtSeputura"]);
+
+            //$values["txtOrden"];
+            //$values["txtSepultura"];
+
+            $data=$this->get($values);
+            log_message('error', 'cco-> pasando x getCustom de sac lotes entre getrecords y return array! Cantidad filas:'.$data["totalrecords"]."<-------");
+            return array(
+                "code"=>"2000",
+                "status"=>"OK",
+                "message"=>"Records",
+                "table"=>$this->table,
+                "function"=> ((ENVIRONMENT === 'development' or ENVIRONMENT === 'testing') ? __METHOD__ :ENVIRONMENT),
+                "data"=>$data["data"],
+                "totalrecords"=>$data["totalrecords"],
+                "totalpages"=>$data["totalpages"],
+                "page"=>$data["page"]
+            );
+        }
+        catch(Exception $e) {
+            return logError($e,__METHOD__ );
+        }
+    }
+
     public function brow($values){
         try {
             log_message('error', 'cco-> pasando x brow de sac lotes init!.');
@@ -41,6 +153,7 @@ class Sac_lotes extends MY_Model {
                 array("field"=>"COD_POSTAL","format"=>"text"),
                 array("field"=>"TELEFONO","format"=>"text"),
                 array("field"=>"EMAIL","format"=>"text"),
+                //array("field"=>"ESTADO_OCUPACION","format"=>"text"),
                 array("field"=>"","format"=>null),
                 array("field"=>"","format"=>null),
             );
@@ -52,6 +165,8 @@ class Sac_lotes extends MY_Model {
                 "<label>".lang('p_TITULAR')."</label><input type='text' id='browser_titular' name='browser_titular' class='form-control text'/>",
                 "<label>".lang('p_RESPONSABL')."</label><input type='text' id='browser_responsable' name='browser_responsable' class='form-control text'/>",
                 "<label>".lang('p_RES_LOCALI')."</label><input type='text' id='browser_reslocalidad' name='browser_reslocalidad' class='form-control text'/>",
+                //"<label>".lang('p_ESTADO_OCUPACION')."</label><input type='text' id='browser_estado_ocupacion' name='browser_estado_ocupacion' class='form-control text'/>",
+                "<label>".lang('p_TIPO')."</label><input type='text' id='browser_tipo' name='browser_tipo' class='form-control number'/>",
             );
 
             $values["filters"]=array(
@@ -62,7 +177,9 @@ class Sac_lotes extends MY_Model {
                 array("name"=>"browser_titular", "operator"=>"like","fields"=>array("TITULAR")),
                 array("name"=>"browser_responsable", "operator"=>"like","fields"=>array("RESPONSABL")),
                 array("name"=>"browser_reslocalidad", "operator"=>"like","fields"=>array("RES_LOCALI")),
-                array("name"=>"browser_search", "operator"=>"like","fields"=>array("TITULAR","RESPONSABL","EMAIL","SECCION","SEPULTURA")),
+                //array("name"=>"browser_estado_ocupacion", "operator"=>"like","fields"=>array("ESTADO_OCUPACION")),
+                array("name"=>"browser_search", "operator"=>"like","fields"=>array("TITULAR","RESPONSABL","EMAIL","SECCION","SEPULTURA","ESTADO_OCUPACION")),
+                array("name"=>"browser_tipo", "operator"=>"like","fields"=>array("TIPO")),
             );
             return parent::brow($values);
         }
@@ -200,8 +317,20 @@ class Sac_lotes extends MY_Model {
                 "description_field"=>"descripcion",
                 "get"=>array("order"=>"descripcion ASC","pagesize"=>-1),
             );
+            $parameters_id_estados=array(
+                "model"=>(MOD_DISIDENTES."/Estados_Ocupacion"),
+                "table"=>"estados_ocupacion",
+                "name"=>"estado_ocupacion",
+                "class"=>"form-control dbase",
+                "empty"=>false,
+                "id_actual"=>secureComboPosition($values["records"],"ESTADO_OCUPACION"),
+                "id_field"=>"id",
+                "description_field"=>"descripcion",
+                "get"=>array("order"=>"descripcion ASC","pagesize"=>-1),
+            );
             $values["controls"]=array(
                 "id_forma_pago"=>getCombo($parameters_id_forma_pago,$this),
+                "estado_ocupacion"=>getCombo($parameters_id_estados,$this),
             );
             return parent::edit($values);
         }
@@ -218,6 +347,10 @@ class Sac_lotes extends MY_Model {
             if($id==0){
                 log_message('error', 'cco-> pasando x save de sac lotes! Sin ID entonces CREO una FILA.');
                 log_message('error', 'cco-> pasando x save de sac lotes! Sin ID entonces CREO una FILA. $values["TITULAR"]');
+
+                
+
+
                 if($fields==null) {
                     $fields = array(
                         'SECCION' => $values["SECCION"],
@@ -227,12 +360,17 @@ class Sac_lotes extends MY_Model {
                         'id_forma_pago' => secureEmptyNull($values,"id_forma_pago"),
                         'numero_tarjeta' => $values["numero_tarjeta"],
 
+                        'ESTADO_OCUPACION' => $values["estado_ocupacion"],
+                        
+                        
+
                         'TITULAR' => $values["TITULAR"],
                         'DIRECCION' => $values["DIRECCION"],
                         'COD_POSTAL' => $values["COD_POSTAL"],
                         'LOCALIDAD' => $values["LOCALIDAD"],
                         'TELEFONO' => $values["TELEFONO"],
                         'EMAIL' => $values["EMAIL"],
+                        'EMAIL_SEC' => $values["EMAIL_SEC"],
 
                         'RESPONSABL' => $values["RESPONSABL"],
                         'RES_DIRECC' => $values["RES_DIRECC"],
@@ -240,6 +378,7 @@ class Sac_lotes extends MY_Model {
                         'RES_LOCALI' => $values["RES_LOCALI"],
                         'RES_TELEFO' => $values["RES_TELEFO"],
                         'RES_EMAIL' => $values["RES_EMAIL"],
+                        'RES_EMAIL_SEC' => $values["RES_EMAIL_SEC"],
 
                         'NROTITULO' => $values["NROTITULO"],
                         'FECHACOMPR' => $values["FECHACOMPR"],
@@ -269,7 +408,7 @@ class Sac_lotes extends MY_Model {
                     );
                 }
             } else {
-                log_message('error', 'cco-> pasando x save de sac lotes: titulo-->".$values["TITULO"]."<--!.');
+                log_message('error', 'cco-> pasando x save de sac lotes: titulo-->'.$values["estado_ocupacion"].'<--!.');
                 log_message("error", "RELATED ".json_encode($values,JSON_PRETTY_PRINT));
                 if($fields==null) {
                     $fields = array(
@@ -277,6 +416,8 @@ class Sac_lotes extends MY_Model {
                         'SEPULTURA' => $values["SEPULTURA"],
                         'SECTOR' => $values["SECTOR"],
                         'TIPO' => $values["TIPO"],
+                        
+                        'ESTADO_OCUPACION' => $values["estado_ocupacion"],
 
                         'id_forma_pago' => secureEmptyNull($values,"id_forma_pago"),
                         'numero_tarjeta' => $values["numero_tarjeta"],
@@ -287,6 +428,9 @@ class Sac_lotes extends MY_Model {
                         'LOCALIDAD' => $values["LOCALIDAD"],
                         'TELEFONO' => $values["TELEFONO"],
                         'EMAIL' => $values["EMAIL"],
+
+                        'RES_EMAIL_SEC' => $values["RES_EMAIL_SEC"],
+                        'EMAIL_SEC' => $values["EMAIL_SEC"],
 
                         'RESPONSABL' => $values["RESPONSABL"],
                         'RES_DIRECC' => $values["RES_DIRECC"],

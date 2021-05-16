@@ -1,5 +1,5 @@
 
-create view vw_SacCuentas
+ALTER view [dbo].[vw_SacCuentas]
 as
  SELECT NUMERO, NOMBRE, SALDONOMIN, SALDOAJUST, isnull(qryTA,'') as TipoAjuste,  
                     REPLICATE(' ', ( 
@@ -18,3 +18,6 @@ as
                           (SELECT NUMERO, NOMBRE, SALDONOMIN, SALDOAJUST, CASE WHEN TIPOAJUSTE='A' THEN 'Automático' ELSE (CASE WHEN TIPOAJUSTE='D' THEN 'Directo' ELSE 'Sin Ajuste' END) END As qryTA 
 FROM [CON_Cuentas] WHERE NUMERO BETWEEN '0' AND '9999999999')) As U1 
 WHERE (U1.NUMERO BETWEEN '0' AND '9999999999') 
+GO
+
+

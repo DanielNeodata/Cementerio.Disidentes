@@ -1,4 +1,5 @@
-create view vw_SacRubros
+
+ALTER view [dbo].[vw_SacRubros]
 as
 
 	--REPLICATE(' ',(SELECT Count(NUMERO)*2+R1.NUMERO as NUMERO_TAB, 
@@ -19,3 +20,6 @@ SELECT
 
 FROM 
 	[CON_Rubros] As R1
+GO
+
+

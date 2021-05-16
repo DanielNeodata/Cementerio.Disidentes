@@ -19,6 +19,7 @@ select
 	NRO_APERTU,
 	NOMBRE
 FROM SAC_Fallecidos	
+
 GO
 
 

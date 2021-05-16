@@ -1256,6 +1256,7 @@ _FUNCTIONS = {
 		return new Promise(
 			function (resolve, reject) {
 				try {
+
 					_AJAX._waiter = true;
 					_AJAX.onBeforeSendExecute();
 					setTimeout(function () {
@@ -1267,6 +1268,52 @@ _FUNCTIONS = {
 									$(".abm").addClass("d-none").hide();
 									$(".browser").removeClass("d-none").show();
 									_FUNCTIONS.onAlert({ "message": "Se ha grabado el registro", "class": "alert-success" });
+									if ($(".pagination").html().trim() != "") {
+										$(".page-item.active a").click();
+									} else {
+										$(".btn-browser-search").click();
+									}
+									resolve(data);
+									//_FUNCTIONS.onBrowserSearch(_this).then(function () {
+									//	_FUNCTIONS.onAlert({ "message": "Se ha grabado el registro", "class": "alert-success" });
+									//	resolve(data);
+									//}).catch(function (error) { throw error; });
+								} else {
+									throw data;
+								}
+							});
+						}
+					}, 250);
+				} catch (rex) {
+					setTimeout(function () { _AJAX.onCompleteExecute(); }, 50);
+					_FUNCTIONS.onAlert({ "message": rex.message, "class": "alert-danger" });
+					reject(rex);
+				}
+			});
+
+	},
+	onAbmAcceptReceipt: function (_this) {
+		return new Promise(
+			function (resolve, reject) {
+				try {
+					
+					_AJAX._waiter = true;
+					_AJAX.onBeforeSendExecute();
+					setTimeout(function () {
+						if (_TOOLS.validate(".validate", true)) {
+							var _json = _TOOLS.getFormValues(".dbase", _this);
+							//console.log(_json);
+							_AJAX.UiSave(_json).then(function (data) {
+								if (data.status == "OK") {
+									//alert("rec: " + data.recibo);
+									
+									_FUNCTIONS.onAlert({ "message": "Se ha grabado el registro", "class": "alert-success" });
+									$("#NRO_RECIBO").val(data.recibo);
+									$("#printimg").click();
+
+									$(".abm").addClass("d-none").hide();
+									$(".browser").removeClass("d-none").show();
+
 									if ($(".pagination").html().trim() != "") {
 										$(".page-item.active a").click();
 									} else {
@@ -1813,4 +1860,450 @@ _FUNCTIONS = {
 			});
 		});
 	},
+
+
+/*borrame cco*/
+
+	onGetAsientoDetail: function (_this) {
+		//alert("sarasa" + $("#NRO_RECIBO").val());
+
+		try {
+
+			//alert("Hello from test cco getReceiptDetail event....");
+
+			var _params = {
+				"txtNro": $("#NUMERO_ENCABEZADO").val(),
+
+			};
+
+			_AJAX.UiGetAsientoDetails(_params).then(function (datajson) {
+				console.log(datajson);
+				
+				var _html = "";
+
+				
+				//alert("JSON CTA: " + JSON.stringify(datajson.cuentas));
+				//alert("JSON DH: " + JSON.stringify(datajson.debehaber));
+				//alert("JSON Det: " + JSON.stringify(datajson.detalle));
+
+
+
+				/*armo fecha de hoy en el recibo*/
+				var hoy1 = _TOOLS.getTodayDate("amd", "-");
+
+				$("#FECHA").val(hoy1);
+
+				_html += "<div id='form-detail-generator' style='border-radius: 10px;  border: 1px solid #000000;  padding: 10px;  width: 100%;' >";
+				/*inicio select*/
+
+				_html += "<div class='col-md-3'>";
+					_html += "<label for='SELECT-CTA'>Seleccione Cuenta</label>";
+					_html += "<select class='form-control select dbase' name='SELECT-CTA' id='SELECT-CTA'>";
+					_html += "<option value='0' selected>Seleccione</option > ";
+
+					$.each(datajson.cuentas, function (j, val1) {
+
+						_html += "<option value='" + val1.NUMERO + "'>" + val1.qryDEN + "</option > ";
+
+					});
+					_html += "</select>";
+
+					_html += "<div class='invalid-feedback invalid-TEST-FIELD-1 d-none'></div>";
+				_html += "</div>";
+				/*fin select*/
+
+				_html += "<div class='col-md-3'>";
+					_html += "<label for='SELECT-DH'>Seleccione DH</label>";
+					_html += "<select class='form-control select dbase' name='SELECT-DH' id='SELECT-DH'>";
+					_html += "<option value='0' selected>Seleccione</option > ";
+
+					$.each(datajson.debehaber, function (j, val1) {
+
+						_html += "<option value='" + val1.COD + "'>" + val1.DEN + "</option > ";
+
+					});
+
+					_html += "</select>";
+					_html += "<div class='invalid-feedback invalid-TEST-FIELD-1 d-none'></div>";
+				_html += "</div>";
+
+				_html += "<div class='col-md-8'>";
+					_html += "<label for='TIPCON'>Código Comprobante</label>";
+					_html += "<input data-type='text' autocomplete='nope' value='' class='form-control text dbase ' type='text' name='TIPCOM' id='TIPCOM' data-clear-btn='false' placeholder='Código Comprobante'>";
+					_html += "<div class='invalid-feedback invalid-TIPCON d-none'></div>";
+				_html += "</div>";
+
+
+				_html += "<div class='col-md-8'>";
+					_html += "<label for='NUMCON'>Númeero Comprobante</label>";
+					_html += "<input data-type='text' autocomplete='nope' value='' class='form-control text dbase ' type='text' name='NUMCOM' id='NUMCOM' data-clear-btn='false' placeholder='Número Comprobante'>";
+					_html += "<div class='invalid-feedback invalid-NUMCON d-none'></div>";
+				_html += "</div>";
+
+
+				_html += "<div class='col-md-8'>";
+					_html += "<label for='IMPORTE'>Importe</label>";
+					_html += "<input data-type='text' autocomplete='nope' value='' class='form-control text dbase ' type='text' name='IMPORTE' id='IMPORTE' data-clear-btn='false' placeholder='Importe'>";
+					_html += "<div class='invalid-feedback invalid-IMPORTE d-none'></div>";
+				_html += "</div>";
+
+				_html += "<div class='col-md-8'>";
+					_html += "<label for='DCOMENTARIO'>Comentario</label>";
+					_html += "<input data-type='text' autocomplete='nope' value='' class='form-control text dbase ' type='text' name='DCOMENTARIO' id='DCOMENTARIO' data-clear-btn='false' placeholder='Comentario'>";
+					_html += "<div class='invalid-feedback invalid-COMENTARIO d-none'></div>";
+				_html += "</div>";
+
+				
+
+					/*container para el armado del item a agregar*/
+					_html += "<div id='OPER-CONTAINER' name='OPER-CONTAINER'></div>";
+					/*fin de container*/
+					_html += "</BR>";
+					/*inicio boton y textbox con total*/
+					_html += "<table width=100%><tr><td width=20% style='text-align: left;'>";
+					_html += "<button type='button' class='btn-raised' id='OPER-ADD-BTN' name='OPER-ADD-BTN' disabled onclick=javascript:insertarOnClick();><i class='material-icons'>done</i>Insertar</button>";
+					_html += "</td><td width=50% style='text-align: right;'><div id='txtWarning' name='txtWarning'></div>";
+					_html += "</td><td width=30% style='text-align: right;'>";
+					_html += "<div class='col-md-3' style='text-align: left;'>";
+					_html += "<label for='TOTAL-1'>Balance $</label>";
+					_html += "<input data-type='text' autocomplete='nope' value='0' class='form-control text dbase' type='text' name='TOTAL-1' id='TOTAL-1' data-clear-btn='false' placeholder='Balance'></input>";
+					_html += "<div class='invalid-feedback invalid-TOTAL-1 d-none'></div>";
+					_html += "</div>";
+					_html += "</td></tr></table>";
+					/*fin boton y textbox*/
+					_html += "</div>";
+					_html += "</BR>";
+				_html += "<input type=text class='form-control text dbase' style='display: none' name='OPER-COUNTER' id='OPER-COUNTER' value=0></input>";
+				_html += "<input type=text class='form-control text dbase' style='display: none' name='OPER-MODIFIED' id='OPER-MODIFIED' value=0></input>";
+					//_html += "<input type=hidden name='OPER-PRECIOS' id='OPER-PRECIOS' value='" + JSON.stringify(datajson.precios) + "'></input>";
+					//_html += "<input type=hidden name='OPER-COTIZACION' id='OPER-COTIZACION' value='" + JSON.stringify(datajson.cotizacion) + "'></input>";
+				
+
+
+
+				_html += "<table border=1 width=100% id='table-detail' name='table-detail' style='width:100%;'>";
+				var tot = 0;
+				_html += "<tr>";
+				_html += "<th></th><th>Nro</th><th>Nro de Cuenta</th><th>Nombre</th><th>D/H</th><th>C. C.</th><th>Nro CP</th><th>Importe</th>";
+				_html += "</tr>";
+				var counter = 0;
+				$.each(datajson.detalle, function (i, val) {
+					counter = counter + 1;
+					tot = tot + Number(val.IMPORTE);
+					_html += "<tr id='detail-form-row-" + counter + "'>";
+					_html += "   <td><a href='#' onClick=\"javascript:deleteRow('detail-form-row-" + counter + "','detail-importe-" + counter + "','" + counter + "');return false;\">eliminar</a></td>";
+					_html += "   <td id='detail-form-row-" + counter + "-id'>" + val.RENGLON + "</td>";
+					_html += "   <td id='detail-form-row-" + counter + "-cuenta'>" + val.CUENTA + "</td>";
+					_html += "   <td id='detail-form-row-" + counter + "-nombre'>" + val.NOMBRE + "</td>";
+					_html += "   <td id='detail-form-row-" + counter + "-dh'>" + val.DH + "</td>";
+					_html += "   <td id='detail-form-row-" + counter + "-tipcom>'" + val.TIPCOM + "</td>";
+					_html += "   <td id='detail-form-row-" + counter + "-numcom'>" + val.NUMCOM + "</td>";
+					_html += "   <td id='detail-form-row-" + counter + "-importe'>" + val.IMPORTE; 
+					_html += "<input type=text class='form-control text dbase' style='display: none' id='detail-id-" + counter + "' name='detail-id-" + counter + "' value='" + val.RENGLON + "'></input>";
+					_html += "<input type=text class='form-control text dbase' style='display: none' id='detail-cuenta-" + counter + "' name='detail-cuenta-" + counter + "' value='" + val.CUENTA+"'></input>";
+					_html += "<input type=text class='form-control text dbase' style='display: none' id='detail-nombre-" + counter + "' name='detail-nombre-" + counter + "' value='" + val.NOMBRE+ "'></input>";
+					_html += "<input type=text class='form-control text dbase' style='display: none' id='detail-dh-" + counter + "' name='detail-dh-" + counter + "' value='" + val.DH + "'></input>";
+					_html += "<input type=text class='form-control text dbase' style='display: none' id='detail-tipcom-" + counter + "' name='detail-tipcom-" + counter + "' value='" + val.TIPCOM + "'></input>";
+					_html += "<input type=text class='form-control text dbase' style='display: none' id='detail-numcom-" + counter + "' name='detail-numcom-" + counter + "' value='" + val.NUMCOM + "'></input>";
+					_html += "<input type=text class='form-control text dbase' style='display: none' id='detail-comentario-" + counter + "' name='detail-comentario-" + counter + "' value='" + val.COMENTARIO + "'></input>";
+					_html += "<input type=text class='form-control text dbase' style='display: none' id='detail-importe-" + counter + "' name='detail-importe-" + counter + "' value='" + val.IMPORTE + "'></input>";
+					_html += "</td>";
+					_html += "</tr>";
+					
+				});
+
+				//if ($("#NRO_RECIBO").val() != "") {
+				//	_html += "<tr id='detail-form-total'>";
+				//	_html += "   <td colspan=3 id='detail-form-con' align=right> Total $</td>";
+				//	_html += "   <td id='detail-form-total'>" + tot + "</td>";
+				//	_html += "</tr>";
+				//}
+				//_html += "</table>"
+
+
+				_html += "</BR>";
+				_html += "</BR>";
+
+
+				$("#form-detail").append(_html);
+				$("#OPER-COUNTER").val(counter);
+
+
+				$("#SELECT-CTA").change(function () { validReng(); });
+				$("#SELECT-DH").change(function () { validReng(); });
+
+				$("#TIPCOM").mouseleave (function () { validReng(); });
+				$("#NUMCOM").mouseleave (function () { validReng(); });
+				$("#IMPORTE").mouseleave (function () { validReng(); });
+				$("#DCOMENTARIO").mouseleave(function () { validReng(); });
+
+				var nr = $("#NUMERO_ENCABEZADO").val();
+				//alert(nr);
+				if (nr != "") {
+					$("#NUMERO_ENCABEZADO").prop('disabled', true);
+				}
+
+				//$("#OPER-ADD-BTN").mouseover(function () { validReng(); });
+
+				enableSendForm();
+
+			});
+		} catch (rex) {
+			_FUNCTIONS.onAlert({ "message": rex.message, "class": "alert-danger" });
+			reject(rex);
+		}
+
+
+	},
+
+	onGetReceiptDetail: function (_this) {
+		//alert("sarasa" + $("#NRO_RECIBO").val());
+
+		try {
+
+			//alert("Hello from test cco getReceiptDetail event....");
+
+			var _params = {
+				"txtNroRecibo": $("#NRO_RECIBO").val(),
+				
+			};
+
+			_AJAX.UiGetReciptDetails(_params).then(function (datajson) {
+				console.log(datajson);
+				_FUNCTIONS._cache.receiptSearch = datajson;
+				var _html = "";
+
+				//alert("come back");
+
+				if ($("#NRO_RECIBO").val() == "") {
+
+					//alert("JSON: " + JSON.stringify(datajson.precios));
+
+					/*armo fecha de hoy en el recibo*/
+					var hoy1 = _TOOLS.getTodayDate("amd", "-");
+
+					$("#FECHA_EMIS").val(hoy1);
+
+					_html += "<div id='form-detail-generator' style='border-radius: 10px;  border: 1px solid #000000;  padding: 10px;  width: 100%;' >";
+					/*inicio select*/
+					_html += "<div class='col-md-3'>";
+					_html += "<label for='OPER-SELECT'>Seleccione Opreración</label>";
+					_html += "<select class='form-control select dbase' name='SELECT-OPER' id='SELECT-OPER' onchange=javascript:selectOperOnChange();>";
+					_html += "<option value='0' selected>Seleccione</option > ";
+
+					$.each(datajson.conceptos, function (j, val1) {
+
+						_html += "<option value='" + val1.ID + "'>" + val1.DENOMINACION + "</option > ";
+
+					});
+					_html += "</select>";
+					_html += "<div class='invalid-feedback invalid-TEST-FIELD-1 d-none'></div>";
+					_html += "</div>";
+				/*fin select*/
+					/*container para el armado del item a agregar*/
+					_html += "<div id='OPER-CONTAINER' name='OPER-CONTAINER'></div>";
+					/*fin de container*/
+					_html += "</BR>";
+					/*inicio boton y textbox con total*/
+					_html += "<table width=100%><tr><td width=20% style='text-align: left;'>";
+					_html += "<button type='button' class='btn-raised' id='OPER-ADD-BTN' name='OPER-ADD-BTN' disabled onclick=javascript:insertarOnClick();><i class='material-icons'>done</i>Insertar</button>";
+					_html += "</td><td width=50% style='text-align: right;'><div id='txtWarning' name='txtWarning'></div>";
+					_html += "</td><td width=30% style='text-align: right;'>";
+					_html += "<div class='col-md-3' style='text-align: left;'>";
+					_html += "<label for='TOTAL-1'>Total $</label>";
+					_html += "<input data-type='text' autocomplete='nope' value='0' class='form-control text dbase' type='text' name='TOTAL-1' id='TOTAL-1' data-clear-btn='false' placeholder='Total'></input>";
+					_html += "<div class='invalid-feedback invalid-TOTAL-1 d-none'></div>";
+					_html += "</div>";
+					_html += "</td></tr></table>";
+					/*fin boton y textbox*/
+					_html += "</div>";
+					_html += "</BR>";
+					_html += "<input type=text class='form-control text dbase' style='display: none' name='OPER-COUNTER' id='OPER-COUNTER' value=0></input>";
+					_html += "<input type=hidden name='OPER-PRECIOS' id='OPER-PRECIOS' value='" + JSON.stringify(datajson.precios) + "'></input>";
+					_html += "<input type=hidden name='OPER-COTIZACION' id='OPER-COTIZACION' value='" + JSON.stringify(datajson.cotizacion) + "'></input>";
+				}
+
+				
+
+				_html += "<table border=1 width=100% id='table-detail' name='table-detail'>";
+				var tot = 0;
+				_html += "<tr>";
+				_html += "<th></th><th>Nro</th><th>Descripción</th><th>Total $</th>";
+				_html += "</tr>";
+				
+				$.each(datajson.data, function (i, val) {
+					tot = tot + Number(val.IMPORTE);
+					_html += "<tr id='detail-form-row-" + i + "'>";
+					_html += "   <td></td>";
+					_html += "   <td id='detail-form-row-" + i +"-id'>" + (i+1) + "</td>";
+					_html += "   <td id='detail-form-row-" + i +"-con'>" + val.CONCEPTO + "</td>";
+					_html += "   <td id='detail-form-row-" + i +"-imp'>" + val.IMPORTE + "</td>";
+					_html += "</tr>";
+					
+				});
+
+				if ($("#NRO_RECIBO").val() != "") {
+					_html += "<tr id='detail-form-total'>";
+					_html += "   <td colspan=3 id='detail-form-con' align=right> Total $</td>";
+					_html += "   <td id='detail-form-total'>" + tot + "</td>";
+					_html += "</tr>";
+				}
+				_html += "</table>"
+
+				//_html += "<table>"
+				//_html += "<tr>";
+				//_html += "<th>Id</th><th>Oper</th><th>Deno</th>";
+				//_html += "</tr>";
+				
+				
+				//$.each(datajson.conceptos, function (j, val1) {
+					
+				//	_html += "<tr id='detail1-form-row-" + j + "'>";
+				//	_html += "   <td id='detail1-form-row-" + j + "-id'>" + val1.ID + "</td>";
+				//	_html += "   <td id='detail1-form-row-" + j + "-con'>" + val1.OPERACION + "</td>";
+				//	_html += "   <td id='detail1-form-row-" + j + "-imp'>" + val1.DENOMINACION + "</td>";
+				//	_html += "</tr>";
+
+				//});
+				//_html += "</table>";
+
+				_html += "</BR>";
+				_html += "</BR>";
+
+				//_html += "<div class='col-md-3'>";
+				//_html += "<label for='TEST-FIELD-1'>TEST FFFIIEEELLLDDD</label>";
+				//_html += "<input data-type='text' autocomplete='nope' value='' class='form-control text dbase validate' type='text' name='TEST-FIELD-1' id='TEST-FIELD-1' data-clear-btn='false' placeholder='Test Field'>";
+				//_html += "<div class='invalid-feedback invalid-TEST-FIELD-1 d-none'></div>";
+				//_html += "</div>";
+
+
+
+				//alert("come back1");
+				$("#form-detail").append(_html);
+				//alert("come back2");
+
+				//_TOOLS.loadCombo(datajson, { "target": "#id_combo_que_tengo_que_agregar", "selected": -1, "id": "id_cosa", "description": "texto_cosa" });
+				//resolve(_FUNCTIONS._cache.receiptSearch);
+			});
+		} catch (rex) {
+			_FUNCTIONS.onAlert({ "message": rex.message, "class": "alert-danger" });
+			reject(rex);
+		}
+
+
+	},
+
+	onAddLinkExternal1: function (_this) {
+		alert("sarasa" + $("#RESPONSABL").val());
+
+		try {
+
+			alert("Hello from test cco event....");
+
+			var _params = {
+				"txtResponsable": $("#RESPONSABL").val(),
+				"txtSeputura": $("#SEPULTURA").val(),
+			};
+
+			_AJAX.UiGetSac_Lotes(_params).then(function (datajson) {
+				console.log(datajson);
+				_FUNCTIONS._cache.receiptSearch = datajson;
+
+
+				alert("come back");
+				var _html = "<table>";
+				alert("JSON: " + JSON.stringify(datajson));
+				$.each(datajson.data, function (i, val) {
+					_html += "<tr>";
+					_html += "   <td>" + val.TITULAR + "</td>";
+					_html += "   <td>" + val.DIRECCION + "</td>";
+					_html += "</tr>";
+				});
+				_html += "</table>"
+				alert("come back1");
+				$("#ababab").append(_html);
+				alert("come back2");
+
+				//_TOOLS.loadCombo(datajson, { "target": "#id_combo_que_tengo_que_agregar", "selected": -1, "id": "id_cosa", "description": "texto_cosa" });
+				//resolve(_FUNCTIONS._cache.receiptSearch);
+			});
+		} catch (rex) {
+			_FUNCTIONS.onAlert({ "message": rex.message, "class": "alert-danger" });
+			reject(rex);
+		}
+
+		
+
+		//var _target = _this.attr("data-target");
+		//var _html = "";
+		//_html += "<label>Descripción</label>";
+		//_html += "<input value='' class='validate-link form-control' type='text' name='title-link' id='title-link' data-clear-btn='false' placeholder='Descripción' />";
+		//_html += "<label>HTML para insertar link</label>";
+		//_html += "<textarea rows='20' id='body-link' name='body-link' class='validate-link shadow' style='width:100%;'></textarea>";
+		//_html += "<div class='panel-footer'>";
+		//_html += " <div class='row'>";
+		//_html += "  <div class='col-6'>";
+		//_html += "   <a class='btn-cancel-link btn btn-danger btn-raised btn-md'>Cancelar</a>";
+		//_html += "  </div>";
+		//_html += "  <div class='col-6'>";
+		//_html += "   <a class='btn-success-link btn btn-success btn-raised btn-md'>Aceptar</a>";
+		//_html += "  </div>";
+		//_html += " </div>";
+		//_html += "</div>";
+		//_FUNCTIONS.onShowHtmlModal("Ingresar link externo ", _html, function () {
+		//	alert("sarasa1");
+		//	$("body").off("click", ".btn-success-link").on("click", ".btn-success-link", function () {
+		//		alert("sarasa2");
+		//		if (!_TOOLS.validate(".validate-link", false)) {
+		//			alert("Complete los datos requeridos");
+		//			return false;
+		//		}
+		//		var _name = $("#title-link").val();
+		//		var _body = $("#body-link").val();
+		//		var _id = _TOOLS.UUID();
+		//		var _html = "<li class='list-group-item li-" + _id + "'>";
+		//		_html += "<span data-id='" + _id + "' data-link='" + _body + "' class='new-link img-" + _id + "' data-filename='" + _name + "'><i class='material-icons'>link</i></span> ";
+		//		_html += "<div class='badge badge-primary text-truncate' style='display:inline-block;max-width:100%;' title='" + _name + "'>" + _name + "</div> ";
+		//		_html += "<a href='#' data-id='" + _id + "' class='btn btn-sm btn-danger float-right btn-link-delete'><i class='material-icons'>delete</i></a>";
+		//		_html += "</li>";
+		//		$(_target).append(_html);
+		//		$("#modal-html").modal("hide").data("bs.modal", null);
+		//		_FUNCTIONS.onDestroyModal("#modal-html");
+		//		alert("sarasa3");
+		//	});
+		//	$("body").off("click", ".btn-cancel-link").on("click", ".btn-cancel-link", function () {
+		//		$("#modal-html").modal("hide").data("bs.modal", null);
+		//		_FUNCTIONS.onDestroyModal("#modal-html");
+		//		alert("sarasa4");
+		//	});
+		//});
+	},
+
+	onReceiptSearch: function (_this) {
+		return new Promise(
+			function (resolve, reject) {
+				try {
+
+					alert("Hello from test cco event....");
+
+					var _params = {
+						//"txtOrden": $(".txtOrden").val(),
+						//"txtSeputura": $(".txtSepultura").val(),
+					};
+
+					_AJAX.UiGetSac_Lotes(_params).then(function (datajson) {
+						console.log(datajson);
+						_FUNCTIONS._cache.receiptSearch = datajson;
+						//_TOOLS.loadCombo(datajson, { "target": "#id_combo_que_tengo_que_agregar", "selected": -1, "id": "id_cosa", "description": "texto_cosa" });
+					    resolve(_FUNCTIONS._cache.receiptSearch);
+					});
+				} catch (rex) {
+					_FUNCTIONS.onAlert({ "message": rex.message, "class": "alert-danger" });
+					reject(rex);
+				}
+			});
+	},
+
 }
+
+

@@ -103,6 +103,7 @@ _AJAX = {
 				try {
 					if (!_AJAX._ready) { _AJAX.initialize(null); }
 					$(".raw-raw-request").html(_TOOLS.prettyPrint(_json));
+					//alert(_AJAX.server + "->" + _json.method);
 					var ajaxRq = $.ajax({
 						type: "POST",
 						dataType: "json",
@@ -230,6 +231,490 @@ _AJAX = {
 	 * /
 	 * MOD_BACKEND
 	 */
+
+	/*
+	 * eventos app para traer datos del backend 
+	 */
+
+	UiGetReciptDetails: function (_json) {
+		//alert("VAR UiGetReciptDetails: " + _json);
+		//var json_obj = JSON.parse(_json);
+		//alert("json obj" + json_obj);
+		//alert("JSON UiGetReciptDetails: " + JSON.stringify(_json));
+		return new Promise(
+			function (resolve, reject) {
+				_json["function"] = "getReciptDetail";
+				_json["module"] = "mod_disidentes";
+				_json["table"] = "Sac_facturacion_recibos";
+				_json["model"] = "Sac_facturacion_recibos";
+				_AJAX._waiter = true;
+				_AJAX.ExecuteDirect(_json, null).then(function (data) { resolve(data); }).catch(function (err) { reject(err); });
+			});
+	},
+
+	UiGetAsientoDetails: function (_json) {
+		//alert("VAR UiGetReciptDetails: " + _json);
+		//var json_obj = JSON.parse(_json);
+		//alert("json obj" + json_obj);
+		//alert("JSON UiGetReciptDetails: " + JSON.stringify(_json));
+		return new Promise(
+			function (resolve, reject) {
+				_json["function"] = "getAsientoDetail";
+				_json["module"] = "mod_disidentes";
+				_json["table"] = "CON_Encabezados";
+				_json["model"] = "Sac_funcavanzadas_asientos";
+				_AJAX._waiter = true;
+				_AJAX.ExecuteDirect(_json, null).then(function (data) { resolve(data); }).catch(function (err) { reject(err); });
+			});
+	},
+
+	UiGetLibroDiario: function (_json) {
+		//alert("VAR UiGetReciptDetails: " + _json);
+		//var json_obj = JSON.parse(_json);
+		//alert("json obj" + json_obj);
+		//alert("JSON UiGetReciptDetails: " + JSON.stringify(_json));
+		return new Promise(
+			function (resolve, reject) {
+				_json["function"] = "GetLibroDiario";
+				_json["module"] = "mod_disidentes";
+				_json["table"] = "CON_Encabezados";
+				_json["model"] = "Funciones_avanzadas";
+				_AJAX._waiter = true;
+				_AJAX.ExecuteDirect(_json, null).then(function (data) { resolve(data); }).catch(function (err) { reject(err); });
+			});
+	},
+
+	UiGetLibroDiarioHistorico: function (_json) {
+		//alert("VAR UiGetReciptDetails: " + _json);
+		//var json_obj = JSON.parse(_json);
+		//alert("json obj" + json_obj);
+		//alert("JSON UiGetReciptDetails: " + JSON.stringify(_json));
+		return new Promise(
+			function (resolve, reject) {
+				_json["function"] = "GetLibroDiarioHistorico";
+				_json["module"] = "mod_disidentes";
+				_json["table"] = "CON_Encabezados";
+				_json["model"] = "Funciones_avanzadas";
+				_AJAX._waiter = true;
+				_AJAX.ExecuteDirect(_json, null).then(function (data) { resolve(data); }).catch(function (err) { reject(err); });
+			});
+	},
+
+	UiGetLibroMayorHistorico: function (_json) {
+		//alert("VAR UiGetReciptDetails: " + _json);
+		//var json_obj = JSON.parse(_json);
+		//alert("json obj" + json_obj);
+		//alert("JSON UiGetReciptDetails: " + JSON.stringify(_json));
+		return new Promise(
+			function (resolve, reject) {
+				_json["function"] = "GetLibroMayorHistorico";
+				_json["module"] = "mod_disidentes";
+				_json["table"] = "CON_Encabezados";
+				_json["model"] = "Funciones_avanzadas";
+				_AJAX._waiter = true;
+				_AJAX.ExecuteDirect(_json, null).then(function (data) { resolve(data); }).catch(function (err) { reject(err); });
+			});
+	},
+
+	UiGetBalanceHistorico: function (_json) {
+		//alert("VAR UiGetReciptDetails: " + _json);
+		//var json_obj = JSON.parse(_json);
+		//alert("json obj" + json_obj);
+		//alert("JSON UiGetReciptDetails: " + JSON.stringify(_json));
+		return new Promise(
+			function (resolve, reject) {
+				_json["function"] = "GetBalanceHistorico";
+				_json["module"] = "mod_disidentes";
+				_json["table"] = "CON_Encabezados";
+				_json["model"] = "Funciones_avanzadas";
+				_AJAX._waiter = true;
+				_AJAX.ExecuteDirect(_json, null).then(function (data) { resolve(data); }).catch(function (err) { reject(err); });
+			});
+	},
+
+	UiGetLibroMayor: function (_json) {
+		//alert("VAR UiGetReciptDetails: " + _json);
+		//var json_obj = JSON.parse(_json);
+		//alert("json obj" + json_obj);
+		//alert("JSON UiGetReciptDetails: " + JSON.stringify(_json));
+		return new Promise(
+			function (resolve, reject) {
+				_json["function"] = "GetLibroMayor";
+				_json["module"] = "mod_disidentes";
+				_json["table"] = "CON_Encabezados";
+				_json["model"] = "Funciones_avanzadas";
+				_AJAX._waiter = true;
+				_AJAX.ExecuteDirect(_json, null).then(function (data) { resolve(data); }).catch(function (err) { reject(err); });
+			});
+	},
+
+	UiGetBalance: function (_json) {
+		//alert("VAR UiGetReciptDetails: " + _json);
+		//var json_obj = JSON.parse(_json);
+		//alert("json obj" + json_obj);
+		//alert("JSON UiGetReciptDetails: " + JSON.stringify(_json));
+		return new Promise(
+			function (resolve, reject) {
+				_json["function"] = "GetBalance";
+				_json["module"] = "mod_disidentes";
+				_json["table"] = "CON_Encabezados";
+				_json["model"] = "Funciones_avanzadas";
+				_AJAX._waiter = true;
+				_AJAX.ExecuteDirect(_json, null).then(function (data) { resolve(data); }).catch(function (err) { reject(err); });
+			});
+	},
+
+	UiReciptSearchLote: function (_json) {
+		//alert("VAR UiReciptSearchLote: " + _json);
+		//var json_obj = JSON.parse(_json);
+		//alert("json obj" + json_obj);
+		//alert("JSON UiReciptSearchLote: " + JSON.stringify(_json));
+		return new Promise(
+			function (resolve, reject) {
+				_json["function"] = "ReciptSearchLote";
+				_json["module"] = "mod_disidentes";
+				_json["table"] = "Sac_facturacion_recibos";
+				_json["model"] = "Sac_facturacion_recibos";
+				_json["method"] = "api.backend/neocommand";
+
+				//alert("VAR UiReciptSearchLote11111: " + _json);
+
+				_AJAX._waiter = true;
+				_AJAX.ExecuteDirect(_json, null).then(function (data) { resolve(data); }).catch(function (err) { reject(err); });
+			});
+	},
+
+	UiReciptSearchLoteFallecidos: function (_json) {
+		//alert("VAR UiReciptSearchLote: " + _json);
+		//var json_obj = JSON.parse(_json);
+		//alert("json obj" + json_obj);
+		//alert("JSON UiReciptSearchLote: " + JSON.stringify(_json));
+		return new Promise(
+			function (resolve, reject) {
+				_json["function"] = "ReciptSearchLoteFallecidos";
+				_json["module"] = "mod_disidentes";
+				_json["table"] = "Sac_facturacion_recibos";
+				_json["model"] = "Sac_facturacion_recibos";
+				_json["method"] = "api.backend/neocommand";
+
+				//alert("VAR UiReciptSearchLote11111: " + _json);
+
+				_AJAX._waiter = true;
+				_AJAX.ExecuteDirect(_json, null).then(function (data) { resolve(data); }).catch(function (err) { reject(err); });
+			});
+	},
+
+	UiGetRecibo: function (_json) {
+		//alert("VAR UiGetRecibo: " + _json);
+		//var json_obj = JSON.parse(_json);
+		//alert("json obj" + json_obj);
+		//alert("JSON UiGetRecibo: " + JSON.stringify(_json));
+		return new Promise(
+			function (resolve, reject) {
+				_json["function"] = "getRecipt";
+				_json["module"] = "mod_disidentes";
+				_json["table"] = "vw_SacRecibos";
+				_json["model"] = "Sac_facturacion_recibos";
+				_json["method"] = "api.backend/neocommand";
+
+				//alert("VAR UiReciptSearchLote11111: " + _json);
+
+				_AJAX._waiter = true;
+				_AJAX.ExecuteDirect(_json, null).then(function (data) { resolve(data); }).catch(function (err) { reject(err); });
+			});
+	},
+
+	UiGetLote: function (_json) {
+		//alert("VAR UiReciptSearchLote: " + _json);
+		//var json_obj = JSON.parse(_json);
+		//alert("json obj" + json_obj);
+		//alert("JSON UiReciptSearchLote: " + JSON.stringify(_json));
+		return new Promise(
+			function (resolve, reject) {
+				_json["function"] = "GetLote";
+				_json["module"] = "mod_disidentes";
+				_json["table"] = "Sac_Lotes";
+				_json["model"] = "Sac_Lotes";
+				_json["method"] = "api.backend/neocommand";
+
+				//alert("VAR UiReciptSearchLote11111: " + _json);
+
+				_AJAX._waiter = true;
+				_AJAX.ExecuteDirect(_json, null).then(function (data) { resolve(data); }).catch(function (err) { reject(err); });
+			});
+	},
+
+	UiGetArrendamientosXFecha: function (_json) {
+		//alert("VAR UiReciptSearchLote: " + _json);
+		//var json_obj = JSON.parse(_json);
+		//alert("json obj" + json_obj);
+		//alert("JSON UiReciptSearchLote: " + JSON.stringify(_json));
+		return new Promise(
+			function (resolve, reject) {
+				_json["function"] = "GetArrendamientosXFecha";
+				_json["module"] = "mod_disidentes";
+				_json["table"] = "SAC_Enca";
+				_json["model"] = "Sac_facturacion_recibos";
+				_json["method"] = "api.backend/neocommand";
+
+				//alert("VAR UiReciptSearchLote11111: " + _json);
+
+				_AJAX._waiter = true;
+				_AJAX.ExecuteDirect(_json, null).then(function (data) { resolve(data); }).catch(function (err) { reject(err); });
+			});
+	},
+	UiGetRenocacionesXFecha: function (_json) {
+		//alert("VAR UiReciptSearchLote: " + _json);
+		//var json_obj = JSON.parse(_json);
+		//alert("json obj" + json_obj);
+		//alert("JSON UiReciptSearchLote: " + JSON.stringify(_json));
+		return new Promise(
+			function (resolve, reject) {
+				_json["function"] = "GetRenocacionesXFecha";
+				_json["module"] = "mod_disidentes";
+				_json["table"] = "SAC_Enca";
+				_json["model"] = "Sac_facturacion_recibos";
+				_json["method"] = "api.backend/neocommand";
+
+				//alert("VAR UiReciptSearchLote11111: " + _json);
+
+				_AJAX._waiter = true;
+				_AJAX.ExecuteDirect(_json, null).then(function (data) { resolve(data); }).catch(function (err) { reject(err); });
+			});
+	},
+	UiGetEstadisticasGenerales: function (_json) {
+		//alert("VAR UiReciptSearchLote: " + _json);
+		//var json_obj = JSON.parse(_json);
+		//alert("json obj" + json_obj);
+		//alert("JSON UiReciptSearchLote: " + JSON.stringify(_json));
+		return new Promise(
+			function (resolve, reject) {
+				_json["function"] = "GetEstadisticasGenerales";
+				_json["module"] = "mod_disidentes";
+				_json["table"] = "SAC_Enca";
+				_json["model"] = "Sac_facturacion_recibos";
+				_json["method"] = "api.backend/neocommand";
+
+				//alert("VAR UiReciptSearchLote11111: " + _json);
+
+				_AJAX._waiter = true;
+				_AJAX.ExecuteDirect(_json, null).then(function (data) { resolve(data); }).catch(function (err) { reject(err); });
+			});
+	},
+
+	UiGetNotificacionConservaciones: function (_json) {
+		//alert("VAR UiGetNotificacionConservaciones: " + _json);
+		//var json_obj = JSON.parse(_json);
+		//alert("json obj" + json_obj);
+		//alert("JSON UiGetNotificacionConservaciones: " + JSON.stringify(_json));
+		return new Promise(
+			function (resolve, reject) {
+				_json["function"] = "GetNotificacionConservaciones";
+				_json["module"] = "mod_disidentes";
+				_json["table"] = "SAC_EstaLote";
+				_json["model"] = "Facturacion";
+				_json["method"] = "api.backend/neocommand";
+
+				//alert("VAR UiReciptSearchLote11111: " + _json);
+
+				_AJAX._waiter = true;
+				_AJAX.ExecuteDirect(_json, null).then(function (data) { resolve(data); }).catch(function (err) { reject(err); });
+			});
+	},
+
+	UiGetNotificacionRenovaciones: function (_json) {
+		//alert("VAR UiGetNotificacionConservaciones: " + _json);
+		//var json_obj = JSON.parse(_json);
+		//alert("json obj" + json_obj);
+		//alert("JSON UiGetNotificacionConservaciones: " + JSON.stringify(_json));
+		return new Promise(
+			function (resolve, reject) {
+				_json["function"] = "GetNotificacionRenovaciones";
+				_json["module"] = "mod_disidentes";
+				_json["table"] = "SAC_EstaLote";
+				_json["model"] = "Facturacion";
+				_json["method"] = "api.backend/neocommand";
+
+				//alert("VAR UiReciptSearchLote11111: " + _json);
+
+				_AJAX._waiter = true;
+				_AJAX.ExecuteDirect(_json, null).then(function (data) { resolve(data); }).catch(function (err) { reject(err); });
+			});
+	},
+
+	UiGetLotesParaRecibotarjetas: function (_json) {
+		//alert("VAR UiGetNotificacionConservaciones: " + _json);
+		//var json_obj = JSON.parse(_json);
+		//alert("json obj" + json_obj);
+		//alert("JSON UiGetNotificacionConservaciones: " + JSON.stringify(_json));
+		return new Promise(
+			function (resolve, reject) {
+				_json["function"] = "GetLotesParaRecibotarjetas";
+				_json["module"] = "mod_disidentes";
+				_json["table"] = "SAC_EstaLote";
+				_json["model"] = "Facturacion";
+				_json["method"] = "api.backend/neocommand";
+
+				//alert("VAR UiReciptSearchLote11111: " + _json);
+
+				_AJAX._waiter = true;
+				_AJAX.ExecuteDirect(_json, null).then(function (data) { resolve(data); }).catch(function (err) { reject(err); });
+			});
+	},
+	UiProcesarLotesParaRecibotarjetas: function (_json) {
+		//alert("VAR UiGetNotificacionConservaciones: " + _json);
+		//var json_obj = JSON.parse(_json);
+		//alert("json obj" + json_obj);
+		//alert("JSON UiGetNotificacionConservaciones: " + JSON.stringify(_json));
+		return new Promise(
+			function (resolve, reject) {
+				_json["function"] = "ProcesarLotesParaRecibotarjetas";
+				_json["module"] = "mod_disidentes";
+				_json["table"] = "SAC_EstaLote";
+				_json["model"] = "Facturacion";
+				_json["method"] = "api.backend/neocommand";
+
+				//alert("VAR UiReciptSearchLote11111: " + _json);
+
+				_AJAX._waiter = true;
+				_AJAX.ExecuteDirect(_json, null).then(function (data) { resolve(data); }).catch(function (err) { reject(err); });
+			});
+	},
+
+	UiGetRubros: function (_json) {
+		//alert("VAR UiReciptSearchLote: " + _json);
+		//var json_obj = JSON.parse(_json);
+		//alert("json obj" + json_obj);
+		//alert("JSON UiReciptSearchLote: " + JSON.stringify(_json));
+		return new Promise(
+			function (resolve, reject) {
+				_json["function"] = "GetRubrosByFilter";
+				_json["module"] = "mod_disidentes";
+				_json["table"] = "CON_Rubros";
+				_json["model"] = "Con_rubros";
+				_json["method"] = "api.backend/neocommand";
+
+				//alert("VAR UiReciptSearchLote11111: " + _json);
+
+				_AJAX._waiter = true;
+				_AJAX.ExecuteDirect(_json, null).then(function (data) { resolve(data); }).catch(function (err) { reject(err); });
+			});
+	},
+	UiGetRubrosHistoricos: function (_json) {
+		//alert("VAR UiReciptSearchLote: " + _json);
+		//var json_obj = JSON.parse(_json);
+		//alert("json obj" + json_obj);
+		//alert("JSON UiReciptSearchLote: " + JSON.stringify(_json));
+		return new Promise(
+			function (resolve, reject) {
+				_json["function"] = "GetRubrosHistoricosByFilter";
+				_json["module"] = "mod_disidentes";
+				_json["table"] = "CON_Rubros";
+				_json["model"] = "Con_rubros";
+				_json["method"] = "api.backend/neocommand";
+
+				//alert("VAR UiReciptSearchLote11111: " + _json);
+
+				_AJAX._waiter = true;
+				_AJAX.ExecuteDirect(_json, null).then(function (data) { resolve(data); }).catch(function (err) { reject(err); });
+			});
+	},
+	UiGetCuentas: function (_json) {
+		//alert("VAR UiReciptSearchLote: " + _json);
+		//var json_obj = JSON.parse(_json);
+		//alert("json obj" + json_obj);
+		//alert("JSON UiReciptSearchLote: " + JSON.stringify(_json));
+		return new Promise(
+			function (resolve, reject) {
+				_json["function"] = "GetCuentasByFilter";
+				_json["module"] = "mod_disidentes";
+				_json["table"] = "CON_Cuentas";
+				_json["model"] = "Con_cuentas";
+				_json["method"] = "api.backend/neocommand";
+
+				//alert("VAR UiReciptSearchLote11111: " + _json);
+
+				_AJAX._waiter = true;
+				_AJAX.ExecuteDirect(_json, null).then(function (data) { resolve(data); }).catch(function (err) { reject(err); });
+			});
+	},
+	UiGetCuentasHistorico: function (_json) {
+		//alert("VAR UiReciptSearchLote: " + _json);
+		//var json_obj = JSON.parse(_json);
+		//alert("json obj" + json_obj);
+		//alert("JSON UiReciptSearchLote: " + JSON.stringify(_json));
+		return new Promise(
+			function (resolve, reject) {
+				_json["function"] = "GetCuentasHistoricoByFilter";
+				_json["module"] = "mod_disidentes";
+				_json["table"] = "CON_Cuentas";
+				_json["model"] = "Con_cuentas";
+				_json["method"] = "api.backend/neocommand";
+
+				//alert("VAR UiReciptSearchLote11111: " + _json);
+
+				_AJAX._waiter = true;
+				_AJAX.ExecuteDirect(_json, null).then(function (data) { resolve(data); }).catch(function (err) { reject(err); });
+			});
+	},
+	UiGetPlanDeCuentasHistorico: function (_json) {
+		//alert("VAR UiReciptSearchLote: " + _json);
+		//var json_obj = JSON.parse(_json);
+		//alert("json obj" + json_obj);
+		//alert("JSON UiReciptSearchLote: " + JSON.stringify(_json));
+		return new Promise(
+			function (resolve, reject) {
+				_json["function"] = "GetPlanDeCuentasHistoricoByFilter";
+				_json["module"] = "mod_disidentes";
+				_json["table"] = "CON_Cuentas";
+				_json["model"] = "Con_cuentas";
+				_json["method"] = "api.backend/neocommand";
+
+				//alert("VAR UiReciptSearchLote11111: " + _json);
+
+				_AJAX._waiter = true;
+				_AJAX.ExecuteDirect(_json, null).then(function (data) { resolve(data); }).catch(function (err) { reject(err); });
+			});
+	},
+	UiGetPlanDeCuentas: function (_json) {
+		//alert("VAR UiReciptSearchLote: " + _json);
+		//var json_obj = JSON.parse(_json);
+		//alert("json obj" + json_obj);
+		//alert("JSON UiReciptSearchLote: " + JSON.stringify(_json));
+		return new Promise(
+			function (resolve, reject) {
+				_json["function"] = "GetPlanCuentasByFilter";
+				_json["module"] = "mod_disidentes";
+				_json["table"] = "CON_Cuentas";
+				_json["model"] = "Con_cuentas";
+				_json["method"] = "api.backend/neocommand";
+
+				//alert("VAR UiReciptSearchLote11111: " + _json);
+
+				_AJAX._waiter = true;
+				_AJAX.ExecuteDirect(_json, null).then(function (data) { resolve(data); }).catch(function (err) { reject(err); });
+			});
+	},
+	UiGetSac_Lotes: function (_json) {
+		alert("VAR: " + _json);
+		//var json_obj = JSON.parse(_json);
+		//alert("json obj" + json_obj);
+		alert("JSON: " + JSON.stringify(_json));
+		return new Promise(
+			function (resolve, reject) {
+				_json["function"] = "getCustom";
+				_json["module"] = "mod_disidentes";
+				_json["table"] = "sac_lotes";
+				_json["model"] = "sac_lotes";
+				_AJAX._waiter = true;
+				_AJAX.ExecuteDirect(_json, null).then(function (data) { resolve(data); }).catch(function (err) { reject(err); });
+			});
+	},
+
+/*
+ * FIN eventos app para traer datos del backend
+ */
+
 	UiGet: function (_json) {
 		return new Promise(
 			function (resolve, reject) {
@@ -393,4 +878,6 @@ _AJAX = {
 				});
 			});
 	},
+
+	
 };

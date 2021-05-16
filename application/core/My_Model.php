@@ -130,7 +130,15 @@ class My_Model extends CI_Model {
                     );
                 }
             }
-            $id=$this->setRecord($fields,$id);
+            if ($values["view"]!=""){
+                $id=$this->saveRecord($fields,$id,$values["view"]);
+                
+            }
+            else
+            {
+                $id=$this->setRecord($fields,$id);
+            }
+
             $this->saveAttachments($values,$id,null);
             $this->saveMessages($values,$id,null);
 
@@ -316,6 +324,45 @@ class My_Model extends CI_Model {
         }
     }
 
+    public function saveRecord($fields,$id,$tableName) {
+        try {
+            $this->prepareModule();
+            $resolvedTableView=$tableName;
+            if($id==0) {
+                $this->db->insert($resolvedTableView, $fields);
+                $id=$this->db->insert_id();
+            } else {
+                $this->db->where('id',$id);
+                $this->db->update($resolvedTableView, $fields);
+            }
+            return $id;
+        }
+        catch(Exception $e){
+            return $e;
+        }
+    }
+
+    public function execAdHocAsArray($sql) {
+        try {
+            $return = $this->db->query($sql)->result_array();
+            //$records=$this->db->query($sql)->result_array();
+			//$return=array(
+			//    "records"=>$records,
+			//    "totalrecords"=>$totalrecords,
+			//    "totalpages"=>$totalpages,
+			//    "page"=>$values["page"]
+			//    );
+            if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+                return $return;
+            } else {
+                return toUtf8($return);
+            }
+        }
+        catch(Exception $e){
+            return null;
+        }
+    }
+
     /*Public GPI methods*/
     public function form($values){
         try {
@@ -340,9 +387,12 @@ class My_Model extends CI_Model {
     public function brow($values){
         try {
 //log_message("error", "RELATED ".json_encode($values,JSON_PRETTY_PRINT));
+            log_message('error', 'cco-> pasando x BROW MODEL 0.');
             if(!isset($values["interface"])){$values["interface"]=("brow");}
             $data["parameters"] = $values;
+            log_message('error', 'cco-> pasando x BROW MODEL.');
             $data["title"] = ucfirst(lang("m_".strtolower($values["model"])));
+            log_message('error', 'cco-> pasando x BROW MODEL1');
             $html=$this->load->view($values["interface"],$data,true);
             logGeneral($this,$values,__METHOD__);
             return array(
@@ -397,13 +447,16 @@ class My_Model extends CI_Model {
     }
     public function edit($values){
         try {
+            log_message('error', 'cco-> pasando x edit  de mymodel!.');
             if(!isset($values["interface"])){$values["interface"]="abm";}
             if(!isset($values["attached_files"])){$data["attached_files"] = $this->getAttachments($values,null);}else{$data["attached_files"]=$values["attached_files"];}
             if(!isset($values["attached_messages"])){$data["attached_messages"] = $this->getMessages($values,null);}else{$data["attached_messages"]=$values["attached_messages"];}
             $data["parameters"] = $values;
             $data["title"] = ucfirst(lang("m_".strtolower($values["model"])));
+            log_message('error', 'cco-> antes de load view en  edit  de mymodel!.');
             $html=$this->load->view($values["interface"],$data,true);
             logGeneral($this,$values,__METHOD__);
+            log_message('error', 'cco-> antes return en edit  de mymodel!.');
             return array(
                 "code"=>"2000",
                 "status"=>"OK",
@@ -593,6 +646,7 @@ class My_Model extends CI_Model {
                        $ACTIVE->delete(array("id"=>$item[$opts["id"]]));
                     }
                 }
+                log_message('error', 'cco-> pasando x MY MODEL SAVE ATTAHMENTS.');
             return array(
                 "code"=>"2000",
                 "status"=>"OK",
@@ -713,7 +767,7 @@ class My_Model extends CI_Model {
             $this->db->select("count(*) as total");
             $this->db->from($resolvedTableView);
             if(isset($values["where"]) and $values["where"]!=""){$this->db->where($values["where"]);}
-            //log_message('error', 'cco-> pasando x getRecords!.');
+            log_message('error', 'cco-> pasando x getRecords! WHERE: '.$values["where"]);
 
             $sql=$this->db->get_compiled_select();
             //log_message('error', $sql);
@@ -730,8 +784,10 @@ class My_Model extends CI_Model {
                 $size=(int)$values["pagesize"];
                 $this->db->limit($size,$from);
             }
+            log_message('error', 'cco-> pasando x MYMODEL GET RECORDS ANTES COMIPLED SELECT.');
             $sql=$this->db->get_compiled_select();
-log_message('error', $sql);
+            log_message('error', 'cco-> pasando x MYMODEL GET RECORDS DESPUES COMIPLED SELECT.');
+            log_message('error', $sql);
             $records=$this->db->query($sql)->result_array();
             $return=array(
                 "records"=>$records,
@@ -752,6 +808,9 @@ log_message('error', $sql);
     private function setRecord($fields,$id) {
         try {
             $this->prepareModule();
+            log_message('error', 'cco-> pasando x setRecord: '.$this->module);
+            log_message('error', 'cco-> pasando x setRecord2: '.$this->table);
+            log_message('error', 'cco-> pasando x setRecord3: '.$this->module.$this->table);
             $resolvedTableView=($this->module.$this->table);
             if($id==0) {
                 $this->db->insert($resolvedTableView, $fields);

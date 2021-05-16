@@ -34,7 +34,7 @@ class Sac_fallecidos_listados extends MY_Model {
                 array("field"=>"TIPO","format"=>"text"),
                 array("field"=>"NRO_APERTU","format"=>"text"),
                 array("field"=>"NOMBRE","format"=>"text"),
-                array("field"=>"FECHA","format"=>"text"),
+                array("field"=>"FECHA","format"=>"date"),
                 
                 
                 array("field"=>"","format"=>null),
@@ -78,7 +78,7 @@ class Sac_fallecidos_listados extends MY_Model {
                 array("field"=>"TIPO","format"=>"text"),
                 array("field"=>"NRO_APERTU","format"=>"text"),
                 array("field"=>"NOMBRE","format"=>"text"),
-                array("field"=>"FECHA","format"=>"text"),
+                array("field"=>"FECHA","format"=>"date"),
 
 
             );
@@ -106,7 +106,7 @@ class Sac_fallecidos_listados extends MY_Model {
                 array("field"=>"TIPO","format"=>"text"),
                 array("field"=>"NRO_APERTU","format"=>"text"),
                 array("field"=>"NOMBRE","format"=>"text"),
-                array("field"=>"FECHA","format"=>"text"),
+                array("field"=>"FECHA","format"=>"date"),
 
             );
             log_message("error", "RELATED ".json_encode($values,JSON_PRETTY_PRINT));

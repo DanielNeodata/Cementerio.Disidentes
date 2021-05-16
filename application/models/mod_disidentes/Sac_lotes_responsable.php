@@ -55,6 +55,7 @@ class Sac_lotes_responsable extends MY_Model {
                 "<label>".lang('p_TITULAR')."</label><input type='text' id='browser_titular' name='browser_titular' class='form-control text'/>",
                 "<label>".lang('p_RESPONSABL')."</label><input type='text' id='browser_responsable' name='browser_responsable' class='form-control text'/>",
                 "<label>".lang('p_RES_LOCALI')."</label><input type='text' id='browser_reslocalidad' name='browser_reslocalidad' class='form-control text'/>",
+                "<label>".lang('p_TIPO')."</label><input type='text' id='browser_tipo' name='browser_tipo' class='form-control number'/>",
             );
 
             $values["filters"]=array(
@@ -65,7 +66,8 @@ class Sac_lotes_responsable extends MY_Model {
                 array("name"=>"browser_titular", "operator"=>"like","fields"=>array("TITULAR")),
                 array("name"=>"browser_responsable", "operator"=>"like","fields"=>array("RESPONSABL")),
                 array("name"=>"browser_reslocalidad", "operator"=>"like","fields"=>array("RES_LOCALI")),
-                array("name"=>"browser_search", "operator"=>"like","fields"=>array("TITULAR","RESPONSABL","EMAIL","SECCION","SEPULTURA")),
+                array("name"=>"browser_search", "operator"=>"like","fields"=>array("TITULAR","RESPONSABL","EMAIL","SECCION","SEPULTURA","ESTADO_OCUPACION")),
+                array("name"=>"browser_tipo", "operator"=>"like","fields"=>array("TIPO")),
             );
             return parent::brow($values);
         }
@@ -204,9 +206,22 @@ class Sac_lotes_responsable extends MY_Model {
                 "description_field"=>"descripcion",
                 "get"=>array("order"=>"descripcion ASC","pagesize"=>-1),
             );
+            $parameters_id_estados=array(
+                "model"=>(MOD_DISIDENTES."/Estados_Ocupacion"),
+                "table"=>"estados_ocupacion",
+                "name"=>"estado_ocupacion",
+                "class"=>"form-control dbase",
+                "empty"=>false,
+                "id_actual"=>secureComboPosition($values["records"],"ESTADO_OCUPACION"),
+                "id_field"=>"id",
+                "description_field"=>"descripcion",
+                "get"=>array("order"=>"descripcion ASC","pagesize"=>-1),
+            );
             $values["controls"]=array(
                 "id_forma_pago"=>getCombo($parameters_id_forma_pago,$this),
+                "estado_ocupacion"=>getCombo($parameters_id_estados,$this),
             );
+            
             return parent::edit($values);
         }
         catch(Exception $e){
@@ -230,14 +245,15 @@ class Sac_lotes_responsable extends MY_Model {
                         'TIPO' => $values["TIPO"],
                         'id_forma_pago' => secureEmptyNull($values,"id_forma_pago"),
                         'numero_tarjeta' => $values["numero_tarjeta"],
-
+                        'ESTADO_OCUPACION' => $values["estado_ocupacion"],
                         'TITULAR' => $values["TITULAR"],
                         'DIRECCION' => $values["DIRECCION"],
                         'COD_POSTAL' => $values["COD_POSTAL"],
                         'LOCALIDAD' => $values["LOCALIDAD"],
                         'TELEFONO' => $values["TELEFONO"],
                         'EMAIL' => $values["EMAIL"],
-
+                        'RES_EMAIL_SEC' => $values["RES_EMAIL_SEC"],
+                        'EMAIL_SEC' => $values["EMAIL_SEC"],
                         'RESPONSABL' => $values["RESPONSABL"],
                         'RES_DIRECC' => $values["RES_DIRECC"],
                         'RES_CODPOS' => $values["RES_CODPOS"],
@@ -284,14 +300,15 @@ class Sac_lotes_responsable extends MY_Model {
 
                         'id_forma_pago' => secureEmptyNull($values,"id_forma_pago"),
                         'numero_tarjeta' => $values["numero_tarjeta"],
-
+                        'ESTADO_OCUPACION' => $values["estado_ocupacion"],
                         'TITULAR' => $values["TITULAR"],
                         'DIRECCION' => $values["DIRECCION"],
                         'COD_POSTAL' => $values["COD_POSTAL"],
                         'LOCALIDAD' => $values["LOCALIDAD"],
                         'TELEFONO' => $values["TELEFONO"],
                         'EMAIL' => $values["EMAIL"],
-
+                        'RES_EMAIL_SEC' => $values["RES_EMAIL_SEC"],
+                        'EMAIL_SEC' => $values["EMAIL_SEC"],
                         'RESPONSABL' => $values["RESPONSABL"],
                         'RES_DIRECC' => $values["RES_DIRECC"],
                         'RES_CODPOS' => $values["RES_CODPOS"],

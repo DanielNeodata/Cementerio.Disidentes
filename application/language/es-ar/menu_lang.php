@@ -45,4 +45,16 @@ $lang['m_sac_lotes_responsable'] = "Lotes por Responsable";
 $lang['m_sac_lotes_varios'] = "Lotes por Varios";
 $lang['m_sac_lotes_historial'] = "Historial Por Sección y Sepultura";
 $lang['m_sac_lotes_listados'] = "Listado de Arrendatarios de Lotes";
+$lang['m_sac_fallecidos_consultasespeciales'] = "Listado Consultas Especiales Fallecidos";
+$lang['m_sac_fallecidos_listados'] = "Listado Fallecidos";
+$lang['m_sac_facturacion_recibos'] = "Listado Recibos";
+$lang['m_sac_facturacion_precios'] = "Listado Precios y Servicios";
+$lang['m_modelo_notificaciones'] = "Modelos de Notificaciones";
+$lang['m_modelos_notificaciones'] = "Modelos de Notificaciones";
+$lang['m_sac_modelos_notificaciones'] = "Modelos de Notificaciones";
+$lang['m_emails'] = "Emails";
+$lang['m_modelo_emails'] = "Emails";
+$lang['m_sac_emails'] = "Emails";
+
+
 

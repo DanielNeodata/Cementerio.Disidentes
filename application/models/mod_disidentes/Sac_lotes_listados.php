@@ -38,23 +38,27 @@ class Sac_lotes_listados extends MY_Model {
                 array("field"=>"TITULAR","format"=>"text"),
                 array("field"=>"DIRECCION","format"=>"text"),
                 array("field"=>"NROTITULO","format"=>"text"),
-                array("field"=>"FECHACOMPR","format"=>"text"),
+                array("field"=>"FECHACOMPR","format"=>"date"),
                 array("field"=>"PRECICOMPR","format"=>"text"),
-                array("field"=>"VENCIMIENTO","format"=>"text"),
-                array("field"=>"ULTBIMPAGO","format"=>"text"),
+                array("field"=>"VENCIMIENTO","format"=>"date"),
+                array("field"=>"ULTBIMPAGO","format"=>"date"),
                 //array("field"=>"","format"=>null),
                 //array("field"=>"","format"=>null),
             );
 
             $values["controls"]=array(
-                "<label>".lang('p_SECCION')."</label><input type='number' id='browser_seccion' name='browser_seccion' class='form-control number'/>",
-                "<label>".lang('p_SEPULTURA')."</label><input type='number' id='browser_sepultura' name='browser_sepultura' class='form-control number'/>",
+                "<label>".lang('p_SECCION')."</label><input type='number' id='browser_seccion' name='browser_seccion' class='form-control text'/>",
+                "<label>".lang('p_SEPULTURA')."</label><input type='number' id='browser_sepultura' name='browser_sepultura' class='form-control text'/>",
+                "<label>".lang('p_TIPO')."</label><input type='text' id='browser_tipo' name='browser_tipo' class='form-control text'/>",
+                "<label>".lang('p_ESTADO_OCUPACION')."</label><input type='text' id='browser_estado_ocupacion' name='browser_estado_ocupacion' class='form-control text'/>",
             );
 
             $values["filters"]=array(
                 //array("name"=>"browser_search", "operator"=>"like","fields"=>array("TITULAR")),
                 array("name"=>"browser_sepultura", "operator"=>"like","fields"=>array("SEPULTURA")),
                 array("name"=>"browser_seccion", "operator"=>"like","fields"=>array("SECCION")),
+                array("name"=>"browser_tipo", "operator"=>"like","fields"=>array("TIPO")),
+                array("name"=>"browser_estado_ocupacion", "operator"=>"like","fields"=>array("ESTADO_OCUPACION")),
             );
             return parent::brow($values);
         }
@@ -83,10 +87,10 @@ class Sac_lotes_listados extends MY_Model {
                 array("field"=>"TITULAR","format"=>"text"),
                 array("field"=>"DIRECCION","format"=>"text"),
                 array("field"=>"NROTITULO","format"=>"text"),
-                array("field"=>"FECHACOMPR","format"=>"text"),
+                array("field"=>"FECHACOMPR","format"=>"date"),
                 array("field"=>"PRECICOMPR","format"=>"text"),
-                array("field"=>"VENCIMIENTO","format"=>"text"),
-                array("field"=>"ULTBIMPAGO","format"=>"text"),
+                array("field"=>"VENCIMIENTO","format"=>"date"),
+                array("field"=>"ULTBIMPAGO","format"=>"date"),
 
 
             );
@@ -115,10 +119,10 @@ class Sac_lotes_listados extends MY_Model {
                 array("field"=>"TITULAR","format"=>"text"),
                 array("field"=>"DIRECCION","format"=>"text"),
                 array("field"=>"NROTITULO","format"=>"text"),
-                array("field"=>"FECHACOMPR","format"=>"text"),
+                array("field"=>"FECHACOMPR","format"=>"date"),
                 array("field"=>"PRECICOMPR","format"=>"text"),
-                array("field"=>"VENCIMIENTO","format"=>"text"),
-                array("field"=>"ULTBIMPAGO","format"=>"text"),
+                array("field"=>"VENCIMIENTO","format"=>"date"),
+                array("field"=>"ULTBIMPAGO","format"=>"date"),
             );
             log_message("error", "RELATED ".json_encode($values,JSON_PRETTY_PRINT));
             return parent::pdf($values);
@@ -152,9 +156,22 @@ class Sac_lotes_listados extends MY_Model {
                 "description_field"=>"descripcion",
                 "get"=>array("order"=>"descripcion ASC","pagesize"=>-1),
             );
+            $parameters_id_estados=array(
+                "model"=>(MOD_DISIDENTES."/Estados_Ocupacion"),
+                "table"=>"estados_ocupacion",
+                "name"=>"estado_ocupacion",
+                "class"=>"form-control dbase",
+                "empty"=>false,
+                "id_actual"=>secureComboPosition($values["records"],"ESTADO_OCUPACION"),
+                "id_field"=>"id",
+                "description_field"=>"descripcion",
+                "get"=>array("order"=>"descripcion ASC","pagesize"=>-1),
+            );
             $values["controls"]=array(
                 "id_forma_pago"=>getCombo($parameters_id_forma_pago,$this),
+                "estado_ocupacion"=>getCombo($parameters_id_estados,$this),
             );
+            
             return parent::edit($values);
         }
         catch(Exception $e){
@@ -178,14 +195,15 @@ class Sac_lotes_listados extends MY_Model {
                         'TIPO' => $values["TIPO"],
                         'id_forma_pago' => secureEmptyNull($values,"id_forma_pago"),
                         'numero_tarjeta' => $values["numero_tarjeta"],
-
+                        'ESTADO_OCUPACION' => $values["estado_ocupacion"],
                         'TITULAR' => $values["TITULAR"],
                         'DIRECCION' => $values["DIRECCION"],
                         'COD_POSTAL' => $values["COD_POSTAL"],
                         'LOCALIDAD' => $values["LOCALIDAD"],
                         'TELEFONO' => $values["TELEFONO"],
                         'EMAIL' => $values["EMAIL"],
-
+                        'RES_EMAIL_SEC' => $values["RES_EMAIL_SEC"],
+                        'EMAIL_SEC' => $values["EMAIL_SEC"],
                         'RESPONSABL' => $values["RESPONSABL"],
                         'RES_DIRECC' => $values["RES_DIRECC"],
                         'RES_CODPOS' => $values["RES_CODPOS"],
@@ -232,14 +250,15 @@ class Sac_lotes_listados extends MY_Model {
 
                         'id_forma_pago' => secureEmptyNull($values,"id_forma_pago"),
                         'numero_tarjeta' => $values["numero_tarjeta"],
-
+                        'ESTADO_OCUPACION' => $values["estado_ocupacion"],
                         'TITULAR' => $values["TITULAR"],
                         'DIRECCION' => $values["DIRECCION"],
                         'COD_POSTAL' => $values["COD_POSTAL"],
                         'LOCALIDAD' => $values["LOCALIDAD"],
                         'TELEFONO' => $values["TELEFONO"],
                         'EMAIL' => $values["EMAIL"],
-
+                        'RES_EMAIL_SEC' => $values["RES_EMAIL_SEC"],
+                        'EMAIL_SEC' => $values["EMAIL_SEC"],
                         'RESPONSABL' => $values["RESPONSABL"],
                         'RES_DIRECC' => $values["RES_DIRECC"],
                         'RES_CODPOS' => $values["RES_CODPOS"],

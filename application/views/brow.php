@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 //log_message("error", "RELATED ".json_encode($data,JSON_PRETTY_PRINT));
 /*---------------------------------*/
-log_message("error", "RELATED ".json_encode($parameters,JSON_PRETTY_PRINT));
+log_message("error brow", "RELATED BROW".json_encode($parameters,JSON_PRETTY_PRINT));
 
 $html=buildHeaderBrowStd($parameters,$title);
 if (!isset($parameters["records"])) {
@@ -17,6 +17,7 @@ if (!isset($parameters["records"])) {
         foreach ((array)$parameters["records"]["data"] as $record){
             $nodata="";
             $style="";
+             log_message('error', 'cco-> pasando x BROW RECORDS.');
             if(isset($parameters["conditionalBackground"])) {
                 foreach($parameters["conditionalBackground"] as $conditional){
                     $style="";

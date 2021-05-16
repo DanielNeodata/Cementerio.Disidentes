@@ -94,9 +94,9 @@ alter table SAC_Lotes add RES_EMAIL_SEC varchar(255) null
 
 
 
-create table ModelosNotificiaciones (ID int identity, ModeloNotificacionNombre varchar(200), ModeloNotificacionHtml varchar(max))
+create table ModeloNotificaciones(ID int identity, ModeloNotificacionNombre varchar(200), ModeloNotificacionHtml varchar(max))
 
-alter table ModelosNotificiaciones add ModeloNotificacionTitulo varchar(200)
+alter table ModeloNotificaciones add ModeloNotificacionTitulo varchar(200)
 
 insert into mod_backend_functions values ('m_modelo_notificaciones','Submenú Modelo de Notificaciones',GETDATE(),GETDATE(),null,'tab',1048,'mod_disidentes','Sac_modelos_notificaciones','',GETDATE(),350,'brow',100,null,1,0)
 
@@ -106,7 +106,7 @@ insert into mod_backend_rel_groups_functions values (1,1093)
 insert into mod_backend_rel_groups_functions values (2,1093)
 --  update mod_backend_functions set data_model='Sac_modelos_notificaciones' where id=1093
 
-insert into ModelosNotificiaciones values ('email-conservaciones','<html>
+insert into ModeloNotificaciones values ('email-conservaciones','<html>
 <head>
     <title>Aviso vencimiento conservación</title>
 </head>
@@ -154,7 +154,7 @@ insert into ModelosNotificiaciones values ('email-conservaciones','<html>
 </html>
 ','Notificación de Conservaciones')
 
-insert into ModelosNotificiaciones values ('email-renovaciones','<html>
+insert into ModeloNotificaciones values ('email-renovaciones','<html>
 <head>
    <title>Aviso vencimiento renovación</title>
 </head>
@@ -171,7 +171,7 @@ insert into ModelosNotificiaciones values ('email-renovaciones','<html>
 </body>
 </html>','Notificación de Renovaciones')
 
-insert into ModelosNotificiaciones values ('se va a enviar por mail','<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+insert into ModeloNotificaciones values ('se va a enviar por mail','<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html><head><title>Aviso vencimiento conservación</title></head><body style="margin: 25px;">
     <h1>Aviso vencimiento conservación</h1>
     <hr>
@@ -216,3 +216,29 @@ conciliación y enviarle el recibo oficial.<br>
     </p>
 
 </body></html>','Notificación por mail')
+
+
+alter table ModelosNotificaciones add remitente varchar(200) not null default 'asocement@speedy.com.ar'
+go
+
+
+ create procedure cleanEmailsTable
+ as
+ begin
+	SET NOCOUNT ON;
+	delete from emails
+	select * from SAC_Lotes where 1=2
+ end
+
+
+
+insert into mod_backend_functions values ('m_modelo_emails','Submenú Emails',GETDATE(),GETDATE(),null,'tab',1048,'mod_disidentes','Sac_emails','',GETDATE(),350,'brow',100,null,1,0)
+
+select * from  mod_backend_functions
+
+
+insert into mod_backend_rel_groups_functions values (1,1096)
+insert into mod_backend_rel_groups_functions values (2,1096)
+
+
+update mod_backend_functions set data_model='Sac_funcavanzadas_asientos',data_action='brow' where id=1087

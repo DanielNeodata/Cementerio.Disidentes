@@ -135,8 +135,13 @@
     <Compile Include="application\models\mod_backend\Rel_users_groups.php" />
     <Compile Include="application\models\mod_backend\Type_users.php" />
     <Compile Include="application\models\mod_backend\Users.php" />
+    <Compile Include="application\models\mod_disidentes\Estados_Ocupacion.php" />
+    <Compile Include="application\models\mod_disidentes\Sac_emails.php" />
+    <Compile Include="application\models\mod_disidentes\Sac_facturacion_precios.php" />
     <Compile Include="application\models\mod_disidentes\Sac_fallecidos_consultasEspeciales.php" />
     <Compile Include="application\models\mod_disidentes\Sac_fallecidos_listados.php" />
+    <Compile Include="application\models\mod_disidentes\Sac_facturacion_recibos.php" />
+    <Compile Include="application\models\mod_disidentes\Sac_funcavanzadas_asientos.php" />
     <Compile Include="application\models\mod_disidentes\Sac_lotes_listados.php" />
     <Compile Include="application\models\mod_disidentes\Sac_lotes_historial.php" />
     <Compile Include="application\models\mod_disidentes\Sac_lotes_responsable.php" />
@@ -148,6 +153,8 @@
     <Compile Include="application\models\mod_disidentes\Historico.php" />
     <Compile Include="application\models\mod_disidentes\Facturacion.php" />
     <Compile Include="application\models\mod_disidentes\Funciones_avanzadas.php" />
+    <Compile Include="application\models\mod_disidentes\CON_Configuracion_Historico.php" />
+    <Compile Include="application\models\mod_disidentes\Sac_modelos_notificaciones.php" />
     <Compile Include="application\models\mod_disidentes\Tipo_forma_pago.php" />
     <Compile Include="application\third_party\phpseclib\bootstrap.php" />
     <Compile Include="application\third_party\phpseclib\Crypt\AES.php" />
@@ -188,6 +195,7 @@
     <Compile Include="application\views\errors\html\error_exception.php" />
     <Compile Include="application\views\errors\html\error_general.php" />
     <Compile Include="application\views\errors\html\error_php.php" />
+    <Compile Include="application\views\excel.php" />
     <Compile Include="application\views\logged.php" />
     <Compile Include="application\views\login.php" />
     <Compile Include="application\views\mod_backend\external\mobile_action.php" />
@@ -199,6 +207,8 @@
     <Compile Include="application\views\mod_backend\users\abm.php" />
     <Compile Include="application\views\mod_backend\_footer.php" />
     <Compile Include="application\views\mod_backend\_header.php" />
+    <Compile Include="application\views\mod_disidentes\con_cuentas\abm.php" />
+    <Compile Include="application\views\mod_disidentes\con_rubros\abm.php" />
     <Compile Include="application\views\mod_disidentes\con_rubros\listados.php" />
     <Compile Include="application\views\mod_disidentes\con_cuentas\plan_de_cuentas.php" />
     <Compile Include="application\views\mod_disidentes\con_cuentas\listados.php" />
@@ -225,9 +235,15 @@
     <Compile Include="application\views\mod_disidentes\historico\cuentas.php" />
     <Compile Include="application\views\mod_disidentes\historico\rubros.php" />
     <Compile Include="application\views\mod_disidentes\historico\plan_de_cuentas.php" />
+    <Compile Include="application\views\mod_disidentes\Sac_emails\abm.php" />
+    <Compile Include="application\views\mod_disidentes\Sac_facturacion_precios\abm.php" />
+    <Compile Include="application\views\mod_disidentes\Sac_facturacion_recibos\abm.php" />
     <Compile Include="application\views\mod_disidentes\sac_fallecidos\abm.php" />
     <Compile Include="application\views\mod_disidentes\sac_fallecidos\consultas_especiales.php" />
     <Compile Include="application\views\mod_disidentes\sac_fallecidos\listados.php" />
+    <Compile Include="application\views\mod_disidentes\sac_fallecidos_consultasEspeciales\abm.php" />
+    <Compile Include="application\views\mod_disidentes\sac_fallecidos_listados\abm.php" />
+    <Compile Include="application\views\mod_disidentes\Sac_funcavanzadas_asientos\abm.php" />
     <Compile Include="application\views\mod_disidentes\sac_lotes\abm.php" />
     <Compile Include="application\views\mod_disidentes\sac_lotes\historial.php" />
     <Compile Include="application\views\mod_disidentes\sac_lotes\listados.php" />
@@ -235,6 +251,8 @@
     <Compile Include="application\views\mod_disidentes\sac_lotes_listados\abm.php" />
     <Compile Include="application\views\mod_disidentes\sac_lotes_responsable\abm.php" />
     <Compile Include="application\views\mod_disidentes\sac_lotes_varios\abm.php" />
+    <Compile Include="application\views\mod_disidentes\sac_modelos_notificaciones\abm.php" />
+    <Compile Include="application\views\pdf.php" />
     <Compile Include="index.php" />
     <Compile Include="Sac_lotes.php" />
   </ItemGroup>
@@ -290,8 +308,10 @@
     <Content Include="application\views\mod_disidentes\historico\cuentas.js" />
     <Content Include="application\views\mod_disidentes\historico\rubros.js" />
     <Content Include="application\views\mod_disidentes\historico\plan_de_cuentas.js" />
+    <Content Include="application\views\mod_disidentes\Sac_facturacion_recibos\abm.js" />
     <Content Include="application\views\mod_disidentes\sac_fallecidos\consultas_especiales.js" />
     <Content Include="application\views\mod_disidentes\sac_fallecidos\listados.js" />
+    <Content Include="application\views\mod_disidentes\Sac_funcavanzadas_asientos\abm.js" />
     <Content Include="application\views\mod_disidentes\sac_lotes\historial.js" />
     <Content Include="application\views\mod_disidentes\sac_lotes\listados.js" />
     <Content Include="assets\bootstrap-material-design\css\bootstrap-material-design.css" />
@@ -367,6 +387,7 @@
     <Content Include="assets\img\pdf.png" />
     <Content Include="assets\img\placeholder.png" />
     <Content Include="assets\img\platform.png" />
+    <Content Include="assets\img\print.jpg" />
     <Content Include="assets\img\search.gif" />
     <Content Include="assets\img\secured.png" />
     <Content Include="assets\img\small.png" />
@@ -375,6 +396,7 @@
     <Content Include="assets\img\wait.gif" />
     <Content Include="assets\js\AJAX.js" />
     <Content Include="assets\js\FUNCTIONS.js" />
+    <Content Include="assets\js\NumeroALetras.js" />
     <Content Include="assets\js\TOOLS.js" />
     <Content Include="assets\js\trumbo\langs\ar.js" />
     <Content Include="assets\js\trumbo\langs\ar.min.js" />
@@ -541,6 +563,8 @@
     <Content Include="assets\js\_third\jszip.min.js" />
     <Content Include="assets\js\_third\moment-timezone.min.js" />
     <Content Include="assets\js\_third\moment.min.js" />
+    <Content Include="assets\js\_third\nicEdit.js" />
+    <Content Include="assets\js\_third\nicEditorIcons.gif" />
     <Content Include="assets\js\_third\popper.min.js" />
     <Content Include="assets\js\_third\shorten.js" />
     <Content Include="composer.json" />
@@ -596,9 +620,15 @@
     <Folder Include="application\views\mod_backend\upload\" />
     <Folder Include="application\views\mod_backend\users\" />
     <Folder Include="application\views\mod_disidentes\" />
+    <Folder Include="application\views\mod_disidentes\Sac_emails\" />
+    <Folder Include="application\views\mod_disidentes\Sac_facturacion_precios\" />
+    <Folder Include="application\views\mod_disidentes\Sac_facturacion_recibos\" />
     <Folder Include="application\views\mod_disidentes\sac_fallecidos\" />
     <Folder Include="application\views\mod_disidentes\funciones_avanzadas\" />
     <Folder Include="application\views\mod_disidentes\historico\" />
+    <Folder Include="application\views\mod_disidentes\sac_fallecidos_consultasEspeciales\" />
+    <Folder Include="application\views\mod_disidentes\sac_fallecidos_listados\" />
+    <Folder Include="application\views\mod_disidentes\Sac_funcavanzadas_asientos\" />
     <Folder Include="application\views\mod_disidentes\sac_lotes\" />
     <Folder Include="application\views\mod_disidentes\con_rubros\" />
     <Folder Include="application\views\mod_disidentes\facturacion\" />
@@ -607,6 +637,7 @@
     <Folder Include="application\views\mod_disidentes\sac_lotes_listados\" />
     <Folder Include="application\views\mod_disidentes\sac_lotes_responsable\" />
     <Folder Include="application\views\mod_disidentes\sac_lotes_varios\" />
+    <Folder Include="application\views\mod_disidentes\sac_modelos_notificaciones\" />
     <Folder Include="assets\" />
     <Folder Include="assets\bootstrap-material-design\" />
     <Folder Include="assets\bootstrap-material-design\css\" />

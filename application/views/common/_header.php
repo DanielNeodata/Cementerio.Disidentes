@@ -34,5 +34,6 @@
     <script type="text/javascript" src="./assets/bootstrap/js/bootstrap-select.min.js"></script>
     <script type="text/javascript" src="./assets/bootstrap-material-design/js/bootstrap-material-design.min.js"></script>
     <script type="text/javascript" src="./assets/js/trumbo/trumbowyg.js"></script>
+    <script type="text/javascript" src="./assets/js/_third/nicEdit.js"></script>
     <script type="text/javascript" src="./assets/js/trumbo/langs/<?php echo $language_file;?>.min.js"></script>
 </head>

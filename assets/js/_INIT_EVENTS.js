@@ -3,6 +3,9 @@
 	$.getScript("./assets/js/AJAX.js?" + today.toDateString()).done(function (script, textStatus) {
 		$.getScript("./assets/js/TOOLS.js?" + today.toDateString()).done(function (script, textStatus) {
 			$.getScript("./assets/js/FUNCTIONS.js?" + _TOOLS.UUID()).done(function (script, textStatus) {
+
+
+
 				moment().tz("America/Argentina/Buenos_Aires").format();
 				window.addEventListener("dragover", function (e) { e = e || event; e.preventDefault(); }, false);
 				window.addEventListener("drop", function (e) { e = e || event; e.preventDefault(); }, false);
@@ -69,7 +72,21 @@
 					_FUNCTIONS.onRecordProcess($(this));
 				});
 				$("body").off("click", ".btn-abm-accept").on("click", ".btn-abm-accept", function (e) {
+					try {
+						$(".html").each(function () {
+							//alert(this.name);
+							$("#"+this.name).val($('.nicEdit-main').html());
+						});
+						//$('#ModeloNotificacionHtml').val($('.nicEdit-main').html());
+					} catch (error) {
+						console.error(error);
+					}
+
 					_FUNCTIONS.onAbmAccept($(this));
+				});
+				$("body").off("click", ".btn-abm-accept-receipt").on("click", ".btn-abm-accept-receipt", function (e) {
+					if (!confirm("¿Confirma la operación?")) { return false; }
+					_FUNCTIONS.onAbmAcceptReceipt($(this));
 				});
 				$("body").off("click", ".btn-abm-cancel").on("click", ".btn-abm-cancel", function (e) {
 					_FUNCTIONS.onAbmCancel($(this));
@@ -126,6 +143,15 @@
 				$("body").off("click", ".btn-external-link").on("click", ".btn-external-link", function () {
 					_FUNCTIONS.onAddLinkExternal($(this));
 				});
+
+				$("body").off("click", ".btn-external-link1").on("click", ".btn-external-link1", function () {
+					_FUNCTIONS.onAddLinkExternal1($(this));
+				});
+
+				$("body").off("click", ".btn-receipt-search").on("click", ".btn-receipt-search", function (e) {
+					_FUNCTIONS.onReceiptSearch($(this));
+				});
+				
 			});
 		});
 	});

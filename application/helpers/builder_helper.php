@@ -23,6 +23,7 @@ function buildHeaderAbmStd($parameters,$title){
 }
 function buildFooterAbmStd($parameters){
     if(!isset($parameters["readonly"])){$parameters["readonly"]=false;}
+    if(!isset($parameters["accept-class-name"])){$parameters["accept-class-name"]="";}
     if(!isset($parameters["records"]["data"][0])){$parameters["records"]["data"][0]=null;}
     $record=$parameters["records"]["data"][0];
     $new=((int)secureField($record,"id")===0);    
@@ -38,7 +39,15 @@ function buildFooterAbmStd($parameters){
     if ($parameters["readonly"]) {
         $html.="  <div class='px-4'><button type='button' class='btn-raised btn-abm-cancel btn btn-info'><i class='material-icons'>close</i></span>".lang("b_close")."</button></div>";
     } else {
-        $html.="  <div class='px-4'><button type='button' class='btn-raised btn-abm-accept btn btn-success' ".$dataRec."><i class='material-icons'>done</i></span>".lang("b_accept")."</button></div>";
+        if ($parameters["accept-class-name"]!="")
+        {
+            $html.="  <div class='px-4'><button type='button' class='btn-raised ".$parameters["accept-class-name"]." btn btn-success' ".$dataRec."><i class='material-icons'>done</i></span>".lang("b_accept")."</button></div>";
+        }
+        else
+        {
+            $html.="  <div class='px-4'><button type='button' class='btn-raised btn-abm-accept btn btn-success' ".$dataRec."><i class='material-icons'>done</i></span>".lang("b_accept")."</button></div>";
+        }
+        
         if ($parameters["records"]["data"][0]["code"]!="llamada-telefonica") {
            $html.="  <div class='px-4'><button type='button' class='btn-raised btn-abm-cancel btn btn-danger'><i class='material-icons'>not_interested</i></span>".lang("b_cancel")."</button></div>";
         }
@@ -515,9 +524,14 @@ function getInput($parameters,$ops){
     if(!isset($ops["readonly"])){$ops["readonly"]=false;}
     if(!isset($ops["nolabel"])){$ops["nolabel"]=false;}
     if(!isset($ops["empty"])){$ops["empty"]=false;}
+    if(!isset($ops["free"])){$ops["free"]="";}
+    if(!isset($ops["val"])){$ops["val"]="";}
     if(!isset($ops["checkboxtype"])){$ops["checkboxtype"]="01";}//01 para 01, SN para Si o No
     if(!isset($parameters["records"]["data"][0])){$parameters["records"]["data"][0]=null;}
     $value=secureField($parameters["records"]["data"][0],$ops["name"]);
+
+    if ($ops["val"]!=""){$value=$ops["val"];}
+
     if ($ops["empty"]) {$value="";}
     $label=lang('p_'.$ops["name"]);
     if($ops["forcelabel"]!=""){$label=$ops["forcelabel"];}
@@ -555,7 +569,7 @@ function getInput($parameters,$ops){
                 if ($value!=""){$value=date(FORMAT_DATE_DB, strtotime($value));}
                 break;
         }
-       $html.="<input ".$ops["custom"]." data-type='".$ops["type"]."' ".$checked." autocomplete='nope' ".$checPaeameters." value='".$value."' class='".$ops["class"]."' type='".$ops["type"]."' name='".$ops["name"]."' id='".$ops["name"]."' data-clear-btn='false' placeholder='".lang('p_'.$ops["name"])."' />";
+       $html.="<input ".$ops["custom"]." data-type='".$ops["type"]."' ".$checked." autocomplete='nope' ".$checPaeameters." value='".$value."' class='".$ops["class"]."' type='".$ops["type"]."' name='".$ops["name"]."' id='".$ops["name"]."' data-clear-btn='false' placeholder='".lang('p_'.$ops["name"])."' ".$ops["free"]." />";
     }
     $html.="<div class='invalid-feedback invalid-".$ops["name"]." d-none'/>";
     if(isset($ops["col"])){$html="<div class='".$ops["col"]."'>".$html."</div>";}
@@ -568,6 +582,7 @@ function getTextArea($parameters,$ops){
     if(!isset($ops["nolabel"])){$ops["nolabel"]=false;}
     if(!isset($ops["empty"])){$ops["empty"]=false;}
     if(!isset($ops["rows"])){$ops["rows"]="10";}
+    if(!isset($ops["free"])){$ops["free"]="";}
     if(!isset($parameters["records"]["data"][0])){$parameters["records"]["data"][0]=null;}
     $value=secureField($parameters["records"]["data"][0],$ops["name"]);
     if ($ops["empty"]) {$value="";}
@@ -580,6 +595,29 @@ function getTextArea($parameters,$ops){
     if(isset($ops["col"])){$html="<div class='".$ops["col"]."'>".$html."</div>";}
     return $html;
 }
+
+function getTextAreaHtmlEditor($parameters,$ops){
+    $html="";
+    if(!isset($ops["format"])){$ops["format"]="text";}
+    if(!isset($ops["readonly"])){$ops["readonly"]=false;}
+    if(!isset($ops["nolabel"])){$ops["nolabel"]=false;}
+    if(!isset($ops["empty"])){$ops["empty"]=false;}
+    if(!isset($ops["rows"])){$ops["rows"]="10";}
+    if(!isset($ops["free"])){$ops["free"]="";}
+    if(!isset($parameters["records"]["data"][0])){$parameters["records"]["data"][0]=null;}
+    $value=secureField($parameters["records"]["data"][0],$ops["name"]);
+    if ($ops["empty"]) {$value="";}
+    if(!$ops["nolabel"]){$html.="<label for='".$ops["name"]."'>".lang('p_'.$ops["name"])."</label>";}
+    if ($ops["readonly"]) {
+        $html.="<div class='border'><pre>".$value."</pre></div>";
+    } else {
+        $html.="<textarea class='".$ops["class"]."' id='".$ops["name"]."' name='".$ops["name"]."' rows='".$ops["rows"]."' ".$ops["free"].">".$value."</textarea>";
+    }
+    $html.="<script type='text/javascript'>new nicEditor({iconsPath : './assets/js/_third/nicEditorIcons.gif',fullPanel: true}).panelInstance('".$ops["name"]."');</script>";
+    if(isset($ops["col"])){$html="<div class='".$ops["col"]."'>".$html."</div>";}
+    return $html;
+}
+
 function getHtmlResolved($parameters,$type,$field,$ops=null) {
     $html="";
     $label=lang('p_'.$field);

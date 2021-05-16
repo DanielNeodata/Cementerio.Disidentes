@@ -75,10 +75,10 @@ $query_builder = true;
 
 $db['disidentes'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
+	'hostname' => 'DESKTOP-LCQUGS4\SQLEXPRESS2017',
 	'username' => 'sa',
-	'database' => 'disidentes',
-	'password' => '08Z5il37',
+	'database' => 'disidentes_new',
+	'password' => 'peperina',
 	'dbdriver' => 'sqlsrv',
 	'dbprefix' => '',
 	'pconnect' => false,

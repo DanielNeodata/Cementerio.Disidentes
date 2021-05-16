@@ -63,6 +63,26 @@ var _TOOLS = {
 		if (second < 10) { second = "0" + second; }
 		return year + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second;
 	},
+	ValidateEmailAndAlert: function (inputText,idelement) {
+		var mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+		if (inputText.value == "") { return true;}
+
+		if (inputText.value.match(mailformat)) {
+			//alert("Valid email address!");
+			document.form1.text1.focus();
+			return true;
+		}
+		else {
+			alert("El mail ingresado es erroneo!");
+			//inputText.value.focus();
+			setTimeout(function () {
+				document.getElementById(idelement).focus();
+			}, 0);
+			
+			return false;
+		}
+	},
 	isValidEmail: function (email) {
 		var em = /^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
 		return em.test(email);
@@ -114,7 +134,7 @@ var _TOOLS = {
 		} else {
 			_obj.removeClass("is-valid").addClass("is-invalid");
 			var _msg = _obj.attr("placeholder");
-			if (_msg == undefined) { _msg = "el valor de selección";}
+			if (_msg == undefined) { _msg = "el valor de selección"; }
 			$(".invalid-" + _obj.prop("name")).html("Debe completar " + _msg).removeClass("d-none");
 		}
 		return _ret;
@@ -150,7 +170,7 @@ var _TOOLS = {
 							if ($(this).prop("checked")) {
 								//alert("if checked");
 								//value = $(this).val();
-								value = "S"; 
+								value = "S";
 							} else {
 								//alert("if else checked");
 								value = "N";
@@ -339,10 +359,422 @@ var _TOOLS = {
 		_TOOLS.speed = null;
 		_TOOLS.timestamp = null;
 	},
-	createFileItem: function(_name, _result) {
+	createFileItem: function (_name, _result) {
 		var _id = _TOOLS.UUID();
 		return "<li class='list-group-item attach " + _id + "' data-name='" + _name + "' data-url='" + _result + "' style='padding:10px;'>Se ha adjuntado <span class='badge badge-success'>" + _name + "</span><a href='#' class='btn btn-xs btn-deattach btn-danger pull-right' data-id='" + _id + "' style='margin:0px;'><i class='material-icons'>delete_forever</i></a></li>"
 	},
+	getTodayDate(format, sepChar) {
+		//alert("a");
+		var today = "";
+
+		var d = new Date();
+		var month = '' + (d.getMonth() + 1);
+		var day = '' + d.getDate();
+		var year = d.getFullYear();
+
+		if (month.length < 2) { month = '0' + month; }
+		if (day.length < 2) { day = '0' + day; }
+
+		if (format == "" || format == null) {
+			today = [month, day, year].join(sepChar);
+		} else if (format == "ar" || format == "es") {
+			today = [day, month, year].join(sepChar);
+		} else if (format == "amd" || format == "YMD" || format == "ymd" || format == "AMD") {
+			//alert("aammdd");
+			today = [year, month, day].join(sepChar);
+		} else if (format == "dmy" || format == "DMY" || format == "DMA" || format == "dma") {
+			today = [day, month, year].join(sepChar);
+		} else if (format == "mda" || format == "MDA" || format == "mdy" || format == "MDY") {
+			today = [month, day, year].join(sepChar);
+		}
+
+		//alert("b");
+		return today;
+	},
+	nullToEmpty: function (cadena) {
+
+		if (cadena==null || cadena == "null" || cadena == "undefined" || cadena === "" ) { return ""; } else { return cadena; }
+
+	},
+	getFormattedDate(fec, format, sepChar) {
+		//alert("a");
+		var today = "";
+
+		var d = fec;
+		var month = '' + (d.getMonth() + 1);
+		var day = '' + d.getDate();
+		var year = d.getFullYear();
+
+		if (month.length < 2) { month = '0' + month; }
+		if (day.length < 2) { day = '0' + day; }
+
+		if (format == "" || format == null) {
+			today = [month, day, year].join(sepChar);
+		} else if (format == "ar" || format == "es") {
+			today = [day, month, year].join(sepChar);
+		} else if (format == "amd" || format == "YMD" || format == "ymd" || format == "AMD") {
+			//alert("aammdd");
+			today = [year, month, day].join(sepChar);
+		} else if (format == "dmy" || format == "DMY" || format == "DMA" || format == "dma") {
+			today = [day, month, year].join(sepChar);
+		} else if (format == "mda" || format == "MDA" || format == "mdy" || format == "MDY") {
+			today = [month, day, year].join(sepChar);
+		}
+
+		//alert("b");
+		return today;
+	},
+	getTextAsFormattedDate(fec, format, sepChar) {
+		//alert("a");
+		var today = "";
+
+		/*completo con la hora xq sino no pone bien el dia... resta 1....*/
+		if (fec.length < 11) { fec = fec + ' 00:00:00';}
+
+		const d = new Date(fec);
+		//var d = fec;
+		var month = '' + (d.getMonth() + 1);
+		var day = '' + d.getDate();
+		var year = d.getFullYear();
+
+		if (month.length < 2) { month = '0' + month; }
+		if (day.length < 2) { day = '0' + day; }
+
+		if (format == "" || format == null) {
+			today = [month, day, year].join(sepChar);
+		} else if (format == "ar" || format == "es") {
+			today = [day, month, year].join(sepChar);
+		} else if (format == "amd" || format == "YMD" || format == "ymd" || format == "AMD") {
+			//alert("aammdd");
+			today = [year, month, day].join(sepChar);
+		} else if (format == "dmy" || format == "DMY" || format == "DMA" || format == "dma") {
+			today = [day, month, year].join(sepChar);
+		} else if (format == "mda" || format == "MDA" || format == "mdy" || format == "MDY") {
+			today = [month, day, year].join(sepChar);
+		}
+
+		//alert("b");
+		return today;
+	},
+
+	getTextBox: function (nombre, descripcion, largo, valor, hasDiv, classText) {
+
+		var _html = "";
+		if (hasDiv == "Y" || hasDiv == "S" || hasDiv == "y" || hasDiv == "s") {
+			_html += "<div class='col-md-" + largo + "'>";
+		}
+		_html += "<label for='LBL-" + nombre + "'>" + descripcion + "</label>";
+		//_html += "&nbsp;&nbsp;";
+
+		if (valor == null) { valor = ""; }
+
+		_html += "<input data-type='text' autocomplete='nope' value='" + valor + "' " + classText + " type='text' name='TB-" + nombre + "' id='TB-" + nombre + "' data-clear-btn='false' placeholder='" + descripcion + "'>";
+		if (hasDiv == "Y" || hasDiv == "S" || hasDiv == "y" || hasDiv == "s") {
+			_html += "<div class='invalid-feedback invalid-TB" + nombre + " d-none'></div>";
+			_html += "</div>";
+		}
+		return _html;
+	},
+	getNumberBox: function (nombre, descripcion, largo, valor, hasDiv, classText) {
+
+		var _html = "";
+		if (hasDiv == "Y" || hasDiv == "S" || hasDiv == "y" || hasDiv == "s") {
+			_html += "<div class='col-md-" + largo + "'>";
+		}
+		_html += "<label for='LBL-" + nombre + "'>" + descripcion + "</label>";
+		//_html += "&nbsp;&nbsp;";
+
+		if (valor == null) { valor = "0"; }
+
+		_html += "<input data-type='number' autocomplete='nope' value='" + valor + "' " + classText + " type='number' name='TB-" + nombre + "' id='TB-" + nombre + "' data-clear-btn='false' placeholder='" + descripcion + "'>";
+		if (hasDiv == "Y" || hasDiv == "S" || hasDiv == "y" || hasDiv == "s") {
+			_html += "<div class='invalid-feedback invalid-TB" + nombre + " d-none'></div>";
+			_html += "</div>";
+		}
+		return _html;
+	},
+	getDateBox: function (nombre, descripcion, largo, valor, hasDiv, classText) {
+
+		var _html = "";
+		if (hasDiv == "Y" || hasDiv == "S" || hasDiv == "y" || hasDiv == "s") {
+			_html += "<div class='col-md-" + largo + "'>";
+		}
+		_html += "<label for='LBL-" + nombre + "'>" + descripcion + "</label>";
+		//_html += "&nbsp;&nbsp;";
+
+		if (valor == null) { valor = ""; }
+
+		_html += "<input data-type='date' autocomplete='nope' value='" + valor + "' " + classText + " type='date' name='TB-" + nombre + "' id='TB-" + nombre + "' data-clear-btn='false' placeholder='" + descripcion + "'>";
+		if (hasDiv == "Y" || hasDiv == "S" || hasDiv == "y" || hasDiv == "s") {
+			_html += "<div class='invalid-feedback invalid-TB" + nombre + " d-none'></div>";
+			_html += "</div>";
+		}
+		return _html;
+	},
+	getTimeBox: function (nombre, descripcion, largo, valor, hasDiv, classText, step) {
+
+		var _html = "";
+		if (hasDiv == "Y" || hasDiv == "S" || hasDiv == "y" || hasDiv == "s") {
+			_html += "<div class='col-md-" + largo + "'>";
+		}
+		_html += "<label for='LBL-" + nombre + "'>" + descripcion + "</label>";
+		//_html += "&nbsp;&nbsp;";
+
+		if (valor == null) { valor = ""; }
+
+		_html += "<input data-type='time' step='" + step + "' autocomplete='nope' value='" + valor + "' " + classText + " type='time' name='TB-" + nombre + "' id='TB-" + nombre + "' data-clear-btn='false' placeholder='" + descripcion + "'>";
+		if (hasDiv == "Y" || hasDiv == "S" || hasDiv == "y" || hasDiv == "s") {
+			_html += "<div class='invalid-feedback invalid-TB" + nombre + " d-none'></div>";
+			_html += "</div>";
+		}
+		return _html;
+	},
+	compareDates: function (a, b) {
+		// Compare two dates (could be of any type supported by the convert
+		// function above) and returns:
+		//  -1 : if a < b
+		//   0 : if a = b
+		//   1 : if a > b
+		// NaN : if a or b is an illegal date
+		// NOTE: The code inside isFinite does an assignment (=).
+		return (
+			isFinite(a = this.convert(a).valueOf()) &&
+				isFinite(b = this.convert(b).valueOf()) ?
+				(a > b) - (a < b) :
+				NaN
+		);
+	},
+	limitText: function (limitField, limitCount, limitNum) {
+
+		if (limitField.value.length > limitNum) {
+			if (limitCount == null) {
+				alert("Llegó al máximo de " + limitNum + " caracteres permitidos");
+			}
+			limitField.value = limitField.value.substring(0, limitNum);
+		} else {
+			if (limitCount != null) {
+				limitCount.value = limitNum - limitField.value.length;
+			}
+		}
+	},
+
+	getRadioButton: function (nombre, id, descripcion, valor, additionalStr) {
+
+		var _html = "";
+		_html += "<span id='LBLR-" + nombre + "'>" + descripcion + "</span>";
+		_html += "<input id='" + id + "' type='radio' name='" + nombre + "' value='" + valor + "' " + additionalStr + ">";
+		return _html;
+	},
+	getRadioYesNoButton: function (nombre, descripcion, largo, selected, yesval, noval, yeslbl, nolbl) {
+
+		var _html = "";
+		_html += "<div class='col-md-" + largo + "'>";
+		_html += "<label for='LBL-" + nombre + "'>" + descripcion + "</label>";
+		var noextra = "";
+		var yesextra = "";
+		if (selected == noval) { noextra = " checked "; }
+		if (selected == yesval) { yesextra = " checked "; }
+		_html += "&nbsp;&nbsp;";
+		_html += this.getRadioButton(nombre, nombre + "_s", yeslbl, yesval, yesextra);
+		_html += "&nbsp;&nbsp;";
+		_html += this.getRadioButton(nombre, nombre + "_n", nolbl, noval, noextra);
+		_html += "<div class='invalid-feedback invalid-TB" + nombre + " d-none'></div>";
+		_html += "</div>";
+		return _html;
+	},
+	getComboFromList: function (nombre, descripcion, largo, selected, valList, displayList, hasEmptyOption, emptyText, hasDiv, classTExt, readonlyFlag) {
+		var valArray = valList.split(",");
+		var disArray = displayList.split(",");
+		var i = 0;
+		var _html = "";
+		var selectedText = "";
+
+		if (hasDiv == "Y" || hasDiv == "S" || hasDiv == "y" || hasDiv == "s") {
+			_html += "<div class='col-md-" + largo + "'>";
+		}
+		_html += "<span id='LBL-" + nombre + "'>" + descripcion + "</span>";
+		_html += "<select " + classTExt + " id='" + nombre + "'>";
+		if (hasEmptyOption == "Y" || hasEmptyOption == "S" || hasEmptyOption == "y" || hasEmptyOption == "s") {
+
+			if (selected == "0") {
+				selectedText = " selected ";
+			}
+			_html += "<option value='0' " + selectedText + ">" + emptyText + "</option > ";
+		}
+		for (i = 0; i < valArray.length; i++) {
+			if (selected == valArray[i]) {
+				selectedText = " selected ";
+			}
+			else {
+				if (readonlyFlag == "Y" || readonlyFlag == "S" || readonlyFlag == "y" || readonlyFlag == "s") {
+					selectedText = " disabled ";
+				}
+				else {
+					selectedText = "";
+				}
+			}
+			_html += "<option value='" + valArray[i] + "' " + selectedText + ">" + disArray[i] + "</option > ";
+
+		}
+		_html += "</select>";
+
+		if (hasDiv == "Y" || hasDiv == "S" || hasDiv == "y" || hasDiv == "s") {
+			_html += "</div > ";
+		}
+		return _html;
+
+
+	},
+
+	showNumber: function (num, dec, group, valueIfNull) {
+
+		if ((num == null) || (num == "") || num == " ") { return valueIfNull; }
+
+		var numShow = new String;
+		var decimalsStr = new String;
+		var integerStr = new String;
+		var numberFormated = "";
+		var separator = group;
+		var isNegative = false;
+
+		if (separator == ".") { decimalStr = ","; } else { decimalStr = "."; }
+
+		if (isNaN(num)) {
+			num = 0;
+		}
+
+		num = parseFloat(num);
+
+		if (Math.abs(num) != num) {
+			num = Math.abs(num);
+			isNegative = true;
+		}
+
+		// Ajusto la cantidad de decimales y lo paso a string
+		var tempNum = "";
+		tempNum = num.toFixed(dec);
+
+		var posDot = tempNum.indexOf(decimalStr);
+
+		// Si no hay punto es porque no hay decimales
+		if (posDot == -1) {
+			decimalsStr = "";
+			integerStr = tempNum;
+		} else {
+			decimalsStr = tempNum.slice(posDot + 1);
+			integerStr = tempNum.slice(0, posDot);
+		}
+
+		var integerGroups = new Array();
+		var tempIntegerStr;
+
+		// Separo la parte entera en grupos de 3
+		while (integerStr.length > 3) {
+			tempIntegerStr = integerStr.slice(integerStr.length - 3, integerStr.length);
+
+			integerStr = integerStr.slice(0, integerStr.length - 3);
+
+			integerGroups[integerGroups.length] = tempIntegerStr;
+		}
+
+		// Si sobro algo lo mando al final
+		if (integerStr != "") {
+			integerGroups[integerGroups.length] = integerStr;
+		}
+
+		// Doy vuelta el array
+		integerGroups.reverse();
+
+		// Genero el string de vuelta
+		if (isNegative) {
+			numberFormated += "-";
+		}
+		if (dec == 0) {
+			numberFormated += integerGroups.join(separator);
+		} else {
+			numberFormated += integerGroups.join(separator) + decimalStr + decimalsStr;
+		}
+
+		return numberFormated;
+	},
+	formatNumber: function (format, num, isCurrency) {
+		alert("a");
+		var Nume = num;
+
+		if (isCurrency == "Y" || isCurrency == "S" || isCurrency == "y" || isCurrency == "s") {
+
+			if (format == "ar" || format == "es") {
+				alert("ar antes");
+				Nume = new Intl.NumberFormat("es-ES", { style: "currency" }).format(num);
+				alert("ar despues");
+			}
+		}
+		else {
+			if (format == "ar" || format == "es") {
+				alert("ar antes");
+				Nume = new Intl.NumberFormat("es-ES").format(num);
+				alert("ar despues");
+			}
+		}
+		alert("b");
+		return Nume;
+	},
+
+	numberWithLeadingZeros: function (num, size) {
+		num = num.toString();
+		while (num.length < size) num = "0" + num;
+		return num;
+	},
+
+	numberWithLeadingZerosFixed: function (num, size) {
+		var s = "00000000" + num;
+		return s.substr(s.length - size);
+	},
+
+	numeroAtexto: function (n) {
+
+		var o = new Array("diez", "once", "doce", "trece", "catorce", "quince", "dieciséis", "diecisiete", "dieciocho", "diecinueve", "veinte", "veintiuno", "veintidós", "veintitrés", "veinticuatro", "veinticinco", "veintiséis", "veintisiete", "veintiocho", "veintinueve");
+		var u = new Array("cero", "uno", "dos", "tres", "cuatro", "cinco", "seis", "siete", "ocho", "nueve");
+		var d = new Array("", "", "", "treinta", "cuarenta", "cincuenta", "sesenta", "setenta", "ochenta", "noventa");
+		var c = new Array("", "ciento", "doscientos", "trescientos", "cuatrocientos", "quinientos", "seiscientos", "setecientos", "ochocientos", "novecientos");
+
+		var n = parseFloat(n).toFixed(2); /*se limita a dos decimales, no sabía que existía toFixed() :)*/
+		var p = n.toString().substring(n.toString().indexOf(".") + 1); /*decimales*/
+		var m = n.toString().substring(0, n.toString().indexOf(".")); /*número sin decimales*/
+		var m = parseFloat(m).toString().split("").reverse(); /*tampoco que reverse() existía :D*/
+		var t = "";
+
+		/*Se analiza cada 3 dígitos*/
+		for (var i = 0; i < m.length; i += 3) {
+			var x = t;
+			/*formamos un número de 2 dígitos*/
+			var b = m[i + 1] != undefined ? parseFloat(m[i + 1].toString() + m[i].toString()) : parseFloat(m[i].toString());
+			/*analizamos el 3 dígito*/
+			t = m[i + 2] != undefined ? (c[m[i + 2]] + " ") : "";
+			t += b < 10 ? u[b] : (b < 30 ? o[b - 10] : (d[m[i + 1]] + (m[i] == '0' ? "" : (" y " + u[m[i]]))));
+			t = t == "ciento cero" ? "cien" : t;
+			if (2 < i && i < 6)
+				t = t == "uno" ? "mil " : (t.replace("uno", "un") + " mil ");
+			if (5 < i && i < 9)
+				t = t == "uno" ? "un millón " : (t.replace("uno", "un") + " millones ");
+			t += x;
+			//t=i<3?t:(i<6?((t=="uno"?"mil ":(t+" mil "))+x):((t=="uno"?"un millón ":(t+" millones "))+x));
+		}
+
+		t += " con " + p + "/100";
+		/*correcciones*/
+		t = t.replace("  ", " ");
+		t = t.replace(" cero", "");
+		//t = t.replace(" Cinco Cientos", " quiñentos");
+		//t = t.replace(" Uno Cientos", " Ciento");
+		//t=t.replace("ciento y","cien y");
+		//alert("Numero: "+n+"\nNº Dígitos: "+m.length+"\nDígitos: "+m+"\nDecimales: "+p+"\nt: "+t);
+		//document.getElementById("esc").value=t;
+		return t;
+	},
+
+	
+
 	utf8_to_b64: function (str) { return window.btoa(unescape(encodeURIComponent(str))); },
 	b64_to_utf8: function (str) { str = str.replace(/\s/g, ''); return decodeURIComponent(escape(window.atob(str))); },
 };

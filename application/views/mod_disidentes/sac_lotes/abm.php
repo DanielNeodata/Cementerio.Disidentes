@@ -7,6 +7,7 @@ $html=buildHeaderAbmStd($parameters,$title);
 $html.="<div class='body-abm d-flex border border-light p-2 rounded shadow-sm'>";
 $html.="<form style='width:100%;' autocomplete='off'>";
 
+
 $html.="<br/><h4>Lote</h4>";
 $html.="<div class='form-row'>";
 $html.=getInput($parameters,array("col"=>"col-md-3","name"=>"SECCION","type"=>"text","class"=>"form-control text dbase validate"));
@@ -19,8 +20,13 @@ $html.=getInput($parameters,array("col"=>"col-md-3","name"=>"SECTOR","type"=>"te
 $html.="</div>";
 $html.="<div class='form-row'>";
 $html.=getInput($parameters,array("col"=>"col-md-3","name"=>"TIPO","type"=>"text","class"=>"form-control text dbase validate"));
-
 $html.="</div>";
+$html.="<div class='form-row'>";
+$html.=getHtmlResolved($parameters,"controls","estado_ocupacion",array("col"=>"col-md-4"));
+$html.="</div>";
+
+
+
 $html.="<hr/><br/><h4>Forma de pago</h4>";
 $html.="<div class='form-row'>";
 $html.=getHtmlResolved($parameters,"controls","id_forma_pago",array("col"=>"col-md-4"));
@@ -44,12 +50,15 @@ $html.="<div class='form-row'>";
 $html.=getInput($parameters,array("col"=>"col-md-3","name"=>"TELEFONO","type"=>"text","class"=>"form-control text dbase validate"));
 $html.="</div>";
 $html.="<div class='form-row'>";
-$html.=getInput($parameters,array("col"=>"col-md-8","name"=>"EMAIL","type"=>"text","class"=>"form-control text dbase"));
+$html.=getInput($parameters,array("col"=>"col-md-8","name"=>"EMAIL","type"=>"email","class"=>"form-control email dbase","free"=>"onBlur=_TOOLS.ValidateEmailAndAlert(this,'EMAIL');"));
+$html.="</div>";
+$html.="<div class='form-row'>";
+$html.=getInput($parameters,array("col"=>"col-md-8","name"=>"EMAIL_SEC","type"=>"email","class"=>"form-control text dbase","free"=>"onBlur=_TOOLS.ValidateEmailAndAlert(this,'EMAIL_SEC');"));
 $html.="</div>";
 
 $html.="<hr/><br/><h4>Responsable</h4>";
 $html.="<div class='form-row'>";
-$html.=getInput($parameters,array("col"=>"col-md-8","name"=>"RESPONSABL","type"=>"text","class"=>"form-control text dbase "));
+$html.=getInput($parameters,array("col"=>"col-md-8","name"=>"RESPONSABL","type"=>"text","class"=>"form-control text dbase"));
 $html.="</div>";
 $html.="<div class='form-row'>";
 $html.=getInput($parameters,array("col"=>"col-md-8","name"=>"RES_DIRECC","type"=>"text","class"=>"form-control text dbase "));
@@ -64,8 +73,12 @@ $html.="<div class='form-row'>";
 $html.=getInput($parameters,array("col"=>"col-md-3","name"=>"RES_TELEFO","type"=>"text","class"=>"form-control text dbase "));
 $html.="</div>";
 $html.="<div class='form-row'>";
-$html.=getInput($parameters,array("col"=>"col-md-8","name"=>"RES_EMAIL","type"=>"text","class"=>"form-control text dbase "));
+$html.=getInput($parameters,array("col"=>"col-md-8","name"=>"RES_EMAIL","type"=>"email","class"=>"form-control text dbase ","free"=>"onBlur=_TOOLS.ValidateEmailAndAlert(this,'RES_EMAIL');"));
 $html.="</div>";
+$html.="<div class='form-row'>";
+$html.=getInput($parameters,array("col"=>"col-md-8","name"=>"RES_EMAIL_SEC","type"=>"email","class"=>"form-control text dbase","free"=>"onBlur=_TOOLS.ValidateEmailAndAlert(this,'RES_EMAIL_SEC');"));
+$html.="</div>";
+
 
 $html.="<hr/><br/><h4>Renovaciones</h4>";
 $html.="<div class='form-row'>";
@@ -96,6 +109,9 @@ $html.=getInput($parameters,array("col"=>"col-md-3","name"=>"ULTBIMPAGO","type"=
 $html.="</div>";
 $html.="<div class='form-row'>";
 $html.=getInput($parameters,array("col"=>"col-md-3","name"=>"DEUDA","type"=>"number","class"=>"form-control text dbase "));
+$html.="</div>";
+$html.="<div class='form-row'>";
+$html.=getInput($parameters,array("col"=>"col-md-3","name"=>"IMPORTEACUENTA","type"=>"number","class"=>"form-control text dbase "));
 $html.="</div>";
 $html.="<div class='form-row'>";
 $html.=getInput($parameters,array("col"=>"col-md-3","name"=>"TITULO","type"=>"checkbox","checkboxtype"=>"SN","class"=>"form-control text dbase "));
