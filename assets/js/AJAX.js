@@ -792,6 +792,21 @@ _AJAX = {
 		_json["function"] = "excel";
 		_AJAX.forcePost('api.backend/neocommand', '_blank', _AJAX.formatFixedParameters(_json));
 	},
+	UiMailAll: function (_json) {
+		/*_json["mode"] = "download"; // TOque aca!
+		_json["exit"] = "download";
+		_json["function"] = "processBatchMail";
+		_AJAX.forcePost('api.backend/neocommand', '_blank', _AJAX.formatFixedParameters(_json));
+		*/
+		return new Promise(
+			function (resolve, reject) {
+				_json["function"] = "processBatchMail";
+				_json["method"] = "api.backend/neocommand"; //method
+				_AJAX._waiter = true;
+				_AJAX.ExecuteDirect(_json, null).then(function (data) { resolve(data); }).catch(function (err) { reject(err); });
+			});
+
+	},
 	UiPdf: function (_json) {
 		_json["mode"] = "view";
 		_json["exit"] = "download";

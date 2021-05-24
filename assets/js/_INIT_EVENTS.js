@@ -97,6 +97,11 @@
 				$("body").off("click", ".btn-excel-search").on("click", ".btn-excel-search", function (e) {
 					_FUNCTIONS.onBrowserSearch($(this));
 				});
+
+				$("body").off("click", ".btn-mail-search").on("click", ".btn-mail-search", function (e) {
+					_FUNCTIONS.onBrowserSearch($(this));
+				});
+
 				$("body").off("click", ".btn-pdf-search").on("click", ".btn-pdf-search", function (e) {
 					_FUNCTIONS.onBrowserSearch($(this));
 				});

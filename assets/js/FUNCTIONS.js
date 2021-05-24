@@ -11,7 +11,7 @@ _FUNCTIONS = {
 	_defaultBrowserSearch: "browser_search",
 	_defaultBrowserSearchOperator: "like",
 	_defaultBrowserSearchFields: ["code", "description"],
-	_defaultProviderFooter: "<img src='./assets/img/small.png' style='width:32px;' /><a href='https://www.credipaz.com' target='_blank'>Credipaz</a>",
+	_defaultProviderFooter: "<img src='./assets/img/small.png' style='width:32px;' /><a href='http://disidentes.neodata.com.ar' target='_blank'>Cementerio Disidentes</a>",
 	_max_filesize_upload: 50,
 	_TIMEOUT_ALERT: 3000,
 	_TIMER_MODAL: 0,
@@ -1417,6 +1417,7 @@ _FUNCTIONS = {
 						_where = (_forced_field + "=" + _forced_value);
 					}
 					_json["where"] = _where;
+					//alert(_data_mode);
 					switch (_data_mode) {
 						case "brow":
 							_AJAX.UiBrow(_json).then(function (data) {
@@ -1430,6 +1431,10 @@ _FUNCTIONS = {
 							}).catch(function (error) {
 								throw error;
 							});
+							break;
+						case "mailall":
+							alert("mail");
+							_AJAX.UiMailAll(_json);
 							break;
 						case "excel":
 							//alert("excel");
