@@ -189,7 +189,7 @@ class Funciones_avanzadas extends MY_Model {
             $sql="";
 
 
-            $sql = "   sp_LibroMayorHistorico '".$values["FDESDE"]."','".$values["FHASTA"]."','".$values["CDESDE"]."','".$values["CHASTA"]."','".$values["PREFIJO"]."'";
+            $sql = "   sp_LibroMayor '".$values["FDESDE"]."','".$values["FHASTA"]."','".$values["CDESDE"]."','".$values["CHASTA"]."','".$values["PREFIJO"]."'";
 
             log_message('error', 'cco-> pasando x GetLibroMayor de rubos VIEW es:->'.$sql."<-");
 

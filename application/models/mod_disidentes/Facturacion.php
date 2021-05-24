@@ -154,6 +154,7 @@ class Facturacion extends MY_Model {
                  
                  $subject=$modelosNotificaciones[0]["ModeloNotificacionTitulo"];
                  $remitente=$modelosNotificaciones[0]["remitente"];
+                 $nombreRemitente=$modelosNotificaciones[0]["NombreRemitente"];
 
                  log_message('error', 'cco-> pasando x GetNotificacionConservaciones ModeloTitulo: '.$subject);
 
@@ -167,6 +168,9 @@ class Facturacion extends MY_Model {
                             log_message('error', 'cco-> pasando x GetNotificacionConservaciones EN FOREACH dest !=vacio');
 
                             $body=$modelosNotificaciones[0]["ModeloNotificacionHtml"];
+
+                            $tit = str_replace("'"," ",$r["TITULAR"]);
+                            $tit = str_replace(";"," ",$tit);
 
                             $body = str_replace("[TITULAR]",str_replace("'"," ",str_replace(";"," ",(str_replace(","," ",$r["TITULAR"])))),$body);
                             $body = str_replace("[DIRECCION]",str_replace("'"," ",str_replace(";"," ",(str_replace(","," ",$r["DIRECCION"])))),$body);
@@ -191,7 +195,7 @@ class Facturacion extends MY_Model {
 
                             log_message('error', 'cco-> pasando x GetNotificacionConservaciones FECHA: '.$vence." - ".$hoy." - -".$r["IMPORTE"]);
 
-                            $sp = "EXEC sp_emails '".$remitente."','".$destinatario."','".$subject."','".$body."'";
+                            $sp = "EXEC sp_emails '".$remitente."','".$destinatario."','".$subject."','".$body."','".$tit."','".$nombreRemitente."'";
                             $recnon = $this->execAdHocAsArray($sp);
 
                             log_message('error', 'cco-> pasando x GetNotificacionConservaciones DESPUES EXEC SP EMAIL');
@@ -292,7 +296,7 @@ class Facturacion extends MY_Model {
 
                  $subject=$modelosNotificaciones[0]["ModeloNotificacionTitulo"];
                  $remitente=$modelosNotificaciones[0]["remitente"];
-                 
+                 $nombreRemitente=$modelosNotificaciones[0]["NombreRemitente"];
 
                  log_message('error', 'cco-> pasando x GetNotificacionRenovaciones ModeloTitulo: '.$subject);
 
@@ -330,6 +334,11 @@ class Facturacion extends MY_Model {
 
                         log_message('error', 'cco-> pasando x GetNotificacionRenovaciones FECHA: '.$vence." - ".$hoy." - -".$r["IMPORTE"]);
 
+                        $tit = str_replace("'"," ",$r["TITULAR"]);
+                        $tit = str_replace(";"," ",$tit);
+
+                        
+
                         $destinatario = $r["EMAIL"];
                         $destinatario2 = $r["RES_EMAIL"];
 
@@ -337,13 +346,16 @@ class Facturacion extends MY_Model {
 
                         if ($destinatario!="")
                         {
-                            $sp = "EXEC sp_emails '".$remitente."','".$destinatario."','".$subject."','".$body."'";
+                            $sp = "EXEC sp_emails '".$remitente."','".$destinatario."','".$subject."','".$body."','".$tit."','".$nombreRemitente."'";
                             $recnon = $this->execAdHocAsArray($sp);
                         }
                         
                         if ($destinatario2!="")
                         {
-                            $sp = "EXEC sp_emails '".$remitente."','".$destinatario2."','".$subject."','".$body."'";
+                            $res = str_replace("'"," ",$r["RESPONSABL"]);
+                            $res = str_replace(";"," ",$res);
+                            
+                            $sp = "EXEC sp_emails '".$remitente."','".$destinatario2."','".$subject."','".$body."','".$res."','".$nombreRemitente."'";
                             $recnon = $this->execAdHocAsArray($sp);
                         }    
 

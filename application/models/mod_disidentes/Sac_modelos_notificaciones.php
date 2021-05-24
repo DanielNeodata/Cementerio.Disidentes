@@ -38,6 +38,8 @@ class Sac_modelos_notificaciones extends MY_Model {
                 array("field"=>"ModeloNotificacionNombre","format"=>"text"),
                 array("field"=>"ModeloNotificacionTitulo","format"=>"text"),
                 array("field"=>"remitente","format"=>"text"),
+                array("field"=>"NombreRemitente","format"=>"text"),
+                
                 //array("field"=>"ESTADO_OCUPACION","format"=>"text"),
                 array("field"=>"","format"=>null),
                 array("field"=>"","format"=>null),
@@ -92,6 +94,8 @@ class Sac_modelos_notificaciones extends MY_Model {
                         'ModeloNotificacionTitulo' => $values["ModeloNotificacionTitulo"],
                         'ModeloNotificacionHtml' => $values["ModeloNotificacionHtml"],
                         'remitente' => $values["remitente"],
+                        'NombreRemitente' => $values["NombreRemitente"],
+
 
                     );
                 }
@@ -104,6 +108,7 @@ class Sac_modelos_notificaciones extends MY_Model {
                         'ModeloNotificacionTitulo' => $values["ModeloNotificacionTitulo"],
                         'ModeloNotificacionHtml' => $values["ModeloNotificacionHtml"],
                         'remitente' => $values["remitente"],
+                        'NombreRemitente' => $values["NombreRemitente"],
 
                     );
                 }
