@@ -55,12 +55,12 @@ function GenerarTC_CEM() {
 
 	myJSON += ',"REG":"' + count + '","ANIO":"' + anio + '", "MES":"' + mes + '"}';
 
-	alert(myJSON);
+	//alert(myJSON);
 	var myObj = JSON.parse(myJSON);
-	alert("json done");
+	//alert("json done");
 
 	_AJAX.UiProcesarLotesParaRecibotarjetas(myObj).then(function (datajson) {
-		alert("come back");
+		//alert("come back");
 	});
 }
 
@@ -110,7 +110,7 @@ function previewMontosAGenerar() {
 
 	_AJAX.UiGetLotesParaRecibotarjetas(myObj).then(function (datajson) {
 		var _html = "";
-		alert("JSON: " + JSON.stringify(datajson.preview));
+		//alert("JSON: " + JSON.stringify(datajson.preview));
 
 		var titulo = "";
 		var _header = "";

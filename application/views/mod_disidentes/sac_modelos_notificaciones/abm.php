@@ -20,6 +20,9 @@ $html.="</div>";
 $html.="<div class='form-row'>";
 $html.=getInput($parameters,array("col"=>"col-md-8","name"=>"remitente","type"=>"text","class"=>"form-control text dbase"));
 $html.="</div>";
+$html.="<div class='form-row'>";
+$html.=getInput($parameters,array("col"=>"col-md-8","name"=>"NombreRemitente","type"=>"text","class"=>"form-control text dbase"));
+$html.="</div>";
 $html.="<br/>";
 
 $html.="<br/>";

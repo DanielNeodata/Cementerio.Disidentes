@@ -167,6 +167,7 @@ class Sac_lotes extends MY_Model {
                 "<label>".lang('p_RES_LOCALI')."</label><input type='text' id='browser_reslocalidad' name='browser_reslocalidad' class='form-control text'/>",
                 //"<label>".lang('p_ESTADO_OCUPACION')."</label><input type='text' id='browser_estado_ocupacion' name='browser_estado_ocupacion' class='form-control text'/>",
                 "<label>".lang('p_TIPO')."</label><input type='text' id='browser_tipo' name='browser_tipo' class='form-control number'/>",
+                "<label>".lang('p_ESTADO_OCUPACION')."</label>".comboEstadosOcupacion($this),
             );
 
             $values["filters"]=array(
@@ -180,6 +181,7 @@ class Sac_lotes extends MY_Model {
                 //array("name"=>"browser_estado_ocupacion", "operator"=>"like","fields"=>array("ESTADO_OCUPACION")),
                 array("name"=>"browser_search", "operator"=>"like","fields"=>array("TITULAR","RESPONSABL","EMAIL","SECCION","SEPULTURA","ESTADO_OCUPACION")),
                 array("name"=>"browser_tipo", "operator"=>"like","fields"=>array("TIPO")),
+                array("name"=>"browser_id_estados_ocupacion", "operator"=>"=","fields"=>array("ESTADO_OCUPACION")),
             );
             return parent::brow($values);
         }

@@ -384,6 +384,13 @@ $lang['p_remitente']="Remitente";
 $lang['p_remite']="Remitente";
 $lang['p_fecha_envio']="Fecha de Envio";
 $lang['p_destinatario']="Destinatario";
+$lang['p_NombreRemitente']="Nombre Remitente";
+
 
 $lang['p_NUMERO_ENCABEZADO']="Nro Asiento";
 $lang['p_RENGLONES']="Cant. de Líneas";
+
+$lang['p_estado']="Estado";
+$lang['p_error']="Error";
+$lang['p_toName']="Nombre Destinatario";
+$lang['p_fromName']="Nombre Remitente";

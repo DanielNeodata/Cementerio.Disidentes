@@ -67,12 +67,15 @@ function buildHeaderBrowStd($parameters,$title){
            "googlesearch"=>true,
            "excel"=>false,
            "pdf"=>false,
+           "processBatchMail"=>false,
         );
     }
     if(!isset($parameters["getters"]["search"])){$parameters["getters"]["search"]=true;}
     if(!isset($parameters["getters"]["googlesearch"])){$parameters["getters"]["googlesearch"]=true;}
     if(!isset($parameters["getters"]["excel"])){$parameters["getters"]["excel"]=false;}
     if(!isset($parameters["getters"]["pdf"])){$parameters["getters"]["pdf"]=false;}
+    if(!isset($parameters["getters"]["processBatchMail"])){$parameters["getters"]["processBatchMail"]=false;}
+
     $dataSegment=buildDataSegment($parameters);
     $dataRec=str_replace('|ID|','0',$dataSegment);
     $html="<div class='bg-default clearfix'>";
@@ -86,6 +89,7 @@ function buildHeaderBrowStd($parameters,$title){
     if($parameters["getters"]["search"]){$html.="<button class='btn btn-secondary btn-sm btn-browser-search' type='button' ".$dataRec." data-mode='brow' data-page='1' data-filters='".json_encode($parameters['filters'])."'><i class='material-icons' style='font-size:22px;vertical-align:middle;'>search</i>".lang('p_search')."</button>";}
     if($parameters["getters"]["pdf"]){$html.="<button class='btn btn-secondary btn-sm btn-pdf-search' type='button' ".$dataRec." data-mode='pdf' data-page='1' data-filters='".json_encode($parameters['filters'])."'><i class='material-icons' style='font-size:22px;vertical-align:middle;'>picture_as_pdf</i>PDF</button>";}
     if($parameters["getters"]["excel"]){$html.="<button class='btn btn-secondary btn-sm btn-excel-search' type='button' ".$dataRec." data-mode='excel' data-page='1' data-filters='".json_encode($parameters['filters'])."'><i class='material-icons' style='font-size:22px;vertical-align:middle;'>table_rows</i>Excel</button>";}
+    if($parameters["getters"]["processBatchMail"]){$html.="<button class='btn btn-secondary btn-sm btn-mail-search' type='button' ".$dataRec." data-mode='mailall' data-page='1' data-filters='".json_encode($parameters['filters'])."'><i class='material-icons' style='font-size:22px;vertical-align:middle;'>mail</i>Enviar Mail</button>";}
     $html.="    </div>";
     $html.="   </div>";
     $html.="</div>";
@@ -211,6 +215,7 @@ function getTdEdit($parameters,$record,$td){
     if ($td){$html.="</td>";}
     return $html;
 }
+
 function getTdCol($parameters,$record,$column){
     if(!isset($column["html"])){$column["html"]="";}
     if(!isset($column["whenready"])){$column["whenready"]="";}
@@ -255,6 +260,7 @@ function getTdDelete($parameters,$record,$td){
     if ($td){$html.="</td>";}
     return $html;
 }
+
 function getTdOffline($parameters,$record,$td){
     if(!secureButtonDisplay($parameters,$record,"offline") and $td){return "<td></td>";}
     $dataSegment=buildDataSegment($parameters);

@@ -3,6 +3,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 //log_message("error", "RELATED ".json_encode($data,JSON_PRETTY_PRINT));
 /*---------------------------------*/
 
+
+
 class My_Model extends CI_Model {
     public $ready = false;
     public $status = null;
@@ -427,6 +429,27 @@ class My_Model extends CI_Model {
             return logError($e,__METHOD__ );
         }
     }
+
+	public function processBatchMail($values){
+	    try {
+	        log_message('error', 'cco-> pasando x processBatchMail de my model init!.');
+	        if(!isset($values["delimiter"])){$values["delimiter"]=(",");}
+	        if(!isset($values["interface"])){$values["interface"]=("excel");}
+	        $data["parameters"] = $values;
+	        $data["title"] = ucfirst(lang("m_".strtolower($values["model"])));
+	        log_message('error', 'cco-> pasando x processBatchMail de my model antes loiad!.');
+	        $html=$this->load->view($values["interface"],$data,true);
+	        log_message('error', 'cco-> pasando x processBatchMail de my model despues loiad!.');
+	        //logGeneral($this,$values,__METHOD__);
+	        $ret=array("message"=>$html,"mime"=>"text/csv","mode"=>$values["mode"],"indisk"=>false);
+	        log_message('error', 'cco-> pasando x processBatchMail de my model end!.');
+	        return $ret;
+	    }
+	    catch(Exception $e){
+	        return logError($e,__METHOD__ );
+	    }
+	}
+
     public function pdf($values){
         try {
             if(!isset($values["interface"])){$values["interface"]=("pdf");}

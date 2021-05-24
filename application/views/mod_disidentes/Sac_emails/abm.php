@@ -15,7 +15,13 @@ $html.="<div class='form-row'>";
 $html.=getInput($parameters,array("col"=>"col-md-8","name"=>"remite","type"=>"text","class"=>"form-control text dbase validate"));
 $html.="</div>";
 $html.="<div class='form-row'>";
+$html.=getInput($parameters,array("col"=>"col-md-8","name"=>"fromName","type"=>"text","class"=>"form-control text dbase validate"));
+$html.="</div>";
+$html.="<div class='form-row'>";
 $html.=getInput($parameters,array("col"=>"col-md-8","name"=>"destinatario","type"=>"text","class"=>"form-control text dbase"));
+$html.="</div>";
+$html.="<div class='form-row'>";
+$html.=getInput($parameters,array("col"=>"col-md-8","name"=>"toName","type"=>"text","class"=>"form-control text dbase"));
 $html.="</div>";
 $html.="<div class='form-row'>";
 $html.=getInput($parameters,array("col"=>"col-md-8","name"=>"subject","type"=>"text","class"=>"form-control text dbase"));
@@ -27,7 +33,15 @@ $html.="<div class='form-row'>";
 $html.=getTextAreaHtmlEditor($parameters,array("col"=>"col-md-8","name"=>"body","type"=>"textarea","class"=>"html form-control text dbase","rows"=>"20","cols"=>"200","free"=>"style='width: 900px; height: 200px; display: block;'"));
 $html.="</div>";
 
+$html.="<br/><h4>Estado</h4>";
 
+$html.="<div class='form-row'>";
+$html.=getInput($parameters,array("col"=>"col-md-8","name"=>"estado","type"=>"text","class"=>"form-control text dbase"));
+$html.="</div>";
+
+$html.="<div class='form-row'>";
+$html.=getInput($parameters,array("col"=>"col-md-8","name"=>"error","type"=>"text","class"=>"form-control text dbase"));
+$html.="</div>";
 
 $html.="</form>";
 $html.="</div>";

@@ -60,3 +60,18 @@ function comboMasters($obj){
     );
     return getCombo($parameters,$obj);
 }
+
+function comboEstadosOcupacion($obj,$get=array("order"=>"descripcion ASC","pagesize"=>-1)){
+    $parameters=array(
+        "model"=>(MOD_DISIDENTES."/Estados_Ocupacion"),
+        "table"=>"Estados_Ocupacion",
+        "name"=>"browser_id_estados_ocupacion",
+        "class"=>"form-control",
+        "empty"=>true,
+        "id_actual"=>"",
+        "id_field"=>"id",
+        "description_field"=>"descripcion",
+        "get"=>$get,
+    );
+    return getCombo($parameters,$obj);
+}
