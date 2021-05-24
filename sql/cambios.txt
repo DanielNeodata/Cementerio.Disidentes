@@ -242,3 +242,23 @@ insert into mod_backend_rel_groups_functions values (2,1096)
 
 
 update mod_backend_functions set data_model='Sac_funcavanzadas_asientos',data_action='brow' where id=1087
+
+
+alter table emails add error varchar(2048)
+  alter table emails add estado varchar(100)
+
+alter table emails add fromName varchar(200)
+  alter table emails add toName varchar(200)
+
+alter table [ModelosNotificaciones] add NombreRemitente varchar(200)
+
+
+create table mailers
+  (ID int,
+   Descripcion varchar(100),
+   Direccion  varchar(100),
+   Puerto  varchar(100),
+   UsaSSL varchar(1),
+   usuario  varchar(100),
+   clave  varchar(100),
+   )
