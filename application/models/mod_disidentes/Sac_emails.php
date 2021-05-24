@@ -70,20 +70,26 @@ class Sac_emails extends MY_Model {
 
 		            $mail->Host       = $host; // SMTP server example
 		            $mail->SMTPDebug  = 1;                     // enables SMTP debug information (for testing)
-		            $mail->SMTPAuth   = true;                  // enable SMTP authentication
+				
+			        if ($server[0]["UsaSSL"]=="S")
+                    {
 
-		            $mail->SMTPOptions = [
-		                'ssl' => [
-		                    'verify_peer' => false,
-		                    'verify_peer_name' => false,
-		                    'allow_self_signed' => true,
-		                ]
-		            ];
+		                $mail->SMTPAuth   = true;                  // enable SMTP authentication
 
-		            $mail->SMTPSecure = "ssl";
+		                $mail->SMTPOptions = [
+		                    'ssl' => [
+		                        'verify_peer' => false,
+		                        'verify_peer_name' => false,
+		                        'allow_self_signed' => true,
+		                    ]
+		                ];
+
+		                $mail->SMTPSecure = "ssl";
+		                $mail->Username   = $username; // SMTP account username example
+		                $mail->Password   = $password;        // SMTP account password example
+
+                    }
 		            $mail->Port       = $port;                    // set the SMTP port for the GMAIL server
-		            $mail->Username   = $username; // SMTP account username example
-		            $mail->Password   = $password;        // SMTP account password example
 
 		            $mail->AddAddress($to,$toName);
 
