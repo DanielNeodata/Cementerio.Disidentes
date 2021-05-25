@@ -109,17 +109,17 @@ function campoPrecio(tipo, sector, duracion) {
 			break;
 		case "AN":
 			campo = "ARR" + sector + "ND" + duracion;
-			alert("sector : AN");
+			//alert("sector : AN");
 			break;
 		case "NI":
 			campo = "ARR" + sector + "DI" + duracion + "N";
-			alert("sector : NI");
+			//alert("sector : NI");
 			break;
 		case "UA":
 		case "UC":
 		case "UR":
 		case "CU":
-			alert("sector : UA/UC/UR/CU");
+			//alert("sector : UA/UC/UR/CU");
 			campo = "ARR" + sector + "DI" + duracion + "U";
 			break;
 	}
@@ -139,6 +139,10 @@ function selectDuracionOnChange() {
 	var campo = "";
 
 	var fec = $('#FECHA_EMIS').val(); 
+
+	if(fec.length < 11) { fec = fec + ' 00:00:00'; }
+
+	//alert("TEST FECHA HORA: " + fec);
 	const fecvvto = new Date(fec);
 	fecvvto.setFullYear(fecvvto.getFullYear() + Number(duracion));
 	//const nlBEFormattervto = new Intl.DateTimeFormat('en-EN');
@@ -191,41 +195,41 @@ function selectLoteOnChange() {
 						var textW = "<strong><span style=\"color:blue;\">** PAGOS ADELANTADOS **</span></strong>";
 						$("#txtWarning").html(textW);
 					}
-					else {
-						var tipo = datajson.data[0].TIPO;
-						//alert("b: " + tipo);
-						switch (tipo) {
-							case "AD":
-								var p = obj.CON_ADULTO;
-								valor = Number(p);
-								break;
-							case "AN":
-								var p = obj.CON_ADULTO;
-								valor = Number(p);
-								break;
-							case "NI":
-								valor = Number(obj.CON_NIN_UR);
-								break;
-							case "UA":
-								valor = Number(obj.CON_NIN_UR);
-								break;
-							case "UC":
-								valor = Number(obj.CON_NIN_UR);
-								break;
-							case "CU":
-								valor = Number(obj.CON_NIN_UR);
-								break;
-							case "EX": // Excento de pago
-								valor = 0;
-								break;
-						}
-						//alert("C: " + valor);
-						_html += _TOOLS.getTextBox("importe", "Precio Unitario", 3, valor, "Y", "class='form-control text dbase'");
-						_html += "<input id='TB-UltBimPago' type=text class='form-control text dbase' style='display: none' value='" + datajson.data[0].ULTBIMPAGO+"'/>";
-						$("#OPER-CONTAINER-DETAIL").html(_html);
-						$('#OPER-ADD-BTN').prop('disabled', false);
-						//alert("done");
+
+					var tipo = datajson.data[0].TIPO;
+					//alert("b: " + tipo);
+					switch (tipo) {
+						case "AD":
+							var p = obj.CON_ADULTO;
+							valor = Number(p);
+							break;
+						case "AN":
+							var p = obj.CON_ADULTO;
+							valor = Number(p);
+							break;
+						case "NI":
+							valor = Number(obj.CON_NIN_UR);
+							break;
+						case "UA":
+							valor = Number(obj.CON_NIN_UR);
+							break;
+						case "UC":
+							valor = Number(obj.CON_NIN_UR);
+							break;
+						case "CU":
+							valor = Number(obj.CON_NIN_UR);
+							break;
+						case "EX": // Excento de pago
+							valor = 0;
+							break;
 					}
+					//alert("C: " + valor);
+					_html += _TOOLS.getTextBox("importe", "Precio Unitario", 3, valor, "Y", "class='form-control text dbase'");
+					_html += "<input id='TB-UltBimPago' type=text class='form-control text dbase' style='display: none' value='" + datajson.data[0].ULTBIMPAGO + "'/>";
+					$("#OPER-CONTAINER-DETAIL").html(_html);
+					$('#OPER-ADD-BTN').prop('disabled', false);
+					//alert("done");
+
 				}
 				else {
 					alert("No se puede otro titular de recibo");
@@ -272,7 +276,7 @@ function selectLoteOnChange() {
 					
 				}
 				else {
-
+					//alert("TEST FECHA HORA1: " + datajson.data[0].ULT_RENOVA);
 					const fecha = new Date(datajson.data[0].ULT_RENOVA);
 					var anos = datajson.data[0].ANOSRENOVA;
 					if (anos == "" || anos == null || anos == "null") { anos = 0; }
@@ -486,7 +490,7 @@ function selectLoteOnChange() {
 				var sep = "";
 
 				if (!(datajson.data[0].ULT_RENOVA == "" || datajson.data[0].ULT_RENOVA == "null" || datajson.data[0].ULT_RENOVA == null)) {
-
+					//alert("TEST FECHA HORA2: " + datajson.data[0].ULT_RENOVA);
 					const fecha = new Date(datajson.data[0].ULT_RENOVA);
 					var anos = datajson.data[0].ANOSRENOVA;
 					if (anos == "" || anos == null || anos == "null") { anos = 0; }
@@ -531,7 +535,7 @@ function selectLoteOnChange() {
 				$("#txtWarning").html(textW);
 				$("#OPER-CONTAINER-DETAIL").html("");
 
-				alert(textA);
+				//alert(textA);
 
 				//const today = new Date().toLocaleDateString('en-GB', {
 				//	day: 'numeric',
@@ -617,7 +621,7 @@ function selectLoteOnChange() {
 				_html += "</table></td></tr></table></div>";
 				$("#OPER-CONTAINER-DETAIL").html(_html);
 				$('#OPER-ADD-BTN').prop('disabled', false);
-				alert("interno");
+				//alert("interno");
 			}
 			else {
 				/*validaciones para inhumaciones elegido el lote*/
@@ -644,7 +648,7 @@ function selectLoteOnChange() {
 					var sep = "";
 
 					if (!(datajson.data[0].ULT_RENOVA == "" || datajson.data[0].ULT_RENOVA == "null" || datajson.data[0].ULT_RENOVA == null)) {
-
+						//alert("TEST FECHA HORA3: " + datajson.data[0].ULT_RENOVA);
 						const fecha = new Date(datajson.data[0].ULT_RENOVA);
 						var anos = datajson.data[0].ANOSRENOVA;
 						if (anos == "" || anos == null || anos == "null") { anos = 0; }
@@ -689,7 +693,7 @@ function selectLoteOnChange() {
 					$("#txtWarning").html(textW);
 					$("#OPER-CONTAINER-DETAIL").html("");
 
-					alert(textA);
+					//alert(textA);
 
 					//const today = new Date().toLocaleDateString('en-GB', {
 					//	day: 'numeric',
@@ -759,7 +763,7 @@ function selectLoteOnChange() {
 
 					//_TOOLS.loadCombo(datajson, { "target": "#SELECT-LOTE", "selected": -1, "id": "ID", "description": "ComboBusquedaRecibos" });
 				});
-				alert("externo");
+				//alert("externo");
 			}
 			break;
 		case 6:
@@ -989,7 +993,7 @@ function deleteRow(nombre, importe, fila) {
 		$("#table-detail").append(_html);
 	}
 	rows = rows - 1;
-	alert(rows);
+	//alert(rows);
 	$("#OPER-COUNTER").val(rows);
 	$("#TOTAL-1").val(total - descontar);
 	$("#PESOS").val(total - descontar);
@@ -1150,7 +1154,7 @@ function insertarOnClick() {
 			var ultbim = $("#TB-UltBimPago").val();
 			//alert(" ult bom ->" + ultbim);
 
-
+			//alert("TEST FECHA HORA4: " + ultbim);
 			const fecha = new Date(ultbim);
 			//alert("fecha");
 			fecha.setDate(fecha.getDate() + 1);
@@ -1171,7 +1175,7 @@ function insertarOnClick() {
 			var con = "";
 			con = "Conservación Sección " + seccion + "  " + "Sepultura Nº " + sepultura + "     " + nombre + "\n" + "Del " + nlBEFormatter.format(fecha) + " " + "al " + nlBEFormatter.format(fecha2);
 
-			alert(con);
+			//alert(con);
 
 			//alert("insertar: " + importe);
 			var total = Number($("#TOTAL-1").val());
@@ -1184,7 +1188,7 @@ function insertarOnClick() {
 
 			var ubp = _TOOLS.getFormattedDate(fecha2, 'amd', '-');
 
-			alert(ubp);
+			//alert(ubp);
 
 			_html = "";
 			_html += "<tr id='detail-form-row-" + rows + "'>";
@@ -1216,7 +1220,7 @@ function insertarOnClick() {
 
 			break;
 		case 2:
-			alert("Renovación");
+			//alert("Renovación");
 
 
 			var jsP = $("#OPER-PRECIOS").val().replace("[", "").replace("]", "");
@@ -1278,7 +1282,7 @@ function insertarOnClick() {
 
 				if (!(datajson.data[0].ULT_RENOVA == "" || datajson.data[0].ULT_RENOVA == "null" || datajson.data[0].ULT_RENOVA == null)) {
 					//alert("d2");
-
+					//alert("TEST FECHA HORA5: " + datajson.data[0].ULT_RENOVA);
 					const fecha = new Date(datajson.data[0].ULT_RENOVA);
 					anos = datajson.data[0].ANOSRENOVA;
 					if (anos == "" || anos == null || anos == "null") { anos = 0; }
@@ -1286,7 +1290,7 @@ function insertarOnClick() {
 					fecha.setFullYear(fecha.getFullYear() + anos);
 					ultrenf = _TOOLS.getFormattedDate(fecha, "amd", "-");
 
-					alert("f1: " + ultrenf);
+					//alert("f1: " + ultrenf);
 
 					fecha.setFullYear(fecha.getFullYear() + duracion);
 					vto = _TOOLS.getFormattedDate(fecha, "amd", "-");
@@ -1431,7 +1435,7 @@ function insertarOnClick() {
 
 			break;
 		case 3:
-			alert("Arrendamiento");
+			//alert("Arrendamiento");
 
 			var jsP = $("#OPER-PRECIOS").val().replace("[", "").replace("]", "");
 			var obj = JSON.parse(jsP);
@@ -1588,7 +1592,7 @@ function insertarOnClick() {
 
 			break;
 		case 4:
-			alert("Inhumaciones");
+			//alert("Inhumaciones");
 
 			var jsP = $("#OPER-PRECIOS").val().replace("[", "").replace("]", "");
 			var obj = JSON.parse(jsP);
@@ -1707,7 +1711,7 @@ function insertarOnClick() {
 			insertPagoACuentaYAlertas(lote, idOption);
 			break;
 		case 5:
-			alert("Translados");
+			//alert("Translados");
 
 			var jsP = $("#OPER-PRECIOS").val().replace("[", "").replace("]", "");
 			var obj = JSON.parse(jsP);
@@ -1738,7 +1742,7 @@ function insertarOnClick() {
 			var partida = "";
 			var fecd = "";
 			var hora = "";
-			alert("hora: " + hora);
+			//alert("hora: " + hora);
 			var empresa = "";
 
 			var optionName1 = $("#SELECT-OPER option:selected").text();
@@ -1753,7 +1757,7 @@ function insertarOnClick() {
 				}
 				try {
 					apertura = $("#TB-aApertura").val();
-					alert(apertura);
+					//alert(apertura);
 					if (apertura == "") { alert("Debe ingresar un número de apertura mayor o igual a cero"); return;}
 					apertura = Number(apertura);
 					 
@@ -2457,7 +2461,7 @@ function selectOperOnChange () {
 				$('#OPER-ADD-BTN').prop('disabled', true);
 				_html += "<div id='OPER-CONTAINER-DETAIL' name='OPER-CONTAINER-DETAIL'></div>";
 				$("#OPER-CONTAINER").html(_html);
-				alert("Translados interno ");
+				//alert("Translados interno ");
 			}
 			else {
 				var _html = "<br/>";
@@ -2469,7 +2473,7 @@ function selectOperOnChange () {
 				$('#OPER-ADD-BTN').prop('disabled', true);
 				_html += "<div id='OPER-CONTAINER-DETAIL' name='OPER-CONTAINER-DETAIL'></div>";
 				$("#OPER-CONTAINER").html(_html);
-				alert("Translados Externo ");
+				//alert("Translados Externo ");
 			}
 			
 			break;
