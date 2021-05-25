@@ -12,9 +12,9 @@ $html.="<h3>ASOCIACION CEMENTERIO DISIDENTES DE LOMAS DE ZAMORA</h3>";
 $html.="<h4>Abm de Asientos</h4>";
 
 
-$html.="<div class='row'>  <div class='col-12' style='padding-top:15px;'>";
-$html.="<img src='./assets/img/print.jpg' style='height:35px;' id='printimg' name='printimg' onclick='showReport();'></img>";
-$html.=" </div>  </div>";
+//$html.="<div class='row'>  <div class='col-12' style='padding-top:15px;'>";
+//$html.="<img src='./assets/img/print.jpg' style='height:35px;' id='printimg' name='printimg' onclick='showReport();'></img>";
+//$html.=" </div>  </div>";
 
 $html.="<br/><hr/>";
 $html.="<div class='form-row'>";
