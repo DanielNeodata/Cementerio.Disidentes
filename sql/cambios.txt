@@ -262,3 +262,8 @@ create table mailers
    usuario  varchar(100),
    clave  varchar(100),
    )
+
+
+
+alter table SAC_EstaLote add EMAIL_SEC varchar(255)
+go

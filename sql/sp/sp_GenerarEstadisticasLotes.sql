@@ -1,16 +1,4 @@
-USE [disidentes]
-GO
-
-/****** Object:  StoredProcedure [dbo].[sp_GenerarEstadisticasLotes]    Script Date: 21/3/2021 01:13:40 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-
-
+--exec sp_GenerarEstadisticasLotes
 
 -- =============================================
 -- Author:		Paul Dahuach
@@ -19,14 +7,13 @@ GO
 -- =============================================
 ALTER PROCEDURE [dbo].[sp_GenerarEstadisticasLotes]
 AS
-
 	SET NOCOUNT ON;
 
 	DECLARE @RETVAL int
-	DECLARE @SECCION nvarchar(3), @SEPULTURA nvarchar(6), @TIPO nvarchar(2), @TITULAR nvarchar(50), @ULTBIMPAGO datetime, @RES_DIRECC nvarchar(50), @RES_CODPOS nvarchar(6), @RES_LOCALI nvarchar(20), @RESPONSABL nvarchar(50), @RES_EMAIL nvarchar(255)
+	DECLARE @SECCION nvarchar(3), @SEPULTURA nvarchar(6), @TIPO nvarchar(2), @TITULAR nvarchar(50), @ULTBIMPAGO datetime, @RES_DIRECC nvarchar(50), @RES_CODPOS nvarchar(6), @RES_LOCALI nvarchar(20), @RESPONSABL nvarchar(50), @RES_EMAIL nvarchar(255), @RES_EMAIL_SEC nvarchar(255),@EST_OC varchar(30)
 	DECLARE @intCan int, @intMeses int, @intDeuda int, @curImporte NUMERIC(18,2), @intCanTot int, @curPrecios6 NUMERIC(18,2), @curPrecios7 NUMERIC(18,2)
 
---	BEGIN TRANSACTION
+	--BEGIN TRANSACTION
 		-- Inicializar variables...
 		SET @RETVAL = 0
 		SET @intCan = 0
@@ -43,16 +30,19 @@ AS
 		DELETE FROM SAC_EstaTemp;
 
 		DECLARE curLot CURSOR FOR
-		SELECT   SECCION, SEPULTURA, TIPO, TITULAR, ULTBIMPAGO, RES_DIRECC, RES_CODPOS, RES_LOCALI, RESPONSABL, RES_EMAIL
+		SELECT   SECCION, SEPULTURA, TIPO, TITULAR, ULTBIMPAGO, RES_DIRECC, RES_CODPOS, RES_LOCALI, RESPONSABL, RES_EMAIL,RES_EMAIL_SEC,estado_ocupacion
 		FROM	 SAC_Lotes
 		ORDER BY SECCION, SEPULTURA;
 		OPEN curLot
 
+		--select * from estados_ocupacion
+		--select estado_ocupacion from SAC_Lotes
+
 		-- MoveFirst
-		FETCH NEXT FROM curLot INTO @SECCION, @SEPULTURA, @TIPO, @TITULAR, @ULTBIMPAGO,	@RES_DIRECC, @RES_CODPOS, @RES_LOCALI, @RESPONSABL, @RES_EMAIL
-                WHILE (@@FETCH_STATUS = 0)
+		FETCH NEXT FROM curLot INTO @SECCION, @SEPULTURA, @TIPO, @TITULAR, @ULTBIMPAGO,	@RES_DIRECC, @RES_CODPOS, @RES_LOCALI, @RESPONSABL, @RES_EMAIL,@RES_EMAIL_SEC,@EST_OC
+        WHILE (@@FETCH_STATUS = 0)
 		BEGIN
-			IF (@TIPO <> 'EX') AND NOT (UPPER(@TITULAR) Like '%DISPONIBL%') AND (@TITULAR <> '') AND (@SECCION<>'UC') AND (@SECCION<>'OS')
+			IF (@TIPO <> 'EX') AND NOT (@EST_OC Like 'D%') AND (@TITULAR <> '') AND (@SECCION<>'UC') AND (@SECCION<>'OS')
 			BEGIN
                 SET @intCan = @intCan + 1
 				-- SET @curDeuda = CBIM(@ULTBIMPAGO, GETDATE())
@@ -95,29 +85,27 @@ AS
 				END
 				-- Valor detallado por lote de la deuda...
 				INSERT INTO SAC_EstaLote
-					(BIMESTRE, SECCION, SEPULTURA, TITULAR, ULTBIMPAGO, IMPORTE, DIRECCION, COD_POSTAL, LOCALIDAD, EMAIL, RESPONSABL, ENVIADO)
-					VALUES (@intDeuda, @SECCION, @SEPULTURA, LEFT(@TITULAR, 40), @ULTBIMPAGO, @curImporte, @RES_DIRECC, @RES_CODPOS, @RES_LOCALI, @RES_EMAIL, LEFT(@RESPONSABL, 40), NULL)
+					(BIMESTRE, SECCION, SEPULTURA, TITULAR, ULTBIMPAGO, IMPORTE, DIRECCION, COD_POSTAL, LOCALIDAD, EMAIL, RESPONSABL, ENVIADO,EMAIL_SEC)
+					VALUES (@intDeuda, @SECCION, @SEPULTURA, LEFT(@TITULAR, 40), @ULTBIMPAGO, @curImporte, @RES_DIRECC, @RES_CODPOS, @RES_LOCALI, @RES_EMAIL, LEFT(@RESPONSABL, 40), NULL,@RES_EMAIL_SEC)
 				SET @intCanTot = @intCanTot + 1
 			END
 			-- MoveNext
-			FETCH NEXT FROM curLot INTO @SECCION, @SEPULTURA, @TIPO, @TITULAR, @ULTBIMPAGO,	@RES_DIRECC, @RES_CODPOS, @RES_LOCALI, @RESPONSABL, @RES_EMAIL
+			FETCH NEXT FROM curLot INTO @SECCION, @SEPULTURA, @TIPO, @TITULAR, @ULTBIMPAGO,	@RES_DIRECC, @RES_CODPOS, @RES_LOCALI, @RESPONSABL, @RES_EMAIL,@RES_EMAIL_SEC,@EST_OC
 		END
 		UPDATE SAC_EstaTemp SET PORCENT1 = (CANTIDAD * 100) / CASE @intCanTot WHEN 0 THEN 1 ELSE @intCanTot END;
 
 		CLOSE curLot
 		DEALLOCATE curLot
 
-		
-
 		FIN:
 		IF (@RETVAL = 0)
 		BEGIN
-	--		COMMIT
+			--COMMIT
 			select 'OK' as RunStatus
 		END
 		ELSE
 		BEGIN
-		--	ROLLBACK TRANSACTION
+			--ROLLBACK TRANSACTION
 			select 'ERROR' as RunStatus
 		END
 		RETURN @RETVAL
