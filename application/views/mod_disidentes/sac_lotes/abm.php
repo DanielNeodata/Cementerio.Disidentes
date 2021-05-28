@@ -35,7 +35,7 @@ $html.="</div>";
 
 $html.="<hr/><br/><h4>Titular</h4>";
 $html.="<div class='form-row'>";
-$html.=getInput($parameters,array("col"=>"col-md-8","name"=>"TITULAR","type"=>"text","class"=>"form-control text dbase validate"));
+$html.=getInput($parameters,array("col"=>"col-md-8","name"=>"TITULAR","type"=>"text","class"=>"form-control text dbase validate escapechars"));
 $html.="</div>";
 $html.="<div class='form-row'>";
 $html.=getInput($parameters,array("col"=>"col-md-8","name"=>"DIRECCION","type"=>"text","class"=>"form-control text dbase validate"));

@@ -161,7 +161,9 @@ class Facturacion extends MY_Model {
                  foreach($notificaciones as $r){
                         
                         $destinatario = $r["EMAIL"];
-                        log_message('error', 'cco-> pasando x GetNotificacionConservaciones EN FOREACH destinatario: '.$destinatario);
+                        $destinatario_sec = $r["EMAIL_SEC"];
+
+                        log_message('error', 'cco-> pasando x GetNotificacionConservaciones EN FOREACH destinatario: '.$destinatario.' sec '.$destinatario_sec);
                         
                         if ($destinatario!="")
                         {
@@ -199,6 +201,44 @@ class Facturacion extends MY_Model {
                             $recnon = $this->execAdHocAsArray($sp);
 
                             log_message('error', 'cco-> pasando x GetNotificacionConservaciones DESPUES EXEC SP EMAIL');
+                        }
+
+                        if ($destinatario_sec!="")
+                        {
+                            log_message('error', 'cco-> pasando x GetNotificacionConservaciones EN SEC MAIL EN FOREACH dest !=vacio');
+
+                            $body=$modelosNotificaciones[0]["ModeloNotificacionHtml"];
+
+                            $tit = str_replace("'"," ",$r["TITULAR"]);
+                            $tit = str_replace(";"," ",$tit);
+
+                            $body = str_replace("[TITULAR]",str_replace("'"," ",str_replace(";"," ",(str_replace(","," ",$r["TITULAR"])))),$body);
+                            $body = str_replace("[DIRECCION]",str_replace("'"," ",str_replace(";"," ",(str_replace(","," ",$r["DIRECCION"])))),$body);
+                            $body = str_replace("[LOCALIDAD]",str_replace(";"," ",(str_replace(","," ",$r["LOCALIDAD"]))),$body);
+                            $body = str_replace("[COD_POSTAL]",str_replace(";"," ",(str_replace(","," ",$r["COD_POSTAL"]))),$body);
+                            $body = str_replace("[SECCION]",str_replace(";"," ",(str_replace(","," ",$r["SECCION"]))),$body);
+                            $body = str_replace("[SEPULTURA]",str_replace(";"," ",(str_replace(","," ",$r["SEPULTURA"]))),$body);
+
+                            $vence =  Date("d-m-Y", strtotime($r["ULTBIMPAGO"]));
+                            
+                            $hoy=date('d-m-Y');
+
+                            //vencimiento
+                            $body = str_replace("[VENCIMIENTO]",str_replace(";"," ",(str_replace(","," ",$vence))),$body);
+                            //importe
+                            $body = str_replace("[IMPORTE]",$r["IMPORTE"],$body);
+                            //hoy
+
+                            log_message('error', 'cco-> pasando x GetNotificacionConservaciones  SEC MAIL FECHA: '.$r["ULTBIMPAGO"]."->".$vence);
+
+                            $body = str_replace("[HOY]",str_replace(";"," ",(str_replace(","," ",$hoy))),$body);
+
+                            log_message('error', 'cco-> pasando x GetNotificacionConservaciones  SEC MAIL FECHA: '.$vence." - ".$hoy." - -".$r["IMPORTE"]);
+
+                            $sp = "EXEC sp_emails '".$remitente."','".$destinatario_sec."','".$subject."','".$body."','".$tit."','".$nombreRemitente."'";
+                            $recnon = $this->execAdHocAsArray($sp);
+
+                            log_message('error', 'cco-> pasando x GetNotificacionConservaciones  SEC MAIL DESPUES EXEC SP EMAIL');
                         }
                  }
                  $emails = $this->execAdHocAsArray("select count(*) as cantidad from  emails");
@@ -247,14 +287,14 @@ class Facturacion extends MY_Model {
                 if ($values["DESTINO"] == "Z")
                 {
                 
-                       $sql= "SELECT VENCIMIENTO, SECCION, SEPULTURA, TITULAR,ISNULL(EMAIL,'') as EMAIL, ISNULL(RES_EMAIL,'') as RES_EMAIL , DIRECCION, LOCALIDAD, COD_POSTAL, ANOSRENOVA, NROTITULO " ;
+                       $sql= "SELECT VENCIMIENTO, SECCION, SEPULTURA, TITULAR,ISNULL(EMAIL,'') as EMAIL,ISNULL(EMAIL_SEC,'') as EMAIL_SEC,ISNULL(RES_EMAIL_SEC,'') as RES_EMAIL_SEC, ISNULL(RES_EMAIL,'') as RES_EMAIL , DIRECCION, LOCALIDAD, COD_POSTAL, ANOSRENOVA, NROTITULO " ;
                        $sql = $sql." FROM [SAC_Lotes] " ;
                        $sql = $sql." WHERE DEUDA <= 0 and VENCIMIENTO BETWEEN {d '".$values["DESDE"]."'} AND {d '".$values["HASTA"]."'}";
                 }
                 else
                 {
                 
-                       $sql= "SELECT VENCIMIENTO, SECCION, SEPULTURA, TITULAR, ISNULL(EMAIL,'') as EMAIL, ISNULL(RES_EMAIL,'') as RES_EMAIL, DIRECCION, LOCALIDAD, COD_POSTAL, ANOSRENOVA, NROTITULO ";
+                       $sql= "SELECT VENCIMIENTO, SECCION, SEPULTURA, TITULAR, ISNULL(EMAIL,'') as EMAIL,ISNULL(EMAIL_SEC,'') as EMAIL_SEC,ISNULL(RES_EMAIL_SEC,'') as RES_EMAIL_SEC, ISNULL(RES_EMAIL,'') as RES_EMAIL, DIRECCION, LOCALIDAD, COD_POSTAL, ANOSRENOVA, NROTITULO ";
                        $sql = $sql." FROM [SAC_Lotes] " ;
                        $sql = $sql." WHERE VENCIMIENTO  BETWEEN {d '".$values["DESDE"]."'} AND {d '".$values["HASTA"]."'}";
                 }
@@ -341,12 +381,19 @@ class Facturacion extends MY_Model {
 
                         $destinatario = $r["EMAIL"];
                         $destinatario2 = $r["RES_EMAIL"];
+                        $destinatariosec = $r["EMAIL_SEC"];
+                        $destinatario2sec = $r["RES_EMAIL_SEC"];
 
                         log_message('error', 'cco-> pasando x GetNotificacionRenovaciones EN FOREACH destinatario: '.$destinatario." dest 2: ".$destinatario2 );
 
                         if ($destinatario!="")
                         {
                             $sp = "EXEC sp_emails '".$remitente."','".$destinatario."','".$subject."','".$body."','".$tit."','".$nombreRemitente."'";
+                            $recnon = $this->execAdHocAsArray($sp);
+                        }
+                        if ($destinatariosec!="")
+                        {
+                            $sp = "EXEC sp_emails '".$remitente."','".$destinatariosec."','".$subject."','".$body."','".$tit."','".$nombreRemitente."'";
                             $recnon = $this->execAdHocAsArray($sp);
                         }
                         
@@ -356,6 +403,14 @@ class Facturacion extends MY_Model {
                             $res = str_replace(";"," ",$res);
                             
                             $sp = "EXEC sp_emails '".$remitente."','".$destinatario2."','".$subject."','".$body."','".$res."','".$nombreRemitente."'";
+                            $recnon = $this->execAdHocAsArray($sp);
+                        }    
+                        if ($destinatario2sec!="")
+                        {
+                            $res = str_replace("'"," ",$r["RESPONSABL"]);
+                            $res = str_replace(";"," ",$res);
+                            
+                            $sp = "EXEC sp_emails '".$remitente."','".$destinatario2sec."','".$subject."','".$body."','".$res."','".$nombreRemitente."'";
                             $recnon = $this->execAdHocAsArray($sp);
                         }    
 

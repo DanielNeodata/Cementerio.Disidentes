@@ -177,7 +177,7 @@ class Sac_emails extends MY_Model {
             $values["controls"]=array(
                 //"<a href='#' class='btn btn-md btn-danger btn-raised btnEnviarCorreos'>Enviar correos ahora!</a>",
                 "<label>".lang('p_estado')."</label><input type='text' id='browser_estado' name='browser_estado' class='form-control text'/>",
-                "<label>".lang('p_destinatario')."</label><input type='text' id='browser_destinatiario' name='browser_destinatiario' class='form-control text'/>",
+                "<label>".lang('p_destinatario')."</label><input type='text' id='browser_destinatario' name='browser_destinatiario' class='form-control text'/>",
                 "<label>".lang('p_body')."</label><input type='text' id='browser_body' name='browser_body' class='form-control text'/>",
                 //"<label>".lang('p_ESTADO_OCUPACION')."</label><input type='text' id='browser_estado_ocupacion' name='browser_estado_ocupacion' class='form-control text'/>",
 
@@ -186,7 +186,7 @@ class Sac_emails extends MY_Model {
             $values["filters"]=array(
                 //array("name"=>"browser_search", "operator"=>"like","fields"=>array("TITULAR")),
                 array("name"=>"browser_estado", "operator"=>"like","fields"=>array("estado")),
-                array("name"=>"browser_destinatiario", "operator"=>"like","fields"=>array("destinatiario")),
+                array("name"=>"browser_destinatario", "operator"=>"like","fields"=>array("destinatario")),
                 array("name"=>"browser_body", "operator"=>"like","fields"=>array("body")),
 
             );

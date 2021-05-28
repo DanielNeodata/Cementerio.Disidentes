@@ -534,7 +534,16 @@ function getInput($parameters,$ops){
     if(!isset($ops["val"])){$ops["val"]="";}
     if(!isset($ops["checkboxtype"])){$ops["checkboxtype"]="01";}//01 para 01, SN para Si o No
     if(!isset($parameters["records"]["data"][0])){$parameters["records"]["data"][0]=null;}
+
     $value=secureField($parameters["records"]["data"][0],$ops["name"]);
+
+    log_message('error', 'cco-> getInput antes de escapechars');
+
+    if(strpos($ops["class"], 'escapechars') !== false){
+            log_message('error', 'cco-> getInput dentro de escapechars x la clase. texto: '.$value);
+            $value = str_replace("'","'",$value);
+            log_message('error', 'cco-> getInput dentro de escapechars x la clase. despues del replace texto: '.$value);
+        } 
 
     if ($ops["val"]!=""){$value=$ops["val"];}
 
@@ -575,7 +584,7 @@ function getInput($parameters,$ops){
                 if ($value!=""){$value=date(FORMAT_DATE_DB, strtotime($value));}
                 break;
         }
-       $html.="<input ".$ops["custom"]." data-type='".$ops["type"]."' ".$checked." autocomplete='nope' ".$checPaeameters." value='".$value."' class='".$ops["class"]."' type='".$ops["type"]."' name='".$ops["name"]."' id='".$ops["name"]."' data-clear-btn='false' placeholder='".lang('p_'.$ops["name"])."' ".$ops["free"]." />";
+       $html.='<input '.$ops["custom"].' data-type="'.$ops["type"].'" '.$checked.' autocomplete="nope" '.$checPaeameters.' value="'.$value.'" class="'.$ops["class"].'" type="'.$ops["type"].'" name="'.$ops["name"].'" id="'.$ops["name"].'" data-clear-btn="false" placeholder="'.lang('p_'.$ops["name"]).'" "'.$ops["free"].' />';
     }
     $html.="<div class='invalid-feedback invalid-".$ops["name"]." d-none'/>";
     if(isset($ops["col"])){$html="<div class='".$ops["col"]."'>".$html."</div>";}
