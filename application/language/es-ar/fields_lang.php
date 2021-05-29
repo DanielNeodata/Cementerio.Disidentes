@@ -394,3 +394,4 @@ $lang['p_estado']="Estado";
 $lang['p_error']="Error";
 $lang['p_toName']="Nombre Destinatario";
 $lang['p_fromName']="Nombre Remitente";
+$lang['p_DNI']="DNI";
