@@ -20,14 +20,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         <div class="col-md-3" style="padding-right:5px;display:inline;">
             <label class="search-trigger" style="font-weight:bold;">Desde bimestres adelantados</label>
-            <input type="text" id="TB-DESDE" name="TB-DESDE" class="form-control text" value="-999"/>
+            <input type="text" id="TB-DESDE" name="TB-DESDE" class="form-control text" value="2" onBlur="_TOOLS.isPositiveInteger(this.value,'TB-DESDE');"/>
         </div>
         <br />
     </div>
     <div class="form-row">
         <div class="col-md-3" style="padding-right:5px;display:inline;">
             <label class="search-trigger" style="font-weight:bold;">Hasta bimestres adelantados</label>
-            <input type="text" id="TB-HASTA" name="TB-HASTA" class="form-control text" value="999"/>
+            <input type="text" id="TB-HASTA" name="TB-HASTA" class="form-control text" value="999"  onBlur="_TOOLS.isPositiveInteger(this.value,'TB-HASTA');"/>
         </div>
 
         <br/>

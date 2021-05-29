@@ -34,7 +34,7 @@ function showReport() {
 		var fecha_recibo = datajson.data[0].FECHA_EMIS_SPA; //.ToString()).ToString("dd/MM/yyyy");
 		var pagador_recibo = datajson.data[0].RESPONSABL;
 		var fltTotal = datajson.data[0].TOTAL;
-		var importe_recibo = _TOOLS.showNumber(fltTotal, 2, ",", 0);
+		var importe_recibo = _TOOLS.showNumber(fltTotal, 2, "", 0);
 		var importe_letras_recibo_pesos = _TOOLS.numeroAtexto(importe_recibo).toUpperCase();;
 		var importe_letras_recibo_dolares = "";
 		if (datajson.data[0].DOLARES != 0) { importe_letras_recibo_dolares = _TOOLS.numeroAtexto(datajson.data[0].DOLARES).toUpperCase();;}
@@ -250,12 +250,16 @@ function selectLoteOnChange() {
 			var myObj = JSON.parse(myJSON);
 			var valor = 0;
 
+			var textW1 = "";
+			$("#txtWarning").html(textW1);
+
 			var jsP = $("#OPER-PRECIOS").val().replace("[", "").replace("]", "");
 			var obj = JSON.parse(jsP);
 
 			_AJAX.UiGetLote(myObj).then(function (datajson) {
+				//alert("renovacion2!");
 				var _html = "";
-
+				
 				//_html += "<br/>";
 				//_html += _TOOLS.getTextBox("Bimestres", "Cantidad Bimestres", 3, datajson.data[0].DEUDA, "Y", "class='form-control text dbase'");
 				//_html += "<br/>";
@@ -269,6 +273,7 @@ function selectLoteOnChange() {
 					
 				//}
 				//alert("ult ren: "+datajson.data[0].ULT_RENOVA)
+				
 				if (datajson.data[0].ULT_RENOVA == "" || datajson.data[0].ULT_RENOVA == "null" || datajson.data[0].ULT_RENOVA == null) {
 					//alert("vacio");
 					var textW = "";
@@ -344,7 +349,7 @@ function selectLoteOnChange() {
 				var textW = "";
 				$("#txtWarning").html(textW);
 
-				if (estOcup=="REV" || estOcup=="OCU") {
+				if (estOcup=="REVIS" || estOcup=="ARREN") {
 
 					//alert("vacio");
 					var textW = "<strong><span style=\"color:red;\">El lote no está disponible</span></strong>";
@@ -359,9 +364,10 @@ function selectLoteOnChange() {
 						var textW = "<strong><span style=\"color:red;\">El lote tiene fallecidos</span></strong>";
 						$("#txtWarning").html(textW);
 						//$("#OPER-CONTAINER-DETAIL").html("");
-						//$('#OPER-ADD-BTN').prop('disabled', true);
-						conFallecido = "S";
-
+						//$('#OPER-ADD-BTN').prop('disabled', DSCCR);
+						if (estOcup == "DCCCR" || estOcup == "DSCCR") {
+							conFallecido = "S";
+						}
 					}
 
 
@@ -569,9 +575,13 @@ function selectLoteOnChange() {
 				_html += "</tr>";
 
 				_html += "<tr>";
-				_html += "<td width=30%>" + _TOOLS.getTextBox("aEdad", "Edad", 8, "", "Y", "class='form-control text dbase'") + "</td>";
+				_html += "<td width=40%>" + _TOOLS.getTextBox("aEdad", "Edad", 8, "", "Y", "class='form-control text dbase'") + "</td>";
 				_html += "<td width=30%>" + _TOOLS.getTextBox("aEstadoCivil", "EstadoCivil", 8, "", "Y", "class='form-control text dbase'") + "</td>";
-				_html += "<td width=40% colspan=2>" + _TOOLS.getTextBox("aNacionalidad", "Nacionalidad", 8, "", "Y", "class='form-control text dbase'") + "</td>";
+				_html += "<td width=30%>" + _TOOLS.getTextBox("aNacionalidad", "Nacionalidad", 8, "", "Y", "class='form-control text dbase'") + "</td>";
+				_html += "</tr>";
+
+				_html += "<tr>";
+				_html += "<td colspan=4>" + _TOOLS.getTextBox("aDni", "DNI", 8, "", "Y", "class='form-control text dbase'") + "</td>";
 				_html += "</tr>";
 
 				_html += "<tr>";
@@ -727,9 +737,14 @@ function selectLoteOnChange() {
 					_html += "</tr>";
 
 					_html += "<tr>";
-					_html += "<td width=30%>" + _TOOLS.getTextBox("aEdad", "Edad", 8, "", "Y", "class='form-control text dbase'") + "</td>";
+					_html += "<td width=40%>" + _TOOLS.getTextBox("aEdad", "Edad", 8, "", "Y", "class='form-control text dbase'") + "</td>";
 					_html += "<td width=30%>" + _TOOLS.getTextBox("aEstadoCivil", "EstadoCivil", 8, "", "Y", "class='form-control text dbase'") + "</td>";
-					_html += "<td width=40% colspan=2>" + _TOOLS.getTextBox("aNacionalidad", "Nacionalidad", 8, "", "Y", "class='form-control text dbase'") + "</td>";
+					_html += "<td width=30%>" + _TOOLS.getTextBox("aNacionalidad", "Nacionalidad", 8, "", "Y", "class='form-control text dbase'") + "</td>";
+					_html += "</tr>";
+
+
+					_html += "<tr>";
+					_html += "<td colspan=4>" + _TOOLS.getTextBox("aDni", "DNI", 8, "", "Y", "class='form-control text dbase'") + "</td>";
 					_html += "</tr>";
 
 					_html += "<tr>";
@@ -885,6 +900,9 @@ function deleteRow(nombre, importe, fila) {
 
 				var vto = $("#detail-vto-" + i).val();
 				_html += "<input type=text class='form-control text dbase' style='display: none' id='detail-vto-" + j + "' name='detail-vto-" + j + "' value='" + vto + "'></input>";
+
+				var dni = $("#detail-dni-" + i).val();
+				_html += "<input type=text class='form-control text dbase' style='display: none' id='detail-dni-" + j + "' name='detail-dni-" + j + "' value='" + dni + "'></input>";
 
 				var duracion = $("#detail-duracion-" + i).val();
 				_html += "<input type=text class='form-control text dbase' style='display: none' id='detail-duracion-" + rows + "' name='detail-duracion-" + rows + "' value='" + duracion + "'></input>";
@@ -1670,6 +1688,7 @@ function insertarOnClick() {
 			var partida = $("#TB-aPartida").val();
 			var fecd = $("#TB-aFecha").val();
 			var hora = $("#TB-aHora").val();
+			var dni = $("#TB-aDni").val();
 			//alert("hora: " + hora);
 			var empresa = $("#TB-aEmpresaFunebre").val();
 
@@ -1696,6 +1715,7 @@ function insertarOnClick() {
 			_html += "<input type=text class='form-control text dbase' style='display: none' id='detail-fecd-" + rows + "' name='detail-fecd-" + rows + "' value='" + fecd + "'></input>";
 			_html += "<input type=text class='form-control text dbase' style='display: none' id='detail-hora-" + rows + "' name='detail-hora-" + rows + "' value='" + hora + "'></input>";
 			_html += "<input type=text class='form-control text dbase' style='display: none' id='detail-empresa-" + rows + "' name='detail-empresa-" + rows + "' value='" + empresa + "'></input>";
+			_html += "<input type=text class='form-control text dbase' style='display: none' id='detail-dni-" + rows + "' name='detail-dni-" + rows + "' value='" + dni + "'></input>";
 
 
 			_html += "<input type=text class='form-control text dbase' style='display: none' id='detail-op-" + rows + "' name='detail-op-" + rows + "' value='IN'></input>";
@@ -1742,6 +1762,7 @@ function insertarOnClick() {
 			var partida = "";
 			var fecd = "";
 			var hora = "";
+			var dni = "";
 			//alert("hora: " + hora);
 			var empresa = "";
 
@@ -1795,6 +1816,7 @@ function insertarOnClick() {
 				partida = $("#TB-aPartida").val();
 				fecd = $("#TB-aFecha").val();
 				hora = $("#TB-aHora").val();
+				dni = $("#TB-aDni").val();
 				//alert("hora ex:t " + hora);
 				empresa = $("#TB-aEmpresaFunebre").val();
 			}
@@ -1839,6 +1861,7 @@ function insertarOnClick() {
 			_html += "<input type=text class='form-control text dbase' style='display: none' id='detail-fecd-" + rows + "' name='detail-fecd-" + rows + "' value='" + fecd + "'></input>";
 			_html += "<input type=text class='form-control text dbase' style='display: none' id='detail-hora-" + rows + "' name='detail-hora-" + rows + "' value='" + hora + "'></input>";
 			_html += "<input type=text class='form-control text dbase' style='display: none' id='detail-empresa-" + rows + "' name='detail-empresa-" + rows + "' value='" + empresa + "'></input>";
+			_html += "<input type=text class='form-control text dbase' style='display: none' id='detail-dni-" + rows + "' name='detail-dni-" + rows + "' value='" + dni + "'></input>";
 
 
 			_html += "</td>";

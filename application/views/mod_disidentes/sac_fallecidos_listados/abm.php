@@ -34,6 +34,10 @@ $html.="</div>";
 $html.="<div class='form-row'>";
 $html.=getInput($parameters,array("col"=>"col-md-6","name"=>"NACIONALID","type"=>"text","class"=>"form-control text dbase "));
 $html.="</div>";
+$html.="<div class='form-row'>";
+$html.=getInput($parameters,array("col"=>"col-md-6","name"=>"DNI","type"=>"text","class"=>"form-control text dbase "));
+$html.="</div>";
+
 
 
 $html.="<hr/><br/><h4>Varios</h4>";
