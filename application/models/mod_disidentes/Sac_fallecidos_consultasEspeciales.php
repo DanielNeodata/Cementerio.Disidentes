@@ -200,6 +200,7 @@ class Sac_fallecidos_consultasEspeciales extends MY_Model {
                         'CAUSADECES' => $values["CAUSADECES"],
                         'PARTIDA' => $values["PARTIDA"],
                         'HORA' => $values["HORA"],
+                        'DNI' => $values["DNI"],
                         'EMPR_FUNEB' => $values["EMPR_FUNEB"],
 
                     );
@@ -219,6 +220,7 @@ class Sac_fallecidos_consultasEspeciales extends MY_Model {
                         'CAUSADECES' => $values["CAUSADECES"],
                         'PARTIDA' => $values["PARTIDA"],
                         'HORA' => $values["HORA"],
+                        'DNI' => $values["DNI"],
                         'EMPR_FUNEB' => $values["EMPR_FUNEB"],
                         //{...more fields...}
                     );

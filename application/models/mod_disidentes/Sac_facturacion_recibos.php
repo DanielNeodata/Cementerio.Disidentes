@@ -744,6 +744,7 @@ class Sac_facturacion_recibos extends MY_Model {
                     $partida = $values["detail-partida-".$i];
                     $fecd = $values["detail-fecd-".$i];
                     $hora = $values["detail-hora-".$i];
+                    $dni = $values["detail-dni-".$i];
                     $empresa = $values["detail-empresa-".$i];
 
                     $fields2=null;
@@ -762,6 +763,7 @@ class Sac_facturacion_recibos extends MY_Model {
                             'PARTIDA' => $partida,
                             'FECHA' => $fecd,
                             'HORA' => $hora,
+                            'DNI' => $dni,
                             'EMPR_FUNEB' => $empresa,
 		                );
 		            }
