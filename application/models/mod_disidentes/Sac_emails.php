@@ -47,7 +47,8 @@ class Sac_emails extends MY_Model {
              foreach($notificaciones as $r){
                 log_message('error', "cco-> pasando x processBatchMail de sac mails id: ".$r["id"]." y ".$r["toName"]);
 
- 
+                 $mail = new PHPMailer();
+
 		         $from = $r["remite"];
                  $fromName = $r["fromName"];
 		         $to = $r["destinatario"];
