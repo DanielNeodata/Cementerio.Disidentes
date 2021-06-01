@@ -734,6 +734,7 @@ class Sac_facturacion_recibos extends MY_Model {
 
                 if (($oper=="IN") || ($oper=="TE"))
                 {
+                    log_message("error", "save recibo -> actualizar IN o TE");
                     $nom = $values["detail-nom-".$i];
                     $tipo = $values["detail-tipo-".$i];
                     $aper = $values["detail-aper-".$i];
@@ -772,8 +773,9 @@ class Sac_facturacion_recibos extends MY_Model {
                     log_message("error", "ID3: ".$id3);
 
                 }
-                else if ($oper="AL")
+                else if ($oper=="AL")
                 {
+                    log_message("error", "save recibo -> actualizar AL");
                     $loteid = $values["detail-lote-".$i];
                     $titDireccion = $values["detail-titDireccion-".$i];
                     $titular = $values["detail-titular-".$i];
@@ -862,6 +864,7 @@ class Sac_facturacion_recibos extends MY_Model {
                 }
                 else if ($oper=="TI" && strpos($con, "Translado Interno")>=0)
                 {
+                        log_message("error", "save recibo -> actualizar TI traslado interno");
                         $loteid = $values["detail-lote-".$i];
                         $secc2 = $values["detail-secc2-".$i];
                         $sep2 = $values["detail-sep2-".$i];
@@ -883,24 +886,28 @@ class Sac_facturacion_recibos extends MY_Model {
                 }                               
                 else if ($oper=="CO")
                 {
-                
+                        log_message("error", "save recibo -> actualizar CO");
                         // Guardar nueva info de lote en fallecido
                         //$qry = "UPDATE SAC_Fallecidos SET SECCION='".$secc2."', SEPULTURA='".$sep2."', NRO_APERTU=".$aper." WHERE (ID=".$loteid.");"
                         $ultbim = $values["detail-ultbim-".$i];
                         $loteid = $values["detail-lote-".$i];
-                        $fields3=null;
-                        if($fields3==null) {
-		                    $fields3 = array(
+                        $fields3CO=null;
+                        if($fields3CO==null) {
+		                    $fields3CO = array(
                             
 		                        'ULTBIMPAGO' => $ultbim,
 		                    );
+                            log_message("error", "saving CO en recibos: fields: ".$fields3CO);            
+                            log_message("error", "saving CO en recibos: idlote: ".$loteid);            
+                            //$id4=$this->updateById($fields3CO,"ID",$loteid,"SAC_Lotes");
+                            $id4=$this->saveRecord($fields3CO,$loteid,"SAC_Lotes");
+                            log_message("error", "ID5: ".$id4);                 
 		                }
-                    
-                        $id4=$this->saveRecord($fields3,$loteid,"SAC_Lotes");
-                        log_message("error", "ID5: ".$id4);                 
+                        
                 }
                 else if ($oper=="RN")
                 {
+                        log_message("error", "save recibo -> actualizar RN");
                         /*ver de poner en null si la fecha ult renova es vacia*/											
                         $duracion = $values["detail-duracion-".$i];
                         $vto = $values["detail-vto-".$i];
@@ -927,6 +934,7 @@ class Sac_facturacion_recibos extends MY_Model {
                 }
                 else if ($oper=="PC")
                 {
+                     log_message("error", "save recibo -> actualizar PC");
                      $imppc = $values["detail-imp-".$i];
                      $acuenta=$recibo;
                      if ($imppc<0){$acuenta=0;}
@@ -947,7 +955,7 @@ class Sac_facturacion_recibos extends MY_Model {
                         $id7=$this->saveRecord($fields6,$lotepc,"SAC_Lotes");
                         log_message("error", "ID7: ".$id7);                 
                 }
-                else if ($oper="RD")
+                else if ($oper=="RD")
                 {
                     $loteid = $values["detail-lote-".$i];
                      $fields6=null;

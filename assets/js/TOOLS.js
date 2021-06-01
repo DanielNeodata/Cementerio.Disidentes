@@ -626,6 +626,26 @@ var _TOOLS = {
 
 	},
 
+
+	isPositiveInteger: function (value,elemId) {
+		//alert(value);
+		var myRe = /[^0-9]/;
+		var text_is_invalid = myRe.test(value);
+
+		if (text_is_invalid == false) {
+			//alert("es valido");
+			return true;
+		} else {
+			alert("El numero tiene que ser mayor o igual a cero!");
+			//inputText.value.focus();
+			setTimeout(function () {
+				document.getElementById(elemId).focus();
+			}, 0);
+
+			return false;
+		}
+	} ,
+
 	showNumber: function (num, dec, group, valueIfNull) {
 
 		if ((num == null) || (num == "") || num == " ") { return valueIfNull; }

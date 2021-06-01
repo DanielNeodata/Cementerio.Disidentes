@@ -25,7 +25,7 @@ function showReport() {
 		var row = 0;
 		
 		$.each(datajson.movimientos, function (j, val1) {
-			_concepto += val1.CONCEPTO + " " + _TOOLS.showNumber(val1.IMPORTE, 2, ",", "0") + "<br>";
+			_concepto += val1.CONCEPTO + " " + _TOOLS.showNumber(val1.IMPORTE, 2, "", "0") + "<br>";
 			row++;
 			//if (row == 5) { break; }
 		});
@@ -39,22 +39,43 @@ function showReport() {
 		var importe_letras_recibo_dolares = "";
 		if (datajson.data[0].DOLARES != 0) { importe_letras_recibo_dolares = _TOOLS.numeroAtexto(datajson.data[0].DOLARES).toUpperCase();;}
 
+		_html += "<style>";
+		_html += "@media print";
+		_html += "{";
+		_html += "	@page {";
+		_html += "		size: A4; /* DIN A4 standard, Europe */";
+		_html += "		margin: 20mm 10mm 10mm 20mm; ";
+		_html += "	}";
+		//_html += "	html, body {";
+		//_html += "		width: 210mm;";
+		//_html += "		/* height: 297mm; */";
+		//_html += "		height: 282mm;";
+		//_html += "		font - size: 11px;";
+		//_html += "		background: #FFF;";
+		//_html += "		overflow: visible;";
+		//_html += "	}";
+		//_html += "	body {";
+		//_html += "		padding - top: 15mm;";
+		//_html += "	}";
+		_html += "}";
+		_html += "</style>";
+
 		_html += "<div id='divPrinter' style='position:absolute;left:0;top:0mm;'><img class='imgPrint' src='../media/imagenes/impresora.png' onclick=javascript:$('#divPrinter').hide();self.print() width='32'/></div>";
 		_html += "<div style='position:absolute;left:135mm;top:0mm;'>" + fecha_recibo + "</div>";
 		_html += "<div style='position:absolute;left:135mm;top:10mm;'>" + nro_recibo + "</div>";
-		_html += "<div style='position:absolute;left:25mm;top:45mm;'>" + pagador_recibo + "</div>";
+		_html += "<div style='position:absolute;left:25mm;top:47mm;'>" + pagador_recibo + "</div>";
 		_html += "<div style='position:absolute;left:0mm;top:55mm;'>" + _concepto + "</div>";
-		_html += "<div style='position:absolute;left:135mm;top:105mm;'>" + importe_recibo + "</div>";
-		_html += "<div style='position:absolute;left:20mm;top:105mm;'>" + importe_letras_recibo_pesos + "</div>";
-		if (importe_letras_recibo_dolares != "") { _html += "<div style='position:absolute;left:20mm;top:117mm;'>u$s " + importe_letras_recibo_dolares + "</div>"; }
+		_html += "<div style='position:absolute;left:135mm;top:100mm;'>" + importe_recibo + "</div>";
+		_html += "<div style='position:absolute;left:25mm;top:106mm;'>" + importe_letras_recibo_pesos + "</div>";
+		if (importe_letras_recibo_dolares != "") { _html += "<div style='position:absolute;left:25mm;top:111mm;'>u$s " + importe_letras_recibo_dolares + "</div>"; }
 
 		_html += "<div style='position:absolute;left:135mm;top:140mm;'>" + fecha_recibo + "</div>";
-		_html += "<div style='position:absolute;left:135mm;top:150mm;'>" + nro_recibo + "</div>";
-		_html += "<div style='position:absolute;left:25mm;top:185mm;'>" + pagador_recibo + "</div>";
-		_html += "<div style='position:absolute;left:0mm;top:195mm;'>" + _concepto + "</div>";
-		_html += "<div style='position:absolute;left:135mm;top:250mm;'>" + importe_recibo + "</div>";
-		_html += "<div style='position:absolute;left:20mm;top:250mm;'>" + importe_letras_recibo_pesos + "</div>";
-		if (importe_letras_recibo_dolares != "") { _html += "<div style='position:absolute;left:20mm;top:255mm;'>u$s " + importe_letras_recibo_dolares + "</div>"; }
+		_html += "<div style='position:absolute;left:135mm;top:153mm;'>" + nro_recibo + "</div>";
+		_html += "<div style='position:absolute;left:25mm;top:190mm;'>" + pagador_recibo + "</div>";
+		_html += "<div style='position:absolute;left:0mm;top:200mm;'>" + _concepto + "</div>";
+		_html += "<div style='position:absolute;left:135mm;top:245mm;'>" + importe_recibo + "</div>";
+		_html += "<div style='position:absolute;left:25mm;top:250mm;'>" + importe_letras_recibo_pesos + "</div>";
+		if (importe_letras_recibo_dolares != "") { _html += "<div style='position:absolute;left:25mm;top:255mm;'>u$s " + importe_letras_recibo_dolares + "</div>"; }
 
 		
 

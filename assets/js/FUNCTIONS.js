@@ -1934,14 +1934,14 @@ _FUNCTIONS = {
 
 				_html += "<div class='col-md-8'>";
 					_html += "<label for='TIPCON'>Código Comprobante</label>";
-					_html += "<input data-type='text' autocomplete='nope' value='' class='form-control text dbase ' type='text' name='TIPCOM' id='TIPCOM' data-clear-btn='false' placeholder='Código Comprobante'>";
+					_html += "<input data-type='text' autocomplete='nope' value='0' class='form-control text dbase ' type='text' name='TIPCOM' id='TIPCOM' data-clear-btn='false' placeholder='Código Comprobante'>";
 					_html += "<div class='invalid-feedback invalid-TIPCON d-none'></div>";
 				_html += "</div>";
 
 
 				_html += "<div class='col-md-8'>";
-					_html += "<label for='NUMCON'>Númeero Comprobante</label>";
-					_html += "<input data-type='text' autocomplete='nope' value='' class='form-control text dbase ' type='text' name='NUMCOM' id='NUMCOM' data-clear-btn='false' placeholder='Número Comprobante'>";
+					_html += "<label for='NUMCON'>Número Comprobante</label>";
+					_html += "<input data-type='text' autocomplete='nope' value='0' class='form-control text dbase ' type='text' name='NUMCOM' id='NUMCOM' data-clear-btn='false' placeholder='Número Comprobante'>";
 					_html += "<div class='invalid-feedback invalid-NUMCON d-none'></div>";
 				_html += "</div>";
 

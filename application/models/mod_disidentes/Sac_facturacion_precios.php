@@ -263,7 +263,7 @@ class Sac_facturacion_precios extends MY_Model {
                         'ARRMUSND99U' => $values["ARRMUSND99U"],
 
 
-                        'CON_ADULTO' => $values["CON_NIN_UR"],
+                        'CON_ADULTO' => $values["CON_ADULTO"],
                         'CON_NIN_UR' => $values["CON_NIN_UR"],
 
                         'INH_ADULTO' => $values["INH_ADULTO"],
@@ -450,7 +450,7 @@ class Sac_facturacion_precios extends MY_Model {
                         'ARRMUSND99U' => $values["ARRMUSND99U"],
 
 
-                        'CON_ADULTO' => $values["CON_NIN_UR"],
+                        'CON_ADULTO' => $values["CON_ADULTO"],
                         'CON_NIN_UR' => $values["CON_NIN_UR"],
                         
 

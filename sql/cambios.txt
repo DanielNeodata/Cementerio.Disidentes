@@ -267,3 +267,12 @@ create table mailers
 
 alter table SAC_EstaLote add EMAIL_SEC varchar(255)
 go
+
+alter table SAC_fallecidos add DNI varchar(20)
+go
+
+
+SET IDENTITY_INSERT [SAC_Operaciones] ON;
+insert into [SAC_Operaciones] (ID,[OPERACION],[DENOMINACION]) values (12,'PL','Placas ceniceros')
+SET IDENTITY_INSERT [SAC_Operaciones] OFF;
+
