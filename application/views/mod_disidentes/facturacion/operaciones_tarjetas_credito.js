@@ -26,6 +26,9 @@ function getYears() {
 
 function GenerarTC_CEM() {
 	//"ANIO":"' + anio + '", "MES":"' + mes + '", "TARJETA":"' + tarjeta + '"
+
+	if (!confirm("¿Confirma la operación?")) { return false; }
+
 	var myJSON = '{';
 	var count = 0;
 
@@ -33,9 +36,9 @@ function GenerarTC_CEM() {
 	$('.importe_tc').each(function () {
 		
 		if ($(this).is(':visible')) {
-			alert($(this).attr('id') + '-' + $(this).val());
+			//alert($(this).attr('id') + '-' + $(this).val());
 			var res = $(this).attr('id').split("_");
-			alert(res[1]);
+			//alert(res[1]);
 			if (count != 0) {
 				myJSON += ',"ID_' + count + '":"' + res[1] + '","VAL_' + count +'":"'+$(this).val()+'"';
 			} else {

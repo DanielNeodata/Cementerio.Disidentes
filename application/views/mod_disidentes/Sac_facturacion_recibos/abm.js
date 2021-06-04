@@ -61,21 +61,21 @@ function showReport() {
 		_html += "</style>";
 
 		_html += "<div id='divPrinter' style='position:absolute;left:0;top:0mm;'><img class='imgPrint' src='../media/imagenes/impresora.png' onclick=javascript:$('#divPrinter').hide();self.print() width='32'/></div>";
-		_html += "<div style='position:absolute;left:135mm;top:0mm;'>" + fecha_recibo + "</div>";
-		_html += "<div style='position:absolute;left:135mm;top:10mm;'>" + nro_recibo + "</div>";
-		_html += "<div style='position:absolute;left:25mm;top:47mm;'>" + pagador_recibo + "</div>";
-		_html += "<div style='position:absolute;left:0mm;top:55mm;'>" + _concepto + "</div>";
-		_html += "<div style='position:absolute;left:135mm;top:100mm;'>" + importe_recibo + "</div>";
-		_html += "<div style='position:absolute;left:25mm;top:106mm;'>" + importe_letras_recibo_pesos + "</div>";
-		if (importe_letras_recibo_dolares != "") { _html += "<div style='position:absolute;left:25mm;top:111mm;'>u$s " + importe_letras_recibo_dolares + "</div>"; }
+		_html += "<div style='position:absolute;left:" + datajson.pos[0].original_fecha_izquierda + "mm;top:" + datajson.pos[0].original_fecha_arriba+"mm;'>" + fecha_recibo + "</div>";
+		_html += "<div style='position:absolute;left:" + datajson.pos[0].original_numero_izquierda + "mm;top:" + datajson.pos[0].original_numero_arriba +"mm;'>" + nro_recibo + "</div>";
+		_html += "<div style='position:absolute;left:" + datajson.pos[0].original_pagador_izquierda + "mm;top:" + datajson.pos[0].original_pagador_arriba +"mm;'>" + pagador_recibo + "</div>";
+		_html += "<div style='position:absolute;left:" + datajson.pos[0].original_concepto_izquierda + "mm;top:" + datajson.pos[0].original_concepto_arriba +"mm;'>" + _concepto + "</div>";
+		_html += "<div style='position:absolute;left:" + datajson.pos[0].original_importe_izquierda + "mm;top:" + datajson.pos[0].original_importe_arriba +"mm;'>" + importe_recibo + "</div>";
+		_html += "<div style='position:absolute;left:" + datajson.pos[0].original_importeLetras_izquierda + "mm;top:" + datajson.pos[0].original_importeLetras_arriba +"mm;'>" + importe_letras_recibo_pesos + "</div>";
+		if (importe_letras_recibo_dolares != "") { _html += "<div style='position:absolute;left:" + datajson.pos[0].original_importeDolares_izquierda + "mm;top:" + datajson.pos[0].original_importeDolares_arriba +"mm;'>u$s " + importe_letras_recibo_dolares + "</div>"; }
 
-		_html += "<div style='position:absolute;left:135mm;top:140mm;'>" + fecha_recibo + "</div>";
-		_html += "<div style='position:absolute;left:135mm;top:153mm;'>" + nro_recibo + "</div>";
-		_html += "<div style='position:absolute;left:25mm;top:190mm;'>" + pagador_recibo + "</div>";
-		_html += "<div style='position:absolute;left:0mm;top:200mm;'>" + _concepto + "</div>";
-		_html += "<div style='position:absolute;left:135mm;top:245mm;'>" + importe_recibo + "</div>";
-		_html += "<div style='position:absolute;left:25mm;top:250mm;'>" + importe_letras_recibo_pesos + "</div>";
-		if (importe_letras_recibo_dolares != "") { _html += "<div style='position:absolute;left:25mm;top:255mm;'>u$s " + importe_letras_recibo_dolares + "</div>"; }
+		_html += "<div style='position:absolute;left:" + datajson.pos[0].duplicado_fecha_izquierda + "mm;top:" + datajson.pos[0].duplicado_fecha_arriba +"mm;'>" + fecha_recibo + "</div>";
+		_html += "<div style='position:absolute;left:" + datajson.pos[0].duplicado_numero_izquierda + "mm;top:" + datajson.pos[0].duplicado_numero_arriba +"mm;'>" + nro_recibo + "</div>";
+		_html += "<div style='position:absolute;left:" + datajson.pos[0].duplicado_pagador_izquierda + "mm;top:" + datajson.pos[0].duplicado_pagador_arriba +"mm;'>" + pagador_recibo + "</div>";
+		_html += "<div style='position:absolute;left:" + datajson.pos[0].duplicado_concepto_izquierda + "mm;top:" + datajson.pos[0].duplicado_concepto_arriba +"mm;'>" + _concepto + "</div>";
+		_html += "<div style='position:absolute;left:" + datajson.pos[0].duplicado_importe_izquierda + "mm;top:" + datajson.pos[0].duplicado_importe_arriba +"mm;'>" + importe_recibo + "</div>";
+		_html += "<div style='position:absolute;left:" + datajson.pos[0].duplicado_importeLetras_izquierda + "mm;top:" + datajson.pos[0].duplicado_importeLetras_arriba +"mm;'>" + importe_letras_recibo_pesos + "</div>";
+		if (importe_letras_recibo_dolares != "") { _html += "<div style='position:absolute;left:" + datajson.pos[0].duplicado_importeDolares_izquierda + "mm;top:" + datajson.pos[0].duplicado_importeDolares_arriba +"mm;'>u$s " + importe_letras_recibo_dolares + "</div>"; }
 
 		
 

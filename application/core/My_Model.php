@@ -326,6 +326,28 @@ class My_Model extends CI_Model {
         }
     }
 
+
+    public function updateById($fields,$idVal,$IdField,$tableName){
+        try {
+            log_message("error", "updateById en mymodel: idval:".$idVal." id field ".$IdField." tabla ".$tableName);
+            $this->prepareModule();
+            $resolvedTableView=$tableName;
+            //$this->db->where($where);
+            $this->db->where($IdField, $idVal);
+            $this->db->update($resolvedTableView, $fields);
+            return array(
+                "code"=>"2000",
+                "status"=>"OK",
+                "message"=>"",
+                "function"=> ((ENVIRONMENT === 'development' or ENVIRONMENT === 'testing') ? __METHOD__ :ENVIRONMENT),
+                "data"=>null
+                );
+        }
+        catch(Exception $e){
+            return logError($e,__METHOD__ );
+        }
+    }
+
     public function saveRecord($fields,$id,$tableName) {
         try {
             $this->prepareModule();

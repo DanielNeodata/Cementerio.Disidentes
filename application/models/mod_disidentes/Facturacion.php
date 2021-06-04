@@ -564,6 +564,27 @@ class Facturacion extends MY_Model {
             return logError($e,__METHOD__ );
         }
     }
+    public function movimiento_caja($values){
+        try {
+            $location=explode("::",strtolower(__METHOD__));
+            $values["interface"]=(MOD_DISIDENTES."/".$location[0]."/".$location[1]);
+            $data["parameters"] = $values;
+            $data["title"] = ucfirst(lang("m_".strtolower($values["function"])));
+            $html=$this->load->view($values["interface"],$data,true);
+            logGeneral($this,$values,__METHOD__);
+            return array(
+                "code"=>"2000",
+                "status"=>"OK",
+                "message"=>compress($this,$html),
+                "function"=> ((ENVIRONMENT === 'development' or ENVIRONMENT === 'testing') ? __METHOD__ :ENVIRONMENT),
+                "data"=>null,
+                "compressed"=>true
+            );
+        }
+        catch(Exception $e){
+            return logError($e,__METHOD__ );
+        }
+    }
     public function arrendamientos_por_fecha($values){
         try {
             $location=explode("::",strtolower(__METHOD__));

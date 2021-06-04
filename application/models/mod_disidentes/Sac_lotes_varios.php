@@ -52,8 +52,8 @@ class Sac_lotes_varios extends MY_Model {
             );
 
             $values["controls"]=array(
-                "<label>".lang('p_SECCION')."</label><input type='number' id='browser_seccion' name='browser_seccion' class='form-control number'/>",
-                "<label>".lang('p_SEPULTURA')."</label><input type='number' id='browser_sepultura' name='browser_sepultura' class='form-control number'/>",
+                "<label>".lang('p_SECCION')."</label><input type='text' id='browser_seccion' name='browser_seccion' class='form-control number'/>",
+                "<label>".lang('p_SEPULTURA')."</label><input type='text' id='browser_sepultura' name='browser_sepultura' class='form-control number'/>",
                 "<label>".lang('p_EMAIL')."</label><input type='text' id='browser_email' name='browser_email' class='form-control text'/>",
                 "<label>".lang('p_TITULAR')."</label><input type='text' id='browser_titular' name='browser_titular' class='form-control text'/>",
                 "<label>".lang('p_RESPONSABL')."</label><input type='text' id='browser_responsable' name='browser_responsable' class='form-control text'/>",
@@ -64,8 +64,8 @@ class Sac_lotes_varios extends MY_Model {
 
             $values["filters"]=array(
                 //array("name"=>"browser_search", "operator"=>"like","fields"=>array("TITULAR")),
-                array("name"=>"browser_sepultura", "operator"=>"like","fields"=>array("SEPULTURA")),
-                array("name"=>"browser_seccion", "operator"=>"like","fields"=>array("SECCION")),
+                array("name"=>"browser_sepultura", "operator"=>"=","fields"=>array("SEPULTURA")),
+                array("name"=>"browser_seccion", "operator"=>"=","fields"=>array("SECCION")),
                 array("name"=>"browser_email", "operator"=>"like","fields"=>array("EMAIL")),
                 array("name"=>"browser_titular", "operator"=>"like","fields"=>array("TITULAR")),
                 array("name"=>"browser_responsable", "operator"=>"like","fields"=>array("RESPONSABL")),

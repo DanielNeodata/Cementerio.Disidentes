@@ -41,8 +41,8 @@ class Sac_fallecidos_consultasEspeciales extends MY_Model {
             );
 
              $values["controls"]=array(
-                "<label>".lang('p_SECCION')."</label><input type='number' id='browser_seccion' name='browser_seccion' class='form-control number'/>",
-                "<label>".lang('p_SEPULTURA')."</label><input type='number' id='browser_sepultura' name='browser_sepultura' class='form-control number'/>",
+                "<label>".lang('p_SECCION')."</label><input type='text' id='browser_seccion' name='browser_seccion' class='form-control number'/>",
+                "<label>".lang('p_SEPULTURA')."</label><input type='text' id='browser_sepultura' name='browser_sepultura' class='form-control number'/>",
                 "<label>".lang('p_TIPO')."</label><input type='text' id='browser_tipo' name='browser_tipo' class='form-control text'/>",
                 "<label>".lang('p_NRO_APERTU')."</label><input type='text' id='browser_nro_apertu' name='browser_nro_apertu' class='form-control text'/>",
                 "<label>".lang('p_NOMBRE')."</label><input type='text' id='browser_nombre' name='browser_nombre' class='form-control text'/>",
@@ -51,8 +51,8 @@ class Sac_fallecidos_consultasEspeciales extends MY_Model {
             );
 
             $values["filters"]=array(
-                array("name"=>"browser_sepultura", "operator"=>"like","fields"=>array("SEPULTURA")),
-                array("name"=>"browser_seccion", "operator"=>"like","fields"=>array("SECCION")),
+                array("name"=>"browser_sepultura", "operator"=>"=","fields"=>array("SEPULTURA")),
+                array("name"=>"browser_seccion", "operator"=>"=","fields"=>array("SECCION")),
                 array("name"=>"browser_tipo", "operator"=>"like","fields"=>array("TIPO")),
                 array("name"=>"browser_nro_apertu", "operator"=>"like","fields"=>array("NRO_APERTU")),
                 array("name"=>"browser_nombre", "operator"=>"like","fields"=>array("NOMBRE")),

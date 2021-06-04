@@ -9,6 +9,83 @@ class Sac_facturacion_recibos extends MY_Model {
         parent::__construct();
     }
     
+    public function GetResumenCajaXFecha($values){
+	    try {
+	        log_message('error', 'cco-> pasando x GetResumenCajaXFecha de rubos init!.');
+	        logGeneral($this,$values,__METHOD__);
+
+	        if (isset($values["view"])){$this->view=$values["view"];}
+
+	        log_message('error', 'cco-> pasando x GetResumenCajaXFecha de rubos VIEW es:->'.$values["view"]."<-");
+
+            $sql = "  SELECT ope.OrdenAgrupador,ISNULL(ope.Agrupador,'N/A') as DENOMINACION, Sum(M.IMPORTE) As SumOfIMPORTE ";
+            $sql = $sql." FROM [SAC_Movimientos] As M left join SAC_Operaciones ope on (ltrim(rtrim(M.OPERACION))=rtrim(ltrim(ope.OPERACION)))";
+            $sql = $sql." WHERE M.FECHA_EMIS BETWEEN {d '".$values["DESDE"]."'} AND {d '".$values["HASTA"]."'} ";
+            $sql = $sql." GROUP BY ope.OrdenAgrupador,ope.Agrupador   ";
+            $sql = $sql." ORDER BY ope.OrdenAgrupador    "; 
+
+            $sql2 = "  SELECT IsNull(Sum(E.TRANSFERENCIA),0) As SumOfTransf,  IsNull(Sum(E.PESOS),0) As SumOfPESOS, IsNull(Sum(E.CHEQUE),0) As SumOfCHEQUE, IsNull(Sum(E.DOLARES),0) As SumOfDOLARES, IsNull(Sum(E.DOLARES*E.COTIZACION),0) As SumOfDolaresEnPesos, IsNull(Sum(E.TARJETA),0) As SumOfTARJETA, ";
+            $sql2 = $sql2." IsNull(Sum(E.TRANSFERENCIA),0)+IsNull(Sum(E.PESOS),0)+IsNull(Sum(E.CHEQUE),0)+IsNull(Sum(E.DOLARES*E.COTIZACION),0)+IsNull(Sum(E.TARJETA),0) As qrySubTotal ";
+            $sql2 = $sql2." FROM [SAC_Enca] As E ";
+            $sql2 = $sql2." WHERE E.FECHA_EMIS BETWEEN {d '".$values["DESDE"]."'} AND {d '".$values["HASTA"]."'}";
+            
+
+            log_message('error', 'cco-> pasando x GetResumenCajaXFecha de rubos VIEW es:->'.$sql."<-");
+
+            $portipo = $this->execAdHocAsArray($sql);
+            $pormedio = $this->execAdHocAsArray($sql2);
+
+            log_message("error", "ARRAY values ".json_encode($data,JSON_PRETTY_PRINT));
+
+	        log_message('error', 'cco-> pasando x GetResumenCajaXFecha de  rubos entre getrecords y return array! ');
+	        return array(
+	            "code"=>"2000",
+	            "status"=>"OK",
+	            "message"=>"Records",
+                "portipo"=>$portipo,
+                "pormedio"=>$pormedio,
+	            "table"=>$this->table,
+	            "function"=> ((ENVIRONMENT === 'development' or ENVIRONMENT === 'testing') ? __METHOD__ :ENVIRONMENT)
+	        );
+	    }
+	    catch(Exception $e) {
+	        return logError($e,__METHOD__ );
+	    }
+	}
+
+    public function GetDetalleCajaXFecha($values){
+	    try {
+	        log_message('error', 'cco-> pasando x GetDetalleCajaXFecha de rubos init!.');
+	        logGeneral($this,$values,__METHOD__);
+
+	        if (isset($values["view"])){$this->view=$values["view"];}
+
+	        log_message('error', 'cco-> pasando x GetDetalleCajaXFecha de rubos VIEW es:->'.$values["view"]."<-");
+
+            $sql = " exec DetalleMovimientoDeCaja '".$values["DESDE"]."','".$values["HASTA"]."'";
+
+
+            log_message('error', 'cco-> pasando x GetDetalleCajaXFecha de rubos VIEW es:->'.$sql."<-");
+
+            $detalle = $this->execAdHocAsArray($sql);
+            
+
+            log_message("error", "ARRAY values ".json_encode($data,JSON_PRETTY_PRINT));
+
+	        log_message('error', 'cco-> pasando x GetDetalleCajaXFecha de  rubos entre getrecords y return array! ');
+	        return array(
+	            "code"=>"2000",
+	            "status"=>"OK",
+	            "message"=>"Records",
+                "detalle"=>$detalle,
+	            "table"=>$this->table,
+	            "function"=> ((ENVIRONMENT === 'development' or ENVIRONMENT === 'testing') ? __METHOD__ :ENVIRONMENT)
+	        );
+	    }
+	    catch(Exception $e) {
+	        return logError($e,__METHOD__ );
+	    }
+	}
 
     public function GetEstadisticasGenerales($values){
 	    try {
@@ -325,7 +402,7 @@ class Sac_facturacion_recibos extends MY_Model {
 
 	        log_message('error', 'cco-> pasando x getReciptDetail de  recibos ver vars->'.$values["txtNroRecibo"]."<-");
 
-            $conceptos = $this->execAdHocAsArray("select * from SAC_Operaciones union all select 5,'TEI','Traslado Interno' order by Id");
+            $conceptos = $this->execAdHocAsArray("select * from SAC_Operaciones union all select 5,'TEI','Traslado Interno','',1000 order by Id");
             $precios = $this->execAdHocAsArray("select * from SAC_Servicio");
             
             $cotizacion = $this->execAdHocAsArray("select COTIZACION, ID from SAC_Cotizaciones group by COTIZACION, ID having ID=MAX(ID)");
@@ -384,6 +461,7 @@ class Sac_facturacion_recibos extends MY_Model {
 	        log_message('error', 'cco-> pasando x getRecipt de  recibos ver vars->'.$values["NRORECIBO"]."<-");
 
             $movimientos = $this->execAdHocAsArray("select * from SAC_Movimientos where NRO_RECIBO=".$values["NRORECIBO"]);
+            $pos = $this->execAdHocAsArray("select * from MargenesRecibos");
 
             //log_message("error", "ARRAY CONCEPTOS ".json_encode($conceptos,JSON_PRETTY_PRINT));
 
@@ -395,6 +473,7 @@ class Sac_facturacion_recibos extends MY_Model {
 	            "status"=>"OK",
 	            "message"=>"Records",
                 "movimientos"=>$movimientos,
+                "pos"=>$pos,
 	            "table"=>$this->table,
 	            "function"=> ((ENVIRONMENT === 'development' or ENVIRONMENT === 'testing') ? __METHOD__ :ENVIRONMENT),
 	            "data"=>$data["data"],

@@ -395,3 +395,35 @@ $lang['p_error']="Error";
 $lang['p_toName']="Nombre Destinatario";
 $lang['p_fromName']="Nombre Remitente";
 $lang['p_DNI']="DNI";
+
+
+
+$lang['p_original_fecha_arriba']="Original Fecha Arriba";
+$lang['p_original_fecha_izquierda']="Original Fecha Izq.";
+$lang['p_original_numero_arriba']="Original Número Arriba";
+$lang['p_original_numero_izquierda']="Original Número Izq";
+$lang['p_original_pagador_arriba']="Original Pagador Arriba";
+$lang['p_original_pagador_izquierda']="Original Pagador Izq";
+$lang['p_original_concepto_arriba']="Original Concepto Arriba";
+$lang['p_original_concepto_izquierda']="Original Concepto Izq";
+$lang['p_original_importe_arriba']="Original Importe Arriba";
+$lang['p_original_importe_izquierda']="Original Importe Izq";
+$lang['p_original_importeLetras_arriba']="Original Importe Letras Arriba";
+$lang['p_original_importeLetras_izquierda']="Original Importe Letras Izq";
+$lang['p_original_importeDolares_arriba']="Original Importe Dólares Arriba";
+$lang['p_original_importeDolares_izquierda']="Original Importe Dólares Izq";
+$lang['p_duplicado_fecha_arriba']="Duplicado Fecha Arriba";
+$lang['p_duplicado_fecha_izquierda']="Duplicado Fecha Izq";
+$lang['p_duplicado_numero_arriba']="Duplicado Número Arriba";
+$lang['p_duplicado_numero_izquierda']="Duplicado Número Izq";
+$lang['p_duplicado_pagador_arriba']="Duplicado Pagador Arriba";
+$lang['p_duplicado_pagador_izquierda']="Duplicado Pagador Izq";
+$lang['p_duplicado_concepto_arriba']="Duplicado Concepto Arriba";
+$lang['p_duplicado_concepto_izquierda']="Duplicado Concepto Izq";
+$lang['p_duplicado_importe_arriba']="Duplicado Importe Arriba";
+$lang['p_duplicado_importe_izquierda']="Duplicado Importe Izq";
+$lang['p_duplicado_importeLetras_arriba']="Duplicado Importe Letras Arriba";
+$lang['p_duplicado_importeLetras_izquierda']="Duplicado Importe Letras Izq";
+$lang['p_duplicado_importeDolares_arriba']="Duplicado Importe Dólares Arriba";
+$lang['p_duplicado_importeDolares_izquierda']="Duplicado Importe Dólares Izq";
+

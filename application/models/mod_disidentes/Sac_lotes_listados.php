@@ -47,8 +47,8 @@ class Sac_lotes_listados extends MY_Model {
             );
 
             $values["controls"]=array(
-                "<label>".lang('p_SECCION')."</label><input type='number' id='browser_seccion' name='browser_seccion' class='form-control text'/>",
-                "<label>".lang('p_SEPULTURA')."</label><input type='number' id='browser_sepultura' name='browser_sepultura' class='form-control text'/>",
+                "<label>".lang('p_SECCION')."</label><input type='text' id='browser_seccion' name='browser_seccion' class='form-control text'/>",
+                "<label>".lang('p_SEPULTURA')."</label><input type='text' id='browser_sepultura' name='browser_sepultura' class='form-control text'/>",
                 "<label>".lang('p_TIPO')."</label><input type='text' id='browser_tipo' name='browser_tipo' class='form-control text'/>",
                //"<label>".lang('p_ESTADO_OCUPACION')."</label><input type='text' id='browser_estado_ocupacion' name='browser_estado_ocupacion' class='form-control text'/>",
                "<label>".lang('p_ESTADO_OCUPACION')."</label>".comboEstadosOcupacion($this),
@@ -56,8 +56,8 @@ class Sac_lotes_listados extends MY_Model {
 
             $values["filters"]=array(
                 //array("name"=>"browser_search", "operator"=>"like","fields"=>array("TITULAR")),
-                array("name"=>"browser_sepultura", "operator"=>"like","fields"=>array("SEPULTURA")),
-                array("name"=>"browser_seccion", "operator"=>"like","fields"=>array("SECCION")),
+                array("name"=>"browser_sepultura", "operator"=>"=","fields"=>array("SEPULTURA")),
+                array("name"=>"browser_seccion", "operator"=>"=","fields"=>array("SECCION")),
                 array("name"=>"browser_tipo", "operator"=>"like","fields"=>array("TIPO")),
                 array("name"=>"browser_id_estados_ocupacion", "operator"=>"=","fields"=>array("ESTADO_OCUPACION")),
             );

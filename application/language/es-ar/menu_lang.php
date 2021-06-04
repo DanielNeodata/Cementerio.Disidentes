@@ -55,6 +55,9 @@ $lang['m_sac_modelos_notificaciones'] = "Modelos de Notificaciones";
 $lang['m_emails'] = "Emails";
 $lang['m_modelo_emails'] = "Emails";
 $lang['m_sac_emails'] = "Emails";
+$lang['m_modelo_movimientoscaja']="Movimiento de Caja";
+$lang['m_modelo_margenesrecibos']="Configuración Márgenes Recibos";
+$lang['m_sac_margenesrecibos']="Configuración Márgenes Recibos";
 
 
 
