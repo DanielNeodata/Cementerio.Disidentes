@@ -276,3 +276,74 @@ SET IDENTITY_INSERT [SAC_Operaciones] ON;
 insert into [SAC_Operaciones] (ID,[OPERACION],[DENOMINACION]) values (12,'PL','Placas ceniceros')
 SET IDENTITY_INSERT [SAC_Operaciones] OFF;
 
+/********************************************************************************************************************************************/
+
+insert into mod_backend_functions values ('m_modelo_movimientoscaja','Submenú Movimiento De Caja',GETDATE(),GETDATE(),null,'tab',1048,'mod_disidentes','Facturacion','',GETDATE(),450,'movimiento_caja',100,null,1,0)
+
+select * from  mod_backend_functions
+
+
+insert into mod_backend_rel_groups_functions values (1,1097)
+insert into mod_backend_rel_groups_functions values (2,1097)
+
+
+  alter table [SAC_Operaciones] add Agrupador varchar(100)
+  alter table [SAC_Operaciones] add OrdenAgrupador int default 100
+  update SAC_Operaciones set OPERACION='RD' where ID=6
+  update [SAC_Operaciones] set Agrupador=null,OrdenAgrupador=100 
+
+  update [SAC_Operaciones] set Agrupador='Conservaciones',OrdenAgrupador=1 where OPERACION='CO'
+  update [SAC_Operaciones] set Agrupador='Inhumaciones',OrdenAgrupador=2 where OPERACION='IN'
+  update [SAC_Operaciones] set Agrupador='Derecho de uso',OrdenAgrupador=3 where OPERACION='AL'
+  update [SAC_Operaciones] set Agrupador='Renovaciones',OrdenAgrupador=4 where OPERACION='RN'
+  update [SAC_Operaciones] set Agrupador='Renovaciones',OrdenAgrupador=4 where OPERACION='RC'
+  update [SAC_Operaciones] set Agrupador='Reducciones',OrdenAgrupador=5 where OPERACION='RD'
+  update [SAC_Operaciones] set Agrupador='Pagos a cuenta',OrdenAgrupador=6 where OPERACION='PC'
+  update [SAC_Operaciones] set Agrupador='Jardinera',OrdenAgrupador=7 where OPERACION='JA'
+  
+update [SAC_Operaciones] set Agrupador='Libro',OrdenAgrupador=100 where Agrupador is null
+  
+  create table MargenesRecibos (
+  ID int,
+  original_fecha_arriba int,
+  original_fecha_izquierda int,
+  original_numero_arriba int,
+  original_numero_izquierda int,
+  original_pagador_arriba int,
+  original_pagador_izquierda int,
+  original_concepto_arriba int,
+  original_concepto_izquierda int,
+  original_importe_arriba int,
+  original_importe_izquierda int,
+  original_importeLetras_arriba int,
+  original_importeLetras_izquierda int,
+  original_importeDolares_arriba int,
+  original_importeDolares_izquierda int,
+  duplicado_fecha_arriba int,
+  duplicado_fecha_izquierda int,
+  duplicado_numero_arriba int,
+  duplicado_numero_izquierda int,
+  duplicado_pagador_arriba int,
+  duplicado_pagador_izquierda int,
+  duplicado_concepto_arriba int,
+  duplicado_concepto_izquierda int,
+  duplicado_importe_arriba int,
+  duplicado_importe_izquierda int,
+  duplicado_importeLetras_arriba int,
+  duplicado_importeLetras_izquierda int,
+  duplicado_importeDolares_arriba int,
+  duplicado_importeDolares_izquierda int,
+)
+go
+insert into MargenesRecibos values (1,0,135,10,135,47,25,55,0,100,135,106,25,111,25,140,135,153,135,190,25,200,0,245,135,250,25,255,25)
+go
+
+insert into mod_backend_functions values ('m_modelo_margenesrecibos','Submenú Margenes Recibos',GETDATE(),GETDATE(),null,'tab',1048,'mod_disidentes','Sac_MargenesRecibos','',GETDATE(),50,'brow',100,null,1,0)
+
+select * from  mod_backend_functions
+
+
+insert into mod_backend_rel_groups_functions values (1,1098)
+insert into mod_backend_rel_groups_functions values (2,1098)
+
+
