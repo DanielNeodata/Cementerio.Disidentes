@@ -482,6 +482,44 @@ _AJAX = {
 				_AJAX.ExecuteDirect(_json, null).then(function (data) { resolve(data); }).catch(function (err) { reject(err); });
 			});
 	},
+	UiGetResumenCajaXFecha: function (_json) {
+		//alert("VAR UiReciptSearchLote: " + _json);
+		//var json_obj = JSON.parse(_json);
+		//alert("json obj" + json_obj);
+		//alert("JSON UiReciptSearchLote: " + JSON.stringify(_json));
+		return new Promise(
+			function (resolve, reject) {
+				_json["function"] = "GetResumenCajaXFecha";
+				_json["module"] = "mod_disidentes";
+				_json["table"] = "SAC_Enca";
+				_json["model"] = "Sac_facturacion_recibos";
+				_json["method"] = "api.backend/neocommand";
+
+				//alert("VAR UiReciptSearchLote11111: " + _json);
+
+				_AJAX._waiter = true;
+				_AJAX.ExecuteDirect(_json, null).then(function (data) { resolve(data); }).catch(function (err) { reject(err); });
+			});
+	},
+	UiGetDetalleCajaXFecha: function (_json) {
+		//alert("VAR UiReciptSearchLote: " + _json);
+		//var json_obj = JSON.parse(_json);
+		//alert("json obj" + json_obj);
+		//alert("JSON UiReciptSearchLote: " + JSON.stringify(_json));
+		return new Promise(
+			function (resolve, reject) {
+				_json["function"] = "GetDetalleCajaXFecha";
+				_json["module"] = "mod_disidentes";
+				_json["table"] = "SAC_Enca";
+				_json["model"] = "Sac_facturacion_recibos";
+				_json["method"] = "api.backend/neocommand";
+
+				//alert("VAR UiReciptSearchLote11111: " + _json);
+
+				_AJAX._waiter = true;
+				_AJAX.ExecuteDirect(_json, null).then(function (data) { resolve(data); }).catch(function (err) { reject(err); });
+			});
+	},
 	UiGetEstadisticasGenerales: function (_json) {
 		//alert("VAR UiReciptSearchLote: " + _json);
 		//var json_obj = JSON.parse(_json);
