@@ -29,6 +29,13 @@ function showReport() {
 		modo = "T";
 	}
 
+
+	var quien = $("input:radio[name=QUIEN]:checked").val();
+
+	if (typeof quien === "undefined") {
+		quien = "T";
+	}
+
 	//alert("desde: " + desde + " hasta " + hasta);
 
 	var fechahastastr = _TOOLS.getTextAsFormattedDate(hasta, "ymd", "-");
@@ -44,7 +51,7 @@ function showReport() {
 
 	//alert("Modelo: " + IDMODELO + " d: " + fechadesdestr + " h: " + fechahastastr + " Des: " + destino + " modo: " + modo) ;
 
-	var myJSON = '{"DESDE":"' + fechadesdestr + '", "HASTA":"' + fechahastastr + '", "DESTINO":"' + destino + '", "MODO":"' + modo + '", "IDMODELO":"' + IDMODELO + '"}';
+	var myJSON = '{"DESDE":"' + fechadesdestr + '", "HASTA":"' + fechahastastr + '", "DESTINO":"' + destino + '", "MODO":"' + modo + '", "IDMODELO":"' + IDMODELO + '", "QUIEN":"' + quien + '"}';
 	var myObj = JSON.parse(myJSON);
 	//alert("report2");
 

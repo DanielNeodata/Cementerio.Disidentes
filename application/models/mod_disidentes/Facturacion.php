@@ -159,86 +159,98 @@ class Facturacion extends MY_Model {
                  log_message('error', 'cco-> pasando x GetNotificacionConservaciones ModeloTitulo: '.$subject);
 
                  foreach($notificaciones as $r){
-                        
-                        $destinatario = $r["EMAIL"];
-                        $destinatario_sec = $r["EMAIL_SEC"];
 
-                        log_message('error', 'cco-> pasando x GetNotificacionConservaciones EN FOREACH destinatario: '.$destinatario.' sec '.$destinatario_sec);
-                        
-                        if ($destinatario!="")
-                        {
-                            log_message('error', 'cco-> pasando x GetNotificacionConservaciones EN FOREACH dest !=vacio');
+                        $body=$modelosNotificaciones[0]["ModeloNotificacionHtml"];
 
-                            $body=$modelosNotificaciones[0]["ModeloNotificacionHtml"];
+                        $tit = str_replace("'"," ",$r["TITULAR"]);
+                        $tit = str_replace(";"," ",$tit);
 
-                            $tit = str_replace("'"," ",$r["TITULAR"]);
-                            $tit = str_replace(";"," ",$tit);
+                        $body = str_replace("[TITULAR]",str_replace("'"," ",str_replace(";"," ",(str_replace(","," ",$r["TITULAR"])))),$body);
+                        $body = str_replace("[DIRECCION]",str_replace("'"," ",str_replace(";"," ",(str_replace(","," ",$r["DIRECCION"])))),$body);
+                        $body = str_replace("[LOCALIDAD]",str_replace(";"," ",(str_replace(","," ",$r["LOCALIDAD"]))),$body);
+                        $body = str_replace("[COD_POSTAL]",str_replace(";"," ",(str_replace(","," ",$r["COD_POSTAL"]))),$body);
+                        $body = str_replace("[SECCION]",str_replace(";"," ",(str_replace(","," ",$r["SECCION"]))),$body);
+                        $body = str_replace("[SEPULTURA]",str_replace(";"," ",(str_replace(","," ",$r["SEPULTURA"]))),$body);
 
-                            $body = str_replace("[TITULAR]",str_replace("'"," ",str_replace(";"," ",(str_replace(","," ",$r["TITULAR"])))),$body);
-                            $body = str_replace("[DIRECCION]",str_replace("'"," ",str_replace(";"," ",(str_replace(","," ",$r["DIRECCION"])))),$body);
-                            $body = str_replace("[LOCALIDAD]",str_replace(";"," ",(str_replace(","," ",$r["LOCALIDAD"]))),$body);
-                            $body = str_replace("[COD_POSTAL]",str_replace(";"," ",(str_replace(","," ",$r["COD_POSTAL"]))),$body);
-                            $body = str_replace("[SECCION]",str_replace(";"," ",(str_replace(","," ",$r["SECCION"]))),$body);
-                            $body = str_replace("[SEPULTURA]",str_replace(";"," ",(str_replace(","," ",$r["SEPULTURA"]))),$body);
-
-                            $vence =  Date("d-m-Y", strtotime($r["ULTBIMPAGO"]));
+                        $vence =  Date("d-m-Y", strtotime($r["ULTBIMPAGO"]));
                             
-                            $hoy=date('d-m-Y');
+                        $hoy=date('t-m-Y');
 
-                            //vencimiento
-                            $body = str_replace("[VENCIMIENTO]",str_replace(";"," ",(str_replace(","," ",$vence))),$body);
-                            //importe
-                            $body = str_replace("[IMPORTE]",$r["IMPORTE"],$body);
-                            //hoy
+                        //vencimiento
+                        $body = str_replace("[VENCIMIENTO]",str_replace(";"," ",(str_replace(","," ",$vence))),$body);
+                        //importe
+                        $body = str_replace("[IMPORTE]",$r["IMPORTE"],$body);
+                        //hoy
 
-                            log_message('error', 'cco-> pasando x GetNotificacionConservaciones FECHA: '.$r["ULTBIMPAGO"]."->".$vence);
+                        log_message('error', 'cco-> pasando x GetNotificacionConservaciones FECHA: '.$r["ULTBIMPAGO"]."->".$vence);
 
-                            $body = str_replace("[HOY]",str_replace(";"," ",(str_replace(","," ",$hoy))),$body);
+                        $body = str_replace("[HOY]",str_replace(";"," ",(str_replace(","," ",$hoy))),$body);
 
-                            log_message('error', 'cco-> pasando x GetNotificacionConservaciones FECHA: '.$vence." - ".$hoy." - -".$r["IMPORTE"]);
+                        log_message('error', 'cco-> pasando x GetNotificacionConservaciones FECHA: '.$vence." - ".$hoy." - -".$r["IMPORTE"]);
+                        
+                        $destinatario = "";
+                        $destinatario_sec = "";
+                        $destinatario2 = "";
+                        $destinatario2sec = "";
 
-                            $sp = "EXEC sp_emails '".$remitente."','".$destinatario."','".$subject."','".$body."','".$tit."','".$nombreRemitente."'";
-                            $recnon = $this->execAdHocAsArray($sp);
+                        if ($values["QUIEN"]=="T" || $values["QUIEN"] == "I")
+                        {
 
-                            log_message('error', 'cco-> pasando x GetNotificacionConservaciones DESPUES EXEC SP EMAIL');
+                            $destinatario = $r["EMAIL"];
+                            $destinatario_sec = $r["EMAIL_SEC"];
+
+                            log_message('error', 'cco-> pasando x GetNotificacionConservaciones EN FOREACH destinatario: '.$destinatario.' sec '.$destinatario_sec);
+                        
+                            if ($destinatario!="")
+                            {
+                                log_message('error', 'cco-> pasando x GetNotificacionConservaciones EN FOREACH dest !=vacio');
+
+                                $sp = "EXEC sp_emails '".$remitente."','".$destinatario."','".$subject."','".$body."','".$tit."','".$nombreRemitente."'";
+                                $recnon = $this->execAdHocAsArray($sp);
+
+                                log_message('error', 'cco-> pasando x GetNotificacionConservaciones DESPUES EXEC SP EMAIL');
+                            }
+
+                            if ($destinatario_sec!="" && $destinatario_sec != $destinatario)
+                            {
+                                log_message('error', 'cco-> pasando x GetNotificacionConservaciones EN SEC MAIL EN FOREACH dest !=vacio');
+
+                                $sp = "EXEC sp_emails '".$remitente."','".$destinatario_sec."','".$subject."','".$body."','".$tit."','".$nombreRemitente."'";
+                                $recnon = $this->execAdHocAsArray($sp);
+
+                                log_message('error', 'cco-> pasando x GetNotificacionConservaciones  SEC MAIL DESPUES EXEC SP EMAIL');
+                            }
                         }
 
-                        if ($destinatario_sec!="")
+                        if ($values["QUIEN"]=="T" || $values["QUIEN"] == "R")
                         {
-                            log_message('error', 'cco-> pasando x GetNotificacionConservaciones EN SEC MAIL EN FOREACH dest !=vacio');
+                            $destinatario2 = $r["EMAIL_RES"];
+                            $destinatario2sec = $r["EMAIL_RES_SEC"];
 
-                            $body=$modelosNotificaciones[0]["ModeloNotificacionHtml"];
-
-                            $tit = str_replace("'"," ",$r["TITULAR"]);
+                            $tit = str_replace("'"," ",$r["RESPONSABL"]);
                             $tit = str_replace(";"," ",$tit);
 
-                            $body = str_replace("[TITULAR]",str_replace("'"," ",str_replace(";"," ",(str_replace(","," ",$r["TITULAR"])))),$body);
-                            $body = str_replace("[DIRECCION]",str_replace("'"," ",str_replace(";"," ",(str_replace(","," ",$r["DIRECCION"])))),$body);
-                            $body = str_replace("[LOCALIDAD]",str_replace(";"," ",(str_replace(","," ",$r["LOCALIDAD"]))),$body);
-                            $body = str_replace("[COD_POSTAL]",str_replace(";"," ",(str_replace(","," ",$r["COD_POSTAL"]))),$body);
-                            $body = str_replace("[SECCION]",str_replace(";"," ",(str_replace(","," ",$r["SECCION"]))),$body);
-                            $body = str_replace("[SEPULTURA]",str_replace(";"," ",(str_replace(","," ",$r["SEPULTURA"]))),$body);
+                            log_message('error', 'cco-> pasando x GetNotificacionConservaciones EN FOREACH destinatario: '.$destinatario.' sec '.$destinatario_sec);
+                        
+                            if ($destinatario2!="" && $destinatario2 != $destinatario && $destinatario2 != $destinatario_sec)
+                            {
+                                log_message('error', 'cco-> pasando x GetNotificacionConservaciones EN FOREACH dest !=vacio');
 
-                            $vence =  Date("d-m-Y", strtotime($r["ULTBIMPAGO"]));
-                            
-                            $hoy=date('d-m-Y');
+                                $sp = "EXEC sp_emails '".$remitente."','".$destinatario2."','".$subject."','".$body."','".$tit."','".$nombreRemitente."'";
+                                $recnon = $this->execAdHocAsArray($sp);
 
-                            //vencimiento
-                            $body = str_replace("[VENCIMIENTO]",str_replace(";"," ",(str_replace(","," ",$vence))),$body);
-                            //importe
-                            $body = str_replace("[IMPORTE]",$r["IMPORTE"],$body);
-                            //hoy
+                                log_message('error', 'cco-> pasando x GetNotificacionConservaciones DESPUES EXEC SP EMAIL');
+                            }
 
-                            log_message('error', 'cco-> pasando x GetNotificacionConservaciones  SEC MAIL FECHA: '.$r["ULTBIMPAGO"]."->".$vence);
+                            if ($destinatario2sec!="" && $destinatario2sec != $destinatario2  && $destinatario2sec != $destinatario && $destinatario2sec != $destinatario_sec )
+                            {
+                                log_message('error', 'cco-> pasando x GetNotificacionConservaciones EN SEC MAIL EN FOREACH dest !=vacio');
 
-                            $body = str_replace("[HOY]",str_replace(";"," ",(str_replace(","," ",$hoy))),$body);
+                                $sp = "EXEC sp_emails '".$remitente."','".$destinatario2sec."','".$subject."','".$body."','".$tit."','".$nombreRemitente."'";
+                                $recnon = $this->execAdHocAsArray($sp);
 
-                            log_message('error', 'cco-> pasando x GetNotificacionConservaciones  SEC MAIL FECHA: '.$vence." - ".$hoy." - -".$r["IMPORTE"]);
-
-                            $sp = "EXEC sp_emails '".$remitente."','".$destinatario_sec."','".$subject."','".$body."','".$tit."','".$nombreRemitente."'";
-                            $recnon = $this->execAdHocAsArray($sp);
-
-                            log_message('error', 'cco-> pasando x GetNotificacionConservaciones  SEC MAIL DESPUES EXEC SP EMAIL');
+                                log_message('error', 'cco-> pasando x GetNotificacionConservaciones  SEC MAIL DESPUES EXEC SP EMAIL');
+                            }
                         }
                  }
                  $emails = $this->execAdHocAsArray("select count(*) as cantidad from  emails");
@@ -287,7 +299,7 @@ class Facturacion extends MY_Model {
                 if ($values["DESTINO"] == "Z")
                 {
                 
-                       $sql= "SELECT VENCIMIENTO, SECCION, SEPULTURA, TITULAR,ISNULL(EMAIL,'') as EMAIL,ISNULL(EMAIL_SEC,'') as EMAIL_SEC,ISNULL(RES_EMAIL_SEC,'') as RES_EMAIL_SEC, ISNULL(RES_EMAIL,'') as RES_EMAIL , DIRECCION, LOCALIDAD, COD_POSTAL, ANOSRENOVA, NROTITULO " ;
+                       $sql= "SELECT VENCIMIENTO, SECCION, SEPULTURA, TITULAR,ISNULL(EMAIL,'') as EMAIL,ISNULL(EMAIL_SEC,'') as EMAIL_SEC,ISNULL(RES_EMAIL_SEC,'') as RES_EMAIL_SEC, ISNULL(RES_EMAIL,'') as RES_EMAIL , DIRECCION, LOCALIDAD, COD_POSTAL, ANOSRENOVA, NROTITULO,RESPONSABL " ;
                        $sql = $sql." FROM [SAC_Lotes] " ;
                        $sql = $sql." WHERE DEUDA <= 0 and VENCIMIENTO BETWEEN {d '".$values["DESDE"]."'} AND {d '".$values["HASTA"]."'}";
                 }
@@ -360,7 +372,7 @@ class Facturacion extends MY_Model {
 
                         $vence =  Date("d-m-Y", strtotime($r["VENCIMIENTO"]));
                             
-                        $hoy=date('d-m-Y');
+                        $hoy=date('t-m-Y');
 
                         //vencimiento
                         $body = str_replace("[VENCIMIENTO]",str_replace(";"," ",(str_replace(","," ",$vence))),$body);
@@ -379,41 +391,55 @@ class Facturacion extends MY_Model {
 
                         
 
-                        $destinatario = $r["EMAIL"];
-                        $destinatario2 = $r["RES_EMAIL"];
-                        $destinatariosec = $r["EMAIL_SEC"];
-                        $destinatario2sec = $r["RES_EMAIL_SEC"];
+                        $destinatario = "";
+                        $destinatario2 = "";
+                        $destinatariosec = "";
+                        $destinatario2sec = "";
 
-                        log_message('error', 'cco-> pasando x GetNotificacionRenovaciones EN FOREACH destinatario: '.$destinatario." dest 2: ".$destinatario2 );
-
-                        if ($destinatario!="")
-                        {
-                            $sp = "EXEC sp_emails '".$remitente."','".$destinatario."','".$subject."','".$body."','".$tit."','".$nombreRemitente."'";
-                            $recnon = $this->execAdHocAsArray($sp);
-                        }
-                        if ($destinatariosec!="")
-                        {
-                            $sp = "EXEC sp_emails '".$remitente."','".$destinatariosec."','".$subject."','".$body."','".$tit."','".$nombreRemitente."'";
-                            $recnon = $this->execAdHocAsArray($sp);
-                        }
                         
-                        if ($destinatario2!="")
-                        {
-                            $res = str_replace("'"," ",$r["RESPONSABL"]);
-                            $res = str_replace(";"," ",$res);
-                            
-                            $sp = "EXEC sp_emails '".$remitente."','".$destinatario2."','".$subject."','".$body."','".$res."','".$nombreRemitente."'";
-                            $recnon = $this->execAdHocAsArray($sp);
-                        }    
-                        if ($destinatario2sec!="")
-                        {
-                            $res = str_replace("'"," ",$r["RESPONSABL"]);
-                            $res = str_replace(";"," ",$res);
-                            
-                            $sp = "EXEC sp_emails '".$remitente."','".$destinatario2sec."','".$subject."','".$body."','".$res."','".$nombreRemitente."'";
-                            $recnon = $this->execAdHocAsArray($sp);
-                        }    
 
+
+                        if ($values["QUIEN"]=="T" || $values["QUIEN"] == "I")
+                        {
+                            $destinatario = $r["EMAIL"];
+                            $destinatariosec = $r["EMAIL_SEC"];
+                            log_message('error', 'cco-> pasando x GetNotificacionRenovaciones EN FOREACH destinatario: '.$destinatario);
+
+                            if ($destinatario!="")
+                            {
+                                $sp = "EXEC sp_emails '".$remitente."','".$destinatario."','".$subject."','".$body."','".$tit."','".$nombreRemitente."'";
+                                $recnon = $this->execAdHocAsArray($sp);
+                            }
+                            if ($destinatariosec!="" && $destinatariosec!=$destinatario)
+                            {
+                                $sp = "EXEC sp_emails '".$remitente."','".$destinatariosec."','".$subject."','".$body."','".$tit."','".$nombreRemitente."'";
+                                $recnon = $this->execAdHocAsArray($sp);
+                            }
+                        }
+
+                        if ($values["QUIEN"]=="T" || $values["QUIEN"] == "R")
+                        {
+                            log_message('error', 'cco-> pasando x GetNotificacionRenovaciones EN FOREACH destinatario: dest 2: '.$destinatario2 );
+                            $destinatario2 = $r["RES_EMAIL"];
+                            $destinatario2sec = $r["RES_EMAIL_SEC"];
+
+                            if ($destinatario2 !="" && $destinatario2 != $destinatario && $destinatario2 != $destinatariosec)
+                            {
+                                $res = str_replace("'"," ",$r["RESPONSABL"]);
+                                $res = str_replace(";"," ",$res);
+                            
+                                $sp = "EXEC sp_emails '".$remitente."','".$destinatario2."','".$subject."','".$body."','".$res."','".$nombreRemitente."'";
+                                $recnon = $this->execAdHocAsArray($sp);
+                            }    
+                            if ($destinatario2sec!=""  && $destinatario2sec!=$destinatario2 && $destinatario2sec!=$destinatario && $destinatario2sec!=$destinatariosec)
+                            {
+                                $res = str_replace("'"," ",$r["RESPONSABL"]);
+                                $res = str_replace(";"," ",$res);
+                            
+                                $sp = "EXEC sp_emails '".$remitente."','".$destinatario2sec."','".$subject."','".$body."','".$res."','".$nombreRemitente."'";
+                                $recnon = $this->execAdHocAsArray($sp);
+                            }    
+                        }
                         
 
                         log_message('error', 'cco-> pasando x GetNotificacionRenovaciones DESPUES EXEC SP EMAIL');

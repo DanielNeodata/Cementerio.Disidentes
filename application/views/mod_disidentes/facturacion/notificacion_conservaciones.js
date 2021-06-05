@@ -46,9 +46,17 @@ function showReport() {
 	if (modo == "C" && IDMODELO == 0) { alert("Debe elegir un modelo de notificación para los correos"); return;}
 
 
+	var quien = $("input:radio[name=QUIEN]:checked").val();
+
+	if (typeof quien === "undefined") {
+		quien = "T";
+	}
+
+
+
 	//alert("Modelo: " + IDMODELO+" d: " + desde + " h: " + hasta + " r: " + recalcula + " f: " + fechahastastr + " Des: " + destino + " modo: " + modo + " Cant Cartas: " + cantidad_cartas);
 
-	var myJSON = '{"DESDE":"' + desde + '", "HASTA":"' + hasta + '", "RECALCULA":"' + recalcula + '", "FECHA":"' + fechahastastr + '", "DESTINO":"' + destino + '", "MODO":"' + modo + '", "CANTIDAD_CARTAS":"' + cantidad_cartas + '", "IDMODELO":"' + IDMODELO + '"}';
+	var myJSON = '{"DESDE":"' + desde + '", "HASTA":"' + hasta + '", "RECALCULA":"' + recalcula + '", "FECHA":"' + fechahastastr + '", "DESTINO":"' + destino + '", "MODO":"' + modo + '", "CANTIDAD_CARTAS":"' + cantidad_cartas + '", "IDMODELO":"' + IDMODELO + '", "QUIEN":"' + quien + '"}';
 	var myObj = JSON.parse(myJSON);
 	//alert("report2");
 

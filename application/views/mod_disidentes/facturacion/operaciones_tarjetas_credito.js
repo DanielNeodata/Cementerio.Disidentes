@@ -63,8 +63,10 @@ function GenerarTC_CEM() {
 	//alert("json done");
 
 	_AJAX.UiProcesarLotesParaRecibotarjetas(myObj).then(function (datajson) {
-		//alert("come back");
+		alert("Proceso finalizado!");
+		$("#REPORT-CONTAINER").html("");
 	});
+
 }
 
 function ToggleTC_CEM(oThis) {

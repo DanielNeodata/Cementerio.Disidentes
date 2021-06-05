@@ -34,7 +34,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
       <div class="form-row">
 
-        <div class="col-md-8">
+        <div class="col-md-10">
             <label for="LBL-Destino" style="font-weight:bold;">Destino</label>
             &nbsp;&nbsp;
             <label for="DESTINO_I"> Impresora </label>
@@ -43,13 +43,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <label for="DESTINO_P">Pantalla</label>
             <input id="DESTINO_P" type="radio" name="DESTINO" value="P" >
             &nbsp;&nbsp;
-            <label for="DESTINO_C">Combinar Correspondencia</label>
+            <label for="DESTINO_C">Combinar Correspondencia (Sin Mail)</label>
             <input id="DESTINO_C" type="radio" name="DESTINO" value="C" checked>
             &nbsp;&nbsp;
             <label for="DESTINO_X">Combinar Correspondencia - TODOS</label>
             <input id="DESTINO_X" type="radio" name="DESTINO" value="X" >
             &nbsp;&nbsp;
-            <label for="DESTINO_Z">Combinar Correspondencia - SIN DEUDA</label>
+            <label for="DESTINO_Z">Combinar Correspondencia - SIN DEUDA (Genera envio mails)</label>
             <input id="DESTINO_Z" type="radio" name="DESTINO" value="Z" >
         </div>
         
@@ -68,6 +68,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             &nbsp;&nbsp;
             <span id="LBLR-Modo">Solo envía por email</span>
             <input id="MODO_C" type="radio" name="MODO" value="C" >
+       </div>
+      
+    </div>  
+
+    <div class="form-row">    
+
+        <div class="col-md-8">
+            <label for="LBL-QUIEN" style="font-weight:bold;">A quien Notificar</label>
+            &nbsp;&nbsp;
+            <span id="LBLR-QUIEN"> Enviar a todos </span>
+            <input id="QUIEN_T" type="radio" name="QUIEN" value="T" checked>
+            &nbsp;&nbsp;
+            <span id="QUIEN-QUIEN">Titulares</span>
+            <input id="MODO_T" type="radio" name="QUIEN" value="I" >
+            &nbsp;&nbsp;
+            <span id="QUIEN-QUIEN">Responsables</span>
+            <input id="MODO_R" type="radio" name="QUIEN" value="R" >
        </div>
       
     </div>  

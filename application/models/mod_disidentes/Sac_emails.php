@@ -148,8 +148,8 @@ class Sac_emails extends MY_Model {
             $values["getters"]=array(
              "search"=>true,
              "googlesearch"=>true,
-             "excel"=>true,
-             "pdf"=>true,
+             "excel"=>false,
+             "pdf"=>false,
              "processBatchMail"=>true,
            );
 

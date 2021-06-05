@@ -347,3 +347,8 @@ insert into mod_backend_rel_groups_functions values (1,1098)
 insert into mod_backend_rel_groups_functions values (2,1098)
 
 
+alter table SAC_EstaLote add EMAIL_RES varchar(255)
+go
+alter table SAC_EstaLote add EMAIL_RES_SEC varchar(255)
+go
+

@@ -20,14 +20,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         <div class="col-md-3" style="padding-right:5px;display:inline;">
             <label class="search-trigger" style="font-weight:bold;">Desde bimestres adelantados</label>
-            <input type="text" id="TB-DESDE" name="TB-DESDE" class="form-control text" value="2" onBlur="_TOOLS.isPositiveInteger(this.value,'TB-DESDE');"/>
+            <input type="text" id="TB-DESDE" name="TB-DESDE" class="form-control text" value="2"/>
         </div>
         <br />
     </div>
     <div class="form-row">
         <div class="col-md-3" style="padding-right:5px;display:inline;">
             <label class="search-trigger" style="font-weight:bold;">Hasta bimestres adelantados</label>
-            <input type="text" id="TB-HASTA" name="TB-HASTA" class="form-control text" value="999"  onBlur="_TOOLS.isPositiveInteger(this.value,'TB-HASTA');"/>
+            <input type="text" id="TB-HASTA" name="TB-HASTA" class="form-control text" value="999" />
         </div>
 
         <br/>
@@ -92,6 +92,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             &nbsp;&nbsp;
             <span id="LBLR-Modo">Solo envía por email</span>
             <input id="MODO_C" type="radio" name="MODO" value="C" >
+       </div>
+      
+    </div>  
+
+    <div class="form-row">    
+
+        <div class="col-md-8">
+            <label for="LBL-QUIEN" style="font-weight:bold;">A quien Notificar</label>
+            &nbsp;&nbsp;
+            <span id="LBLR-QUIEN"> Enviar a todos </span>
+            <input id="QUIEN_T" type="radio" name="QUIEN" value="T" >
+            &nbsp;&nbsp;
+            <span id="QUIEN-QUIEN">Titulares</span>
+            <input id="MODO_T" type="radio" name="QUIEN" value="I" checked>
+            &nbsp;&nbsp;
+            <span id="QUIEN-QUIEN">Responsables</span>
+            <input id="MODO_R" type="radio" name="QUIEN" value="R" >
        </div>
       
     </div>  

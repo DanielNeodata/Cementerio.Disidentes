@@ -154,6 +154,7 @@
     <Compile Include="application\models\mod_disidentes\Facturacion.php" />
     <Compile Include="application\models\mod_disidentes\Funciones_avanzadas.php" />
     <Compile Include="application\models\mod_disidentes\CON_Configuracion_Historico.php" />
+    <Compile Include="application\models\mod_disidentes\Sac_MargenesRecibos.php" />
     <Compile Include="application\models\mod_disidentes\Sac_modelos_notificaciones.php" />
     <Compile Include="application\models\mod_disidentes\Tipo_forma_pago.php" />
     <Compile Include="application\third_party\mpdf60\classes\barcode.php" />
@@ -594,6 +595,7 @@
     <Compile Include="application\views\mod_disidentes\con_rubros\listados.php" />
     <Compile Include="application\views\mod_disidentes\con_cuentas\plan_de_cuentas.php" />
     <Compile Include="application\views\mod_disidentes\con_cuentas\listados.php" />
+    <Compile Include="application\views\mod_disidentes\facturacion\movimiento_caja.php" />
     <Compile Include="application\views\mod_disidentes\facturacion\notificacion_renovaciones.php" />
     <Compile Include="application\views\mod_disidentes\facturacion\notificacion_conservaciones.php" />
     <Compile Include="application\views\mod_disidentes\facturacion\lista_de_precios.php" />
@@ -633,6 +635,7 @@
     <Compile Include="application\views\mod_disidentes\sac_lotes_listados\abm.php" />
     <Compile Include="application\views\mod_disidentes\sac_lotes_responsable\abm.php" />
     <Compile Include="application\views\mod_disidentes\sac_lotes_varios\abm.php" />
+    <Compile Include="application\views\mod_disidentes\Sac_MargenesRecibos\abm.php" />
     <Compile Include="application\views\mod_disidentes\sac_modelos_notificaciones\abm.php" />
     <Compile Include="application\views\pdf.php" />
     <Compile Include="index.php" />
@@ -1137,6 +1140,7 @@
     <Content Include="application\views\mod_disidentes\con_rubros\listados.js" />
     <Content Include="application\views\mod_disidentes\con_cuentas\plan_de_cuentas.js" />
     <Content Include="application\views\mod_disidentes\con_cuentas\listados.js" />
+    <Content Include="application\views\mod_disidentes\facturacion\movimiento_caja.js" />
     <Content Include="application\views\mod_disidentes\facturacion\notificacion_renovaciones.js" />
     <Content Include="application\views\mod_disidentes\facturacion\notificacion_conservaciones.js" />
     <Content Include="application\views\mod_disidentes\facturacion\lista_de_precios.js" />
@@ -1509,6 +1513,7 @@
     <Folder Include="application\views\mod_disidentes\sac_lotes_listados\" />
     <Folder Include="application\views\mod_disidentes\sac_lotes_responsable\" />
     <Folder Include="application\views\mod_disidentes\sac_lotes_varios\" />
+    <Folder Include="application\views\mod_disidentes\Sac_MargenesRecibos\" />
     <Folder Include="application\views\mod_disidentes\sac_modelos_notificaciones\" />
     <Folder Include="assets\" />
     <Folder Include="assets\bootstrap-material-design\" />

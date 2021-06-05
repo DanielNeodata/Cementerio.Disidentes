@@ -1433,7 +1433,8 @@ _FUNCTIONS = {
 							});
 							break;
 						case "mailall":
-							alert("mail");
+							//alert("mail");
+							if (!confirm("¿Confirma el envío de mails?")) { return false; }
 							_AJAX.UiMailAll(_json);
 							break;
 						case "excel":
