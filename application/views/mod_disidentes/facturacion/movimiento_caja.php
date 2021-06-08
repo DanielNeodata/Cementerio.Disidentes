@@ -15,7 +15,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         <div class="browser_controls" style="padding-right:5px;display:inline;">
             <label class="search-trigger">Desde</label>
-            <input type="date" id="TB-aDesde" name="TB-aDesde" class="form-control text" value="<?php echo date('Y-m-d', strtotime('-1 month')) ?>"/>
+            <input type="date" id="TB-aDesde" name="TB-aDesde" class="form-control text" value="<?php echo date('Y-m-d') ?>"/>
         </div>
 
         <div class="browser_controls" style="padding-right:5px;display:inline;">

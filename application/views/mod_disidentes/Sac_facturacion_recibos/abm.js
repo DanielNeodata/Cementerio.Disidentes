@@ -212,7 +212,7 @@ function selectLoteOnChange() {
 				//alert("a: ->" + responsable.trim() + "<- a titular ->" + datajson.data[0].TITULAR.trim()+"<-");
 				if (datajson.data[0].TITULAR.trim() == responsable.trim()) {
 					if (datajson.data[0].DEUDA < 0) {
-						alert("** PAGOS ADELANTADOS **");
+						//alert("** PAGOS ADELANTADOS **");
 						var textW = "<strong><span style=\"color:blue;\">** PAGOS ADELANTADOS **</span></strong>";
 						$("#txtWarning").html(textW);
 					}
@@ -1047,7 +1047,7 @@ function insertPagoACuentaYAlertas(idlote, oper) {
 
 	var total = Number($("#TOTAL-1").val());
 	var rows = Number($("#OPER-COUNTER").val());
-	rows = rows + 1;
+	
 
 	//alert("rows");
 
@@ -1066,56 +1066,78 @@ function insertPagoACuentaYAlertas(idlote, oper) {
 		if (recibo>0)
 		{
 
-			//alert("en if>0");
-			//alert("acuenta2: " + datajson.acuenta[0].qryTot);
+		/*verificar que no haya puesto ya un pago a cuenta antes*/
+			var k = 1;
+			var yes = "";
+			//alert("rows: "+rows);
+			for (k = 1; k <= rows; k++) {
+				//alert("#detail-pcagregado-" + k);
+				yes = $("#detail-pcagregado-" + k).val();
 
-			var fecha = datajson.acuenta[0].qryFec;
-			var importe = datajson.acuenta[0].qryTot;
-			var secc = datajson.data[0].SECCION;
-			var sep = datajson.data[0].SEPULTURA;
+				//alert("yes val: " + yes);
+				if (yes == "SI") { break;}
+			}
 
-			//alert("antyes cuentas");
+			if (yes != "SI") {
 
-			total = total + importe;
+				rows = rows + 1;
+				//alert("en if>0");
+				//alert("acuenta2: " + datajson.acuenta[0].qryTot);
 
-			var con = "Habia un pago a cuenta: Recibo " + recibo + " de fecha " + fecha;
+				var fecha = datajson.acuenta[0].qryFec;
+				var importe = datajson.acuenta[0].qryTot;
+				var secc = datajson.data[0].SECCION;
+				var sep = datajson.data[0].SEPULTURA;
 
-			//alert("con set: "+con);
+				//alert("antyes cuentas");
 
-			_html = "";
-			_html += "<tr id='detail-form-row-" + rows + "'>";
-			_html += "   <td><a href='#' onClick=\"javascript:deleteRow('detail-form-row-" + rows + "','detail-imp-" + rows + "','" + rows + "');return false;\">eliminar</a></td>";
-			_html += "   <td id='detail-form-row-" + rows + "-id'>" + rows + "</td>";
-			_html += "   <td id='detail-form-row-" + rows + "-con'>" + con + "</td>";
-			_html += "   <td id='detail-form-row-" + rows + "-imp'>" + importe;
-			_html += "<input type=text class='form-control text dbase' style='display: none' id='detail-id-" + rows + "' name='detail-id-" + rows + "' value='" + rows + "'></input>";
-			_html += "<input type=text class='form-control text dbase' style='display: none' id='detail-con-" + rows + "' name='detail-con-" + rows + "' value='" + con + "'></input>";
-			_html += "<input type=text class='form-control text dbase' style='display: none' id='detail-imp-" + rows + "' name='detail-imp-" + rows + "' value='" + importe + "'></input>";
-			_html += "<input type=text class='form-control text dbase' style='display: none' id='detail-secc-" + rows + "' name='detail-secc-" + rows + "' value='"+secc+"'></input>";
-			_html += "<input type=text class='form-control text dbase' style='display: none' id='detail-sep-" + rows + "' name='detail-sep-" + rows + "' value='"+sep+"'></input>";
-			_html += "<input type=text class='form-control text dbase' style='display: none' id='detail-lote-" + rows + "' name='detail-lote-" + rows + "' value='"+idlote+"'></input>";
-			_html += "<input type=text class='form-control text dbase' style='display: none' id='detail-op-" + rows + "' name='detail-op-" + rows + "' value='PC'></input>";
+				total = total + importe;
 
-			_html += "</td>";
-			_html += "</tr>";
-			//alert(_html);
+				var con = "Habia un pago a cuenta: Recibo " + recibo + " de fecha " + fecha;
 
-			$("#OPER-COUNTER").val(rows);
-			$("#TOTAL-1").val(total);
-			$("#PESOS").val(total);
-			$("#table-detail").append(_html);
+				//alert("con set: "+con);
+
+				_html = "";
+				_html += "<tr id='detail-form-row-" + rows + "'>";
+				_html += "   <td><a href='#' onClick=\"javascript:deleteRow('detail-form-row-" + rows + "','detail-imp-" + rows + "','" + rows + "');return false;\">eliminar</a></td>";
+				_html += "   <td id='detail-form-row-" + rows + "-id'>" + rows + "</td>";
+				_html += "   <td id='detail-form-row-" + rows + "-con'>" + con + "</td>";
+				_html += "   <td id='detail-form-row-" + rows + "-imp'>" + importe;
+				_html += "<input type=text class='form-control text dbase' style='display: none' id='detail-id-" + rows + "' name='detail-id-" + rows + "' value='" + rows + "'></input>";
+				_html += "<input type=text class='form-control text dbase' style='display: none' id='detail-con-" + rows + "' name='detail-con-" + rows + "' value='" + con + "'></input>";
+				_html += "<input type=text class='form-control text dbase' style='display: none' id='detail-imp-" + rows + "' name='detail-imp-" + rows + "' value='" + importe + "'></input>";
+				_html += "<input type=text class='form-control text dbase' style='display: none' id='detail-secc-" + rows + "' name='detail-secc-" + rows + "' value='" + secc + "'></input>";
+				_html += "<input type=text class='form-control text dbase' style='display: none' id='detail-sep-" + rows + "' name='detail-sep-" + rows + "' value='" + sep + "'></input>";
+				_html += "<input type=text class='form-control text dbase' style='display: none' id='detail-lote-" + rows + "' name='detail-lote-" + rows + "' value='" + idlote + "'></input>";
+				_html += "<input type=text class='form-control text dbase' style='display: none' id='detail-op-" + rows + "' name='detail-op-" + rows + "' value='PC'></input>";
+				_html += "<input type=text class='form-control text dbase' style='display: none' id='detail-pcagregado-" + rows + "' name='detail-pcagregado-" + rows + "' value='SI'></input>";
+
+				_html += "</td>";
+				_html += "</tr>";
+				//alert(_html);
+
+				$("#OPER-COUNTER").val(rows);
+				$("#TOTAL-1").val(total);
+				$("#PESOS").val(total);
+				$("#table-detail").append(_html);
+			}
 
 		}
 
 		//alert("qafter if acuenta " + datajson.data[0].TITULO + "-" + datajson.data[0].REGLAMENTO );
-
+		var textW = $("#txtWarning").html();
+		//alert("war: " + textW);
 		if (datajson.data[0].TITULO == "S") {
-			alert('Hay un título para entregar');
+			textW += "&nbsp;&nbsp;<strong><span style=\"color:blue;\">Hay un título para entregar</span></strong>";
+			//alert('Hay un título para entregar');
 		}
 
 		if (datajson.data[0].REGLAMENTO == "S") {
-			alert('Entregar Reglamento Interno');
+			textW += "&nbsp;&nbsp;<strong><span style=\"color:blue;\">Entregar Reglamento Interno</span></strong>";
+			//alert('Entregar Reglamento Interno');
 		}
+		
+		$("#txtWarning").html(textW);
 	});
 
 }
@@ -1646,16 +1668,19 @@ function insertarOnClick() {
 			var seccion = cadena[0].replace(/_/g, "");
 			var sepultura = cadena[1].replace(/_/g, "");
 			var nombre = cadena[3].replace(/_/g, "");
-			var tipo = cadena[2].replace(/ /g, "");
+			//var tipo = cadena[2].replace(/ /g, "");
+			var tipo = $("#aTipo option:selected").val();
 			var apertura = "";
 
 			switch (tipo) {
 				case "AD":
 				case "AN":
 					valor = obj.INH_ADULTO;
+					//alert("ADULTO");
 					break;
 				case "NI":
 					valor = obj.INH_NINOS;
+					//alert("NI");
 					break;
 				case "UA":
 				case "UC":
@@ -1663,6 +1688,7 @@ function insertarOnClick() {
 				case "CU":
 					// Urnas Arrendadas
 					valor = obj.INH_URNAS;
+					//alert("URNAS");
 					break;
 			}
 

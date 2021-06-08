@@ -1894,10 +1894,6 @@ _FUNCTIONS = {
 
 
 
-				/*armo fecha de hoy en el recibo*/
-				var hoy1 = _TOOLS.getTodayDate("amd", "-");
-
-				$("#FECHA").val(hoy1);
 
 				_html += "<div id='form-detail-generator' style='border-radius: 10px;  border: 1px solid #000000;  padding: 10px;  width: 100%;' >";
 				/*inicio select*/
@@ -2042,6 +2038,18 @@ _FUNCTIONS = {
 				$("#NUMCOM").mouseleave (function () { validReng(); });
 				$("#IMPORTE").mouseleave (function () { validReng(); });
 				$("#DCOMENTARIO").mouseleave(function () { validReng(); });
+
+				/*armo fecha de hoy en el recibo*/
+				var fer = $("#FECHA").val();
+				
+				if (fer != "") {
+					$("#FECHA").prop('disabled', true);
+				}
+				else {
+					var hoy1 = _TOOLS.getTodayDate("amd", "-");
+					$("#FECHA").val(hoy1);
+				}
+				
 
 				var nr = $("#NUMERO_ENCABEZADO").val();
 				//alert(nr);

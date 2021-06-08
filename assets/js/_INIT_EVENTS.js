@@ -84,6 +84,22 @@
 
 					_FUNCTIONS.onAbmAccept($(this));
 				});
+
+				$("body").off("click", ".btn-abm-accept-confirm").on("click", ".btn-abm-accept-confirm", function (e) {
+					try {
+						if (!confirm("¿Confirma la operación?")) { return false; }
+						$(".html").each(function () {
+							//alert(this.name);
+							$("#" + this.name).val($('.nicEdit-main').html());
+						});
+						//$('#ModeloNotificacionHtml').val($('.nicEdit-main').html());
+					} catch (error) {
+						console.error(error);
+					}
+
+					_FUNCTIONS.onAbmAccept($(this));
+				});
+
 				$("body").off("click", ".btn-abm-accept-receipt").on("click", ".btn-abm-accept-receipt", function (e) {
 					if (!confirm("¿Confirma la operación?")) { return false; }
 					_FUNCTIONS.onAbmAcceptReceipt($(this));

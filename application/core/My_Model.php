@@ -416,7 +416,7 @@ class My_Model extends CI_Model {
             $data["parameters"] = $values;
             log_message('error', 'cco-> pasando x BROW MODEL.');
             $data["title"] = ucfirst(lang("m_".strtolower($values["model"])));
-            log_message('error', 'cco-> pasando x BROW MODEL1');
+            log_message('error', 'cco-> pasando x BROW MODEL1: title: '.$data["title"] );
             $html=$this->load->view($values["interface"],$data,true);
             logGeneral($this,$values,__METHOD__);
             return array(
@@ -823,7 +823,7 @@ class My_Model extends CI_Model {
             $this->db->select($values["fields"]);
             $this->db->from($resolvedTableView);
             if(isset($values["where"]) and $values["where"]!=""){$this->db->where($values["where"]);}
-            if(isset($values["order"]) and $values["order"]!=""){$this->db->order_by($values["order"]);}
+            if(isset($values["order"]) and $values["order"]!=""){$this->db->order_by($values["order"]);log_message('error', 'cco-> pasando x MYMODEL GET RECORDS SETTING ORDER: '.$values["order"]);}
             if((int)$values["pagesize"]>0){
                 $from=(int)(($values["page"] - 1) * $values["pagesize"]);
                 $size=(int)$values["pagesize"];

@@ -86,7 +86,7 @@ class Sac_funcavanzadas_asientos extends MY_Model {
             log_message('error', 'cco-> pasando x brow de sac asientos init!.');
             logGeneral($this,$values,__METHOD__);
             $values["view"]="vw_ConEncabezados";
-            $values["order"]="1 DESC";
+            $values["order"]="ID DESC";
             $values["records"]=$this->get($values);
 
             $values["getters"]=array(
@@ -207,7 +207,7 @@ class Sac_funcavanzadas_asientos extends MY_Model {
             $values["view"]="vw_ConEncabezados";
             $values["where"]=("id=".$values["id"]);
             $values["records"]=$this->get($values);
-
+            $values["accept-class-name"]="btn-abm-accept-confirm";
             //log_message("error", "RECORDS ".json_encode($values["records"],JSON_PRETTY_PRINT));
 			//$parameters_id_forma_pago=array(
 			//    "model"=>(MOD_DISIDENTES."/Tipo_forma_pago"),
