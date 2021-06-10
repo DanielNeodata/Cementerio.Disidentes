@@ -169,7 +169,7 @@ function selectDuracionOnChange() {
 	//const nlBEFormattervto = new Intl.DateTimeFormat('en-EN');
 
 	var sarasa = _TOOLS.getFormattedDate(fecvvto, 'amd', '-');
-	//alert(sarasa);
+	alert("f vence calc: "+sarasa);
 
 	$('#TB-aVencimiento').val(sarasa); 
 	
@@ -453,6 +453,7 @@ function selectLoteOnChange() {
 					_html += "<td width=20%>" + _TOOLS.getTextBox("aPrecio", "Precio", 8, datajson.data[0].PRECIOCOMPR, "Y", "class='form-control text dbase'") + "</td>";
 					_html += "</tr>";
 					//alert("d");
+					alert("f vence db: "+datajson.data[0].VENCIMIENTO);
 					_html += "<tr>";
 					_html += "<td width=50% colspan=2>" + _TOOLS.getDateBox("aVencimiento", "Vencimiento", 8, datajson.data[0].VENCIMIENTO, "Y", "class='form-control text dbase'") + "</td>";
 					_html += "<td width=20%>" + _TOOLS.getDateBox("aUltRen", "Ultima renovación", 8, hoy1, "Y", "class='form-control text dbase'") + "</td>";
@@ -1667,7 +1668,7 @@ function insertarOnClick() {
 
 			var seccion = cadena[0].replace(/_/g, "");
 			var sepultura = cadena[1].replace(/_/g, "");
-			var nombre = cadena[3].replace(/_/g, "");
+			var nombret = cadena[3].replace(/_/g, "");
 			//var tipo = cadena[2].replace(/ /g, "");
 			var tipo = $("#aTipo option:selected").val();
 			var apertura = "";
@@ -1693,7 +1694,7 @@ function insertarOnClick() {
 			}
 
 
-			nombre = $("#TB-aNombre").val();
+			var nombre = $("#TB-aNombre").val();
 
 			try {
 				apertura = $("#TB-aApertura").val();
@@ -1710,13 +1711,13 @@ function insertarOnClick() {
 			}
 
 			if (tipo == "UA" || tipo == "UR" || tipo == "UC") {
-				con = "Inhumación " + "Sección " + seccion + " " + "Sepultura Nº " + sepultura + " \n" + "Apertura " + apertura + " " + "URNA" + " " + nombre;
+				con = "Inhumación " + "Sección " + seccion + " " + "Sepultura Nº " + sepultura + " \n" + "Apertura " + apertura + " " + "URNA" + " " + nombret;
 			} else {
-				con = "Inhumación " + "Sección " + seccion + " " + "Sepultura Nº " + sepultura + " \n" + "Apertura " + apertura + " " + " " + nombre;
+				con = "Inhumación " + "Sección " + seccion + " " + "Sepultura Nº " + sepultura + " \n" + "Apertura " + apertura + " " + " " + nombret;
 			}
 
 			//alert("valor: ->" + cadena[0].replace(/_/g,"") + "<-");
-			$('#RESPONSABL').val(nombre);
+			$('#RESPONSABL').val(nombret);
 			//alert(con);
 
 			//alert("insertar: " + importe);
