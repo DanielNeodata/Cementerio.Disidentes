@@ -138,7 +138,7 @@ class Sac_lotes extends MY_Model {
             $values["buttons"]=array(
                 "new"=>false,
                 "edit"=>true,
-                "delete"=>false,
+                "delete"=>true,
                 "offline"=>false,
             );
             $values["columns"]=array(
@@ -291,6 +291,73 @@ class Sac_lotes extends MY_Model {
             );
         }
         catch(Exception $e){
+            return logError($e,__METHOD__ );
+        }
+    }
+
+    public function delete($values){
+        log_message('error', 'cco-> pasando x delete de sac lotes!.');
+        try {
+            if (!isset($values["id"])){$values["id"]=0;}
+            $id=(int)$values["id"];
+            log_message('error', 'cco-> pasando x delete de sac lotes! ID: '.$id);
+
+            if($id!=0)
+            {
+                log_message("error", "RELATED ".json_encode($values,JSON_PRETTY_PRINT));
+                if($fields==null) 
+                {
+                    $fields = array(
+                       
+                    'ESTADO_OCUPACION' => "DISPO",
+
+                    'id_forma_pago' => "",
+                    'numero_tarjeta' => "",
+
+                    'TITULAR' => "",
+                    'DIRECCION' => "",
+                    'COD_POSTAL' => "",
+                    'LOCALIDAD' => "",
+                    'TELEFONO' => "",
+                    'EMAIL' => NULL,
+
+                    'RES_EMAIL_SEC' => NULL,
+                    'EMAIL_SEC' => NULL,
+
+                    'RESPONSABL' => "",
+                    'RES_DIRECC' => "",
+                    'RES_CODPOS' => "",
+                    'RES_LOCALI' => "",
+                    'RES_TELEFO' => "",
+                    'RES_EMAIL' => NULL,
+
+                    'NROTITULO' => "",
+                    'FECHACOMPR' => NULL,
+                    'PRECICOMPR' => 0,
+                    'ANOSARREND' => 0,
+                    'VENCIMIENTO' => NULL,
+                    'ULT_RENOVA' => NULL,
+                    'ANOSRENOVA' => 0,
+
+                    'ULTBIMPAGO' => NULL,
+                    'DEUDA' => 0,
+                    'TITULO' => "",
+                    'REGLAMENTO' => NULL,
+
+                    'COMENTARIO' => "",
+                    'NSER' => "",
+                    'OBS' => "",
+                    'ACUENTA' => 0,
+                    'CARTARENOV' =>NULL,
+                    'CARTACONSE' => NULL,
+                    'BIMVENCIDO' =>NULL,
+                    'RENVENCIDA' => NULL,
+                    );
+                }
+                return parent::save($values,$fields);
+            }
+         }
+        catch (Exception $e){
             return logError($e,__METHOD__ );
         }
     }
