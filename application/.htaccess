@@ -1,5 +1,3 @@
-php_value post_max_size 45M
-php_value upload_max_filesize 20M
 
 <IfModule authz_core_module>
     Require all denied

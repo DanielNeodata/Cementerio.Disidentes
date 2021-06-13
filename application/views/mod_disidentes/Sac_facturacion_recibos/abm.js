@@ -453,7 +453,7 @@ function selectLoteOnChange() {
 					_html += "<td width=20%>" + _TOOLS.getTextBox("aPrecio", "Precio", 8, datajson.data[0].PRECIOCOMPR, "Y", "class='form-control text dbase'") + "</td>";
 					_html += "</tr>";
 					//alert("d");
-					alert("f vence db: "+datajson.data[0].VENCIMIENTO);
+					//alert("f vence db: "+datajson.data[0].VENCIMIENTO);
 					_html += "<tr>";
 					_html += "<td width=50% colspan=2>" + _TOOLS.getDateBox("aVencimiento", "Vencimiento", 8, datajson.data[0].VENCIMIENTO, "Y", "class='form-control text dbase'") + "</td>";
 					_html += "<td width=20%>" + _TOOLS.getDateBox("aUltRen", "Ultima renovación", 8, hoy1, "Y", "class='form-control text dbase'") + "</td>";

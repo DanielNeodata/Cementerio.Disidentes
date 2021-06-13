@@ -3,6 +3,9 @@
 /*---------------------------------*/
 
 //ABM
+
+
+
 function buildHeaderAbmStd($parameters,$title){
     if(!isset($parameters["readonly"])){$parameters["readonly"]=false;}
     if(!isset($parameters["records"]["data"][0])){$parameters["records"]["data"][0]=null;}
@@ -508,7 +511,13 @@ function getInputMicro($parameters,$ops){
                 break;
             case "date":
                 $styleWidth="style='width:50%;'";
-                if ($value!=""){$value=date(FORMAT_DATE_DB, strtotime($value));}
+                $Datecco = explode(" ",$value);
+                 $dated = $Datecco[0];
+                 $time = $Datecco[1];
+                 log_message('error', 'cco-> getInput dentro de fecha, con fecha explode: '.$dated);
+                //if ($value!=""){$value=date(FORMAT_DATE_DB, strtotime($value));}
+                if ($value!=""){$value=date($dated);}
+                //if ($value!=""){$value=date(FORMAT_DATE_DB, strtotime($value));}
                 break;
         }
        $html.="<td ".$styleWidth."><input ".$ops["custom"]." data-type='".$ops["type"]."' ".$checked." autocomplete='nope' ".$checPaeameters." value='".$value."' class='".$ops["class"]."' type='".$ops["type"]."' name='".$ops["name"]."' id='".$ops["name"]."' data-clear-btn='false' placeholder='".lang('p_'.$ops["name"])."' /></td>";
@@ -581,7 +590,15 @@ function getInput($parameters,$ops){
                     break;
                 }
             case "date":
-                if ($value!=""){$value=date(FORMAT_DATE_DB, strtotime($value));}
+                 //log_message('error', 'cco-> getInput dentro de fecha, con fecha en text: '.$value);
+                 //log_message('error', 'cco-> getInput dentro de fecha, con fecha strtotime: '.strtotime($value));
+                 $Datecco = explode(" ",$value);
+                 $dated = $Datecco[0];
+                 $time = $Datecco[1];
+                 //log_message('error', 'cco-> getInput dentro de fecha, con fecha explode: '.$dated);
+                //if ($value!=""){$value=date(FORMAT_DATE_DB, strtotime($value));}
+                if ($value!=""){$value=date($dated);}
+                //log_message('error', 'cco-> getInput dentro de fecha, con fecha convertida: '.$value);
                 break;
         }
        $html.='<input '.$ops["custom"].' data-type="'.$ops["type"].'" '.$checked.' autocomplete="nope" '.$checPaeameters.' value="'.$value.'" class="'.$ops["class"].'" type="'.$ops["type"].'" name="'.$ops["name"].'" id="'.$ops["name"].'" data-clear-btn="false" placeholder="'.lang('p_'.$ops["name"]).'" "'.$ops["free"].' />';
@@ -915,7 +932,22 @@ function formatHtmlValue($value,$format,$ops=null){
             $value=("<var style='display:block;text-align:right;'>".$value."</var>");
             break;
         case "date":
-            if ($value!=""){$value=date(FORMAT_DATE_DMY, strtotime($value));}else{$value="";}
+            //if ($value!=""){$value=date(FORMAT_DATE_DMY, strtotime($value));}else{$value="";}
+            if ($value!=""){
+                $Datecco = explode(" ",$value);
+                $dated = $Datecco[0];
+                $time = $Datecco[1];
+                //log_message('error', 'cco-> getInput dentro de fecha, con fecha explode: '.$dated);
+                //if ($value!=""){$value=date(FORMAT_DATE_DB, strtotime($value));}
+                //log_message('error', 'cco-> formatHtmlValue dentro de fecha, con fecha dated: '.$dated." fromato: ".FORMAT_DATE_DB);
+
+			    $myDateTime = DateTime::createFromFormat(FORMAT_DATE_DB, $dated);
+
+			    //log_message('error', 'cco-> formatHtmlValue dentro de fecha, con fecha myDateTime: '.$myDateTime." fromato: ".FORMAT_DATE_DB);
+			    $newDateString = $myDateTime->format(FORMAT_DATE_DMY);
+			    //log_message('error', 'cco-> formatHtmlValue dentro de fecha, con fecha newDateString: '.$newDateString." fromato: ".FORMAT_DATE_DMY);
+                $value=$newDateString;
+            }
             $value=("<pre class='bd-highlight' style='display:block;'>".$value."</pre>");
             break;
         case "datetime":
