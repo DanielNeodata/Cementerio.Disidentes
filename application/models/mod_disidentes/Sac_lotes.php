@@ -136,7 +136,7 @@ class Sac_lotes extends MY_Model {
            );
 
             $values["buttons"]=array(
-                "new"=>false,
+                "new"=>true,
                 "edit"=>true,
                 "delete"=>true,
                 "offline"=>false,
@@ -314,11 +314,11 @@ class Sac_lotes extends MY_Model {
                     'id_forma_pago' => "",
                     'numero_tarjeta' => "",
 
-                    'TITULAR' => "",
-                    'DIRECCION' => "",
-                    'COD_POSTAL' => "",
-                    'LOCALIDAD' => "",
-                    'TELEFONO' => "",
+                    'TITULAR' => " ",
+                    'DIRECCION' => " ",
+                    'COD_POSTAL' => " ",
+                    'LOCALIDAD' => " ",
+                    'TELEFONO' => " ",
                     'EMAIL' => NULL,
 
                     'RES_EMAIL_SEC' => NULL,

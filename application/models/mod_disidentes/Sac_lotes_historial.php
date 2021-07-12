@@ -13,7 +13,7 @@ class Sac_lotes_historial extends MY_Model {
             log_message('error', 'cco-> pasando x brow de sac lotes init!.');
             logGeneral($this,$values,__METHOD__);
             $values["view"]="vw_SacLotesHistorial";
-            $values["order"]="FECHA_EMIS ASC";
+            $values["order"]="FECHA_EMIS DESC";
             $values["records"]=$this->get($values);
 
             $values["getters"]=array(

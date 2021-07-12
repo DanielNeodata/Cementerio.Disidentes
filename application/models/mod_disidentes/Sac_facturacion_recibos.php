@@ -876,6 +876,7 @@ class Sac_facturacion_recibos extends MY_Model {
                     $reglamento = $values["detail-reglamento-".$i];
                     $duracion = $values["detail-duracion-".$i];
                     $tipo1 = $values["detail-tipo-".$i];
+                    $vtoal = $values["detail-vto-".$i];
 
                     $fieldsal=null;
                     if($fieldsal==null) {
@@ -904,6 +905,7 @@ class Sac_facturacion_recibos extends MY_Model {
                             'DEUDA' => $deuda,
                             'TITULO' => $titulo,
                             'REGLAMENTO' => $reglamento,
+                            'VENCIMIENTO' => $vtoal,
                             'ESTADO_OCUPACION' => "ARREN",
 		                );
 		            }
@@ -992,6 +994,8 @@ class Sac_facturacion_recibos extends MY_Model {
                         $vto = $values["detail-vto-".$i];
 
                         if ($vto=="undefined"){$vto=null;}
+                        
+                        log_message("error", "OPER RN VTO=: ".$vto);        
 
                         $ultren = $values["detail-ultren-".$i];
 
