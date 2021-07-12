@@ -169,7 +169,7 @@ function selectDuracionOnChange() {
 	//const nlBEFormattervto = new Intl.DateTimeFormat('en-EN');
 
 	var sarasa = _TOOLS.getFormattedDate(fecvvto, 'amd', '-');
-	alert("f vence calc: "+sarasa);
+	//alert("f vence calc: "+sarasa);
 
 	$('#TB-aVencimiento').val(sarasa); 
 	
@@ -1582,7 +1582,7 @@ function insertarOnClick() {
 
 			var con = "Derecho de uso por " + duracion + " años - " + "Sección " + seccion + " " + "Sepultura Nº " + sepultura + "\n" +
 				"Tit. " + nombre + " " + "Nro.tit: " + nroTitulo + " " + "VTO: " + nlBEFormatter3.format(fechaHoy);
-
+			var vto = _TOOLS.getFormattedDate(fechaHoy, "amd", "-");
 			//alert("c01");
 			//alert("valor: ->" + cadena[0].replace(/_/g,"") + "<-");
 
@@ -1635,6 +1635,7 @@ function insertarOnClick() {
 			_html += "<input type=text class='form-control text dbase' style='display: none' id='detail-vencimiento-" + rows + "' name='detail-vencimiento-" + rows + "' value='" + vencimiento + "'></input>";
 			_html += "<input type=text class='form-control text dbase' style='display: none' id='detail-reglamento-" + rows + "' name='detail-reglamento-" + rows + "' value='" + reglamento + "'></input>";
 			_html += "<input type=text class='form-control text dbase' style='display: none' id='detail-tipo-" + rows + "' name='detail-tipo-" + rows + "' value='" + tipo + "'></input>";
+			_html += "<input type=text class='form-control text dbase' style='display: none' id='detail-vto-" + rows + "' name='detail-vto-" + rows + "' value='" + vto + "'></input>";
 			//alert("c2");
 
 			_html += "<input type=text class='form-control text dbase' style='display: none' id='detail-op-" + rows + "' name='detail-op-" + rows + "' value='AL'></input>";

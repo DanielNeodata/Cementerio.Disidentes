@@ -1,6 +1,8 @@
 
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+$month = date('m');
+$year = date('Y');
 ?>
 
 <script>
@@ -18,7 +20,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <div class="form-row">
         <div class="browser_controls" style="padding-right:5px;display:inline;">
             <label class="search-trigger">Fecha Desde</label>
-            <input type="date" id="TB-fDesde" name="TB-fDesde" class="form-control text" value="2016-01-01"/>
+            <input type="date" id="TB-fDesde" name="TB-fDesde" class="form-control text" value="<?php echo date('Y-m-d', mktime(0, 0, 0, $month, 1, $year)) ?>"/>
         </div>
     </div>
     <div class="form-row">

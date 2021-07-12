@@ -47,7 +47,7 @@ $html.="<div class='form-row'>";
 $html.=getInput($parameters,array("col"=>"col-md-8","name"=>"LOCALIDAD","type"=>"text","class"=>"form-control text dbase validate"));
 $html.="</div>";
 $html.="<div class='form-row'>";
-$html.=getInput($parameters,array("col"=>"col-md-3","name"=>"TELEFONO","type"=>"text","class"=>"form-control text dbase validate"));
+$html.=getInput($parameters,array("col"=>"col-md-3","name"=>"TELEFONO","type"=>"text","class"=>"form-control text dbase "));
 $html.="</div>";
 $html.="<div class='form-row'>";
 $html.=getInput($parameters,array("col"=>"col-md-8","name"=>"EMAIL","type"=>"email","class"=>"form-control email dbase","free"=>"onBlur=_TOOLS.ValidateEmailAndAlert(this,'EMAIL');"));

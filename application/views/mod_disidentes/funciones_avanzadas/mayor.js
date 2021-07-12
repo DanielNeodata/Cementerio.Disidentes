@@ -82,6 +82,7 @@ function showReport() {
 				if (_numeroAnt != "N/A") {
 					//alert(_sumaDebito);
 					//alert(_sumaCredito);
+					//alert(_sumaImp);
 					tot = Number(qrySdoAnt) + Number(_sumaImp);
 					_html += "<tr><td style='text-align:left;border-bottom: 2px solid black;padding:8px;' colspan=2> TOTALES: " + _tituloAnt + "</td><td style='text-align:right;border-bottom: 2px solid black;padding:8px;' colspan=3>" + _TOOLS.showNumber(qrySdoAnt, 2, "", "0") + "</td><td style='text-align:right;border-top: 2px solid black;border-bottom: 2px solid black;padding:8px;'>&nbsp;</td><td style='text-align:right;border-top: 2px solid black;border-bottom: 2px solid black;padding:8px;'>" + _TOOLS.showNumber(_sumaDebito, 2, "", "0") + "</td><td style='text-align:right;border-top: 2px solid black;border-bottom: 2px solid black;padding:8px;'>" + _TOOLS.showNumber(_sumaCredito, 2, "", "0") + "</td><td style='text-align:right;border-top: 2px solid black;border-bottom: 2px solid black;padding:8px;'>" + _TOOLS.showNumber(tot, 2, "", "0") + "</td></tr>";
 
@@ -96,6 +97,7 @@ function showReport() {
 			try {
 				if (isNaN(val1.qryCre)) {
 					txtCre = "";
+					cre = 0;
 				}
 				else {
 					cre = Number(val1.qryCre);
@@ -109,6 +111,7 @@ function showReport() {
 			try {
 				if (isNaN(val1.qryDeb)) {
 					txtDeb = "";
+					deb = 0;
 				}
 				else {
 					deb = Number(val1.qryDeb);
@@ -119,8 +122,8 @@ function showReport() {
 
 			} catch (errort1) { txtDeb = ""; }
 
-			_sumaImp = _sumaDebito - _sumaCredito;
-			totalqrySdoAnt += qrySdoAnt;
+			_sumaImp += Number(deb) - Number(cre);
+			totalqrySdoAnt = qrySdoAnt;
 
 			if (adicionales == "A") { acocom = _TOOLS.showNumber(_sumaImp, 2, "", ""); } else { acocom = val1.qryObsRen; }
 			try {
@@ -130,8 +133,8 @@ function showReport() {
 				}
 				if (_formattedDate != "") {  _formattedDate = _TOOLS.getTextAsFormattedDate(_formattedDate, "dmy", "/"); } else { _formattedDate = ""; }
 				
-			} catch (errord) {  _formattedDate = "";}
-
+			} catch (errord) { _formattedDate = ""; }
+			//alert(acocom + "**" + _sumaImp);
 			_html += "<tr><td style='text-align:left;' colspan=2>" + nullToEmpty(val1.COMENTARIO) + "</td><td style='text-align:left;'>" + _formattedDate + "</td><td style='text-align:left;'>" + nullToEmpty(val1.ASIENTO) + "</td><td style='text-align:left;'>" + nullToEmpty(val1.TIPCOM) + "</td><td style='text-align:right;'>" + nullToEmpty(val1.NUMCOM) + "</td><td style='text-align:right;'>" + txtDeb + "</td><td style='text-align:right;'>" + txtCre + "</td><td style='text-align:right;'>" + nullToEmpty(acocom) +"</td></tr>";
 
 			_numeroAnt = _numero;
@@ -139,9 +142,12 @@ function showReport() {
 		});
 		/*renlon d cierre*/
 		if (fila > 0) {
+			//alert(_sumaImp);
+			//alert(_totalDebito);
+			//alert(_totalCredito);
 			var totfin = Number(totalqrySdoAnt) + Number(_totalDebito) - Number(_totalCredito);
 		//	_html += "<tr><td style='text-align:left;border-bottom: 2px solid black;padding:8px;' colspan=4>" + _tituloAnt + "</td><td style='text-align:right;border-top: 2px solid black;border-bottom: 2px solid black;padding:8px;'>" + _TOOLS.showNumber(_sumaDebito, 2, "", "") + "</td><td style='text-align:right;border-top: 2px solid black;border-bottom: 2px solid black;padding:8px;'>" + _TOOLS.showNumber(_sumaCredito, 2, "", "") + "</td></tr>";
-			_html += "<tr><td style='text-align:left;border-bottom: 2px solid black;padding:8px;' colspan=2> TOTALES: " + _tituloAnt + "</td><td style='text-align:right;border-bottom: 2px solid black;padding:8px;' colspan=3>" + _TOOLS.showNumber(qrySdoAnt, 2, "", "0") + "</td><td style='text-align:right;border-top: 2px solid black;border-bottom: 2px solid black;padding:8px;'>&nbsp;</td><td style='text-align:right;border-top: 2px solid black;border-bottom: 2px solid black;padding:8px;'>" + _TOOLS.showNumber(_sumaDebito, 2, "", "0") + "</td><td style='text-align:right;border-top: 2px solid black;border-bottom: 2px solid black;padding:8px;'>" + _TOOLS.showNumber(_sumaCredito, 2, "", "0") + "</td><td style='text-align:right;border-top: 2px solid black;border-bottom: 2px solid black;padding:8px;'>" + _TOOLS.showNumber(tot, 2, "", "0") + "</td></tr>";
+			_html += "<tr><td style='text-align:left;border-bottom: 2px solid black;padding:8px;' colspan=2> TOTALES: " + _tituloAnt + "</td><td style='text-align:right;border-bottom: 2px solid black;padding:8px;' colspan=3>" + _TOOLS.showNumber(qrySdoAnt, 2, "", "0") + "</td><td style='text-align:right;border-top: 2px solid black;border-bottom: 2px solid black;padding:8px;'>&nbsp;</td><td style='text-align:right;border-top: 2px solid black;border-bottom: 2px solid black;padding:8px;'>" + _TOOLS.showNumber(_sumaDebito, 2, "", "0") + "</td><td style='text-align:right;border-top: 2px solid black;border-bottom: 2px solid black;padding:8px;'>" + _TOOLS.showNumber(_sumaCredito, 2, "", "0") + "</td><td style='text-align:right;border-top: 2px solid black;border-bottom: 2px solid black;padding:8px;'>" + _TOOLS.showNumber(totfin, 2, "", "0") + "</td></tr>";
 			_html += "<tr><td style='text-align:left;' colspan=2> TOTAL DÉBITOS y CRËDITOS </td><td style='text-align:right;' colspan=3>" + _TOOLS.showNumber(totalqrySdoAnt, 2, "", "") + "</td><td style='text-align:right;'>&nbsp;</td><td style='text-align:right;'>" + _TOOLS.showNumber(_totalDebito, 2, "", "") + "</td><td style='text-align:right;'>" + _TOOLS.showNumber(_totalCredito, 2, "", "") + "</td><td style='text-align:right;'>" + _TOOLS.showNumber(totfin, 2, "", "") + "</td></tr>";
 		}
 
