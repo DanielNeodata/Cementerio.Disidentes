@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
 VisualStudioVersion = 18.0.11222.15 d18.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{13B669BE-BB05-4DDF-9536-439F39A36129}") = "Cementerio.Disidentes", "Cementerio.Disidentes.phpproj", "{EC6FF79B-18C6-F1DF-58B3-8D6EA7DADBF2}"
+Project("{13B669BE-BB05-4DDF-9536-439F39A36129}") = "Cementerio.Disidentes", "Cementerio.Disidentes.vbproj", "{EC6FF79B-18C6-F1DF-58B3-8D6EA7DADBF2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
