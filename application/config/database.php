@@ -75,7 +75,7 @@ $query_builder = true;
 
 $db['disidentes'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
+	'hostname' => 'DESARROLLO\SQLEXPRESS',
 	'username' => 'sa',
 	'database' => 'disidentes',
 	'password' => '08Z5il37',
