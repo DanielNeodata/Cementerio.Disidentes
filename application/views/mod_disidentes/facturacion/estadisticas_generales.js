@@ -41,7 +41,7 @@ function showReport() {
 		var _header = "";
 		var _footer = "";
 		_header += "<br/><table style='width: 100%;padding: 10px' border=0 cellspacing=0>";
-		_header += "<tr><th style='text-align:left;border-bottom: 2px solid black'>Bimestre</th><th style='text-align:left;border-bottom: 2px solid black'>Cantidad</th><th style='text-align:left;border-bottom: 2px solid black'>% Deudor</th><th style='text-align:left;border-bottom: 2px solid black'>Total $</th></tr>";
+		_header += "<tr><th style='text-align:left;border-bottom: 2px solid black'>Mes</th><th style='text-align:left;border-bottom: 2px solid black'>Cantidad</th><th style='text-align:left;border-bottom: 2px solid black'>% Deudor</th><th style='text-align:left;border-bottom: 2px solid black'>Total $</th></tr>";
 
 		var _adelantados = "";
 		var _atrasados = "";

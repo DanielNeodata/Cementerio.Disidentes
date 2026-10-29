@@ -29,12 +29,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <br />
         
         <div class="col-md-3" style="padding-right:5px;display:inline;">
-            <label class="search-trigger">Desde bimestres adelantados</label>
+            <label class="search-trigger">Desde meses adelantados</label>
             <input type="text" id="TB-aDesde" name="TB-aDesde" class="form-control text" value="-999"/>
         </div>
         <br />
         <div class="col-md-3" style="padding-right:5px;display:inline;">
-            <label class="search-trigger">Hasta bimestres adelantados</label>
+            <label class="search-trigger">Hasta meses adelantados</label>
             <input type="text" id="TB-aHasta" name="TB-aHasta" class="form-control text" value="999"/>
         </div>
 

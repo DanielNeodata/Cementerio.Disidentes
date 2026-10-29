@@ -140,7 +140,7 @@ function selectLoteOnChange() {
 			_AJAX.UiGetLote(myObj).then(function (datajson) {
 				var _html = "";
 				_html += "<br/>";
-				_html += _TOOLS.getTextBox("Bimestres", "Cantidad Bimestres", 3, datajson.data[0].DEUDA, "Y", "class='form-control text dbase'");
+				_html += _TOOLS.getTextBox("Bimestres", "Cantidad meses", 3, datajson.data[0].DEUDA, "Y", "class='form-control text dbase'");
 				_html += "<br/>";
 				if (responsable == "") { responsable = datajson.data[0].TITULAR; }
 				if (datajson.data[0].TITULAR.trim() == responsable.trim()) {
@@ -1076,7 +1076,7 @@ function insertarOnClick() {
 			fecha.setDate(fecha.getDate() + 1);
 			const fecha2 = new Date(ultbim);
 			fecha2.setDate(fecha2.getDate() + 1);
-			fecha2.setMonth(fecha2.getMonth() + (bim * 2));
+			fecha2.setMonth(fecha2.getMonth() + (bim * 1));
 			fecha2.setDate(fecha2.getDate() - 1);
 			const nlBEFormatter = new Intl.DateTimeFormat('es-ES');
 			var con = "";

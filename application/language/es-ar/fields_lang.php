@@ -134,8 +134,8 @@ $lang['p_VENCIMIENTO']="Vencimiento";
 $lang['p_ULT_RENOVA']="Última Renovación";
 $lang['p_ANOSRENOVA']="Años renovados";
 
-$lang['p_ULTBIMPAGO']="Ultimo Bimestre Pago";
-$lang['p_DEUDA']="Deuda (Bimestres)";
+$lang['p_ULTBIMPAGO']="Ultimo Mes Pago";
+$lang['p_DEUDA']="Deuda (Meses)";
 $lang['p_TITULO']="Título?";
 $lang['p_REGLAMENTO']="Reglamento?";
 
@@ -145,7 +145,7 @@ $lang['p_OBS']="Observación";
 $lang['p_ACUENTA']="Nro. Recibo C/ Saldo A Cuenta";
 $lang['p_CARTARENOV']="Carta Renovación";
 $lang['p_CARTACONSE']="Carta Conse.";
-$lang['p_BIMVENCIDO']="Bimestre Vencido";
+$lang['p_BIMVENCIDO']="Mes Vencido";
 $lang['p_RENVENCIDA']="Renovación Vencida";
 $lang['p_HISTORIA']="Historial";
 

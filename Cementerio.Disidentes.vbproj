@@ -251,7 +251,6 @@
     <Content Include="application\libraries\JWT.php" />
     <Content Include="application\libraries\M_pdf.php" />
     <Content Include="application\libraries\V_ssh2.php" />
-    <Content Include="application\logs\index.html" />
     <Content Include="application\models\index.html" />
     <Content Include="application\models\mod_backend\Applications.php" />
     <Content Include="application\models\mod_backend\Files_attached.php" />
@@ -1546,6 +1545,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="application\logs\" />
     <Folder Include="assets\uploads\" />
   </ItemGroup>
   <PropertyGroup>
